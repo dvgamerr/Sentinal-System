@@ -1,0 +1,16 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" x:Name="WinConfirm" mc:Ignorable="d" x:Class="Travox.Sentinel.DialogConfirm"
+        Title="Travox Confirm Dialog" Height="174.6" Width="497.8" WindowStartupLocation="CenterScreen" WindowStyle="None">
+    <Grid Background="#FFF2F2F3">
+        <Image Source="Images/Engine-Background.png" Stretch="None" d:IsLocked="True"/>
+        <Button x:Name="btnNo" Content="CANCEL" HorizontalAlignment="Left" Margin="369,118,0,0" VerticalAlignment="Top" Width="106" Height="34" FontFamily="Raavi" FontSize="22" FontWeight="Bold"/>
+        <Button x:Name="btnYes" Content="OK" HorizontalAlignment="Left" Margin="247,118,0,0" VerticalAlignment="Top" Width="104" Height="34" FontWeight="Bold" FontSize="22" FontFamily="Raavi"/>
+        <Grid HorizontalAlignment="Left" Height="44" VerticalAlignment="Top" Width="490" Margin="0,0,-0.2,0" Background="#BD1F1F1F" d:IsLocked="True">
+            <Label x:Name="lblTitle" Content="lblTitle" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" FontSize="22" FontWeight="Bold" Padding="0" Background="{x:Null}" Foreground="White"/>
+        </Grid>
+        <Label x:Name="lblDesc" Content="lblDescription" HorizontalAlignment="Left" Margin="17,52,0,0" VerticalAlignment="Top" Padding="0" FontWeight="Bold" FontSize="11" Width="463" Height="48"/>
+
+    </Grid>
+</Window>
