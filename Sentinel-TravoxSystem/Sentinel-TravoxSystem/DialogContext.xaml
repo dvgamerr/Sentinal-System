@@ -9,9 +9,9 @@
                 <ImageBrush TileMode="Tile" ImageSource="Images/BG-ContextMenu.png"/>
             </Grid.Background>
             <Image x:Name="imgIconTX" HorizontalAlignment="Left" Height="36" Margin="11,7,0,0" VerticalAlignment="Top" Width="36" Source="Images/Icon-ContextMenu.png"/>
-            <Button x:Name="btnStatus" Content="STATUS" Margin="37,73,161,0" VerticalAlignment="Top" Height="23" BorderThickness="0,0,0,2" FontWeight="Bold" Background="{x:Null}" Click="btnStatus_Click"/>
-            <Button x:Name="btnSetting" Content="SETTING" Margin="101,73,86,0" VerticalAlignment="Top" Height="23" BorderThickness="0" FontWeight="Bold" Background="{x:Null}" Foreground="#FFB6B6B6" Click="btnSetting_Click"/>
-            <Button x:Name="btnLog" Content="LOG" Margin="176,73,36,0" VerticalAlignment="Top" Height="23" BorderThickness="0" FontWeight="Bold" Foreground="#FFB6B6B6" Background="{x:Null}" Click="btnLog_Click"/>
+            <Button x:Name="btnStatus" Content="STATUS" Margin="37,73,161,0" VerticalAlignment="Top" Height="23" FontWeight="Bold" Background="{x:Null}" Click="btnStatus_Click" Style="{DynamicResource ButtonContext}" BorderThickness="0,0,0,2" Foreground="#FF303030"/>
+            <Button x:Name="btnSetting" Content="SETTING" Margin="101,73,86,0" VerticalAlignment="Top" Height="23" BorderThickness="0" FontWeight="Bold" Background="{x:Null}" Click="btnSetting_Click" Style="{DynamicResource ButtonContext}" Foreground="#FFDADADA"/>
+            <Button x:Name="btnLog" Content="LOG" Margin="176,73,36,0" VerticalAlignment="Top" Height="23" BorderThickness="0" FontWeight="Bold" Background="{x:Null}" Click="btnLog_Click" Style="{DynamicResource ButtonContext}"/>
         </Grid>
         <Grid x:Name="PanelStatus" Height="256" VerticalAlignment="Bottom">
             <Label x:Name="lblIPAddress" Content="000.000.000.000:9999" Margin="10,16,10,0" VerticalAlignment="Top" Padding="0" FontSize="14" FontWeight="Bold" Foreground="#FF22A85F" HorizontalContentAlignment="Center"/>

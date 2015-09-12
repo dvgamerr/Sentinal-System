@@ -78,3 +78,6 @@ E:\!Projects\TravoxMidBack.v4\Crawler Engine\Sentinel-TravoxSystem\Sentinel-Trav
 E:\!Projects\TravoxMidBack.v4\Crawler Engine\Sentinel-TravoxSystem\Sentinel-TravoxSystem\obj\Debug\TravoxSentinel.TrustInfo.xml
 E:\!Projects\TravoxMidBack.v4\Crawler Engine\Sentinel-TravoxSystem\Sentinel-TravoxSystem\obj\Debug\TravoxSentinel.exe.manifest
 E:\!Projects\TravoxMidBack.v4\Crawler Engine\Sentinel-TravoxSystem\Sentinel-TravoxSystem\obj\Debug\TravoxSentinel.application
+D:\!Projects\TravoxMidBack.v4\Crawler Engine\Sentinel-TravoxSystem\Sentinel-TravoxSystem\bin\Debug\TravoxSentinel.exe.config
+D:\!Projects\TravoxMidBack.v4\Crawler Engine\Sentinel-TravoxSystem\Sentinel-TravoxSystem\obj\Debug\TravoxSentinel.exe
+D:\!Projects\TravoxMidBack.v4\Crawler Engine\Sentinel-TravoxSystem\Sentinel-TravoxSystem\obj\Debug\TravoxSentinel.pdb
