@@ -53,14 +53,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TravoxSentinel.exe" size="698368">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TravoxSentinel.exe" size="700416">
       <assemblyIdentity name="TravoxSentinel" version="1.2.10.13" language="neutral" processorArchitecture="amd64" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Nf7AzeJQhbvwEmTEU/hCh+6vI7QEckhhSuRlDpi4oug=</dsig:DigestValue>
+        <dsig:DigestValue>AwLywADnkWXZYgQmPZ2Xe8wD1GQEzw/Ku41NoILTiKY=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
