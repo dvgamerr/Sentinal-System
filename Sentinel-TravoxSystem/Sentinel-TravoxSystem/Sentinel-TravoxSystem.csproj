@@ -117,7 +117,7 @@
     <Compile Include="Crawler\GDS.cs" />
     <Compile Include="Crawler\SyncGD.cs" />
     <Compile Include="Crawler\Tirkx.cs" />
-    <Compile Include="Engine\CrawlerService.cs" />
+    <Compile Include="Engine\ProcessCall.cs" />
     <Compile Include="Engine\HandleRequest.cs" />
     <Compile Include="Setting\Module.cs" />
     <Compile Include="DialogConfirm.xaml.cs">

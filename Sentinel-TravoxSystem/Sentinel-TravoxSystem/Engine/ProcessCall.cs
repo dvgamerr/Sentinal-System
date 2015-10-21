@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace Travox.Sentinel.Engine
 {
-    public class CrawlerService
+    public class ProcessCall
     {
         Process node;
         ProcessStartInfo NodeInfo;
 
-        public CrawlerService()
+        public ProcessCall()
         {
             NodeInfo = new ProcessStartInfo("node");
             NodeInfo.CreateNoWindow = true;

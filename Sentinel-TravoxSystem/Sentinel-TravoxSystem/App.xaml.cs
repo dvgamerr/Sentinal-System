@@ -30,8 +30,7 @@ namespace Travox.Sentinel
         public static Boolean WebCrawlerConnected { get; set; }
         public static Boolean WebCrawlerRestarted { get; set; }
         public static Version PublishVersion { get; set; }
-
-        public static CrawlerService NodeWeb;
+        
         public static TcpListener Listen;
 
         public DialogSetting WindowConfig;
@@ -211,7 +210,6 @@ namespace Travox.Sentinel
                 Listen.Stop();
             }
 
-            NodeWeb.Stop();
             TimeUp.Stop();
             WindowInitialize.Hide();
             NotifySentinal.Visible = false;
@@ -375,11 +373,7 @@ namespace Travox.Sentinel
             Console.WriteLine("{0} Server Starting...", TravoxIP.ToString());
 
             //Listen = new TcpListener(new IPEndPoint(TravoxIP, TravoxPort));
-            NodeWeb = new CrawlerService();
-
             //Listen.Start();
-            NodeWeb.Start(Config.CrawlerScript, Task_OutputCMD, Task_ErrorCMD);
-
             //TaskListen = new Task()
             //App.ServerConnected = true;
             //while (App.ServerConnected)
@@ -458,8 +452,8 @@ namespace Travox.Sentinel
         {
             BackgroundWorker init = sender as BackgroundWorker;
             init.ReportProgress(0, StatePanelProgress.Load);
-            NodeWeb.Stop();
-            NodeWeb.Start(Config.CrawlerScript, Task_OutputCMD, Task_ErrorCMD);
+            // NodeWeb.Stop();
+            // NodeWeb.Start(Config.CrawlerScript, Task_OutputCMD, Task_ErrorCMD);
             do { Thread.Sleep(100); } while (!App.WebCrawlerRestarted);
             init.ReportProgress(0, StatePanelProgress.Close);
             App.WebCrawlerRestarted = false;

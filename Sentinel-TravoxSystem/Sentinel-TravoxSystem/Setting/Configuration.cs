@@ -11,20 +11,17 @@ namespace Travox.Sentinel.Setting
 {
     public class Configuration
     {
-        public String CrawlerScript;
-        public String CrawlerConfig;
         public UInt16 SentinelPort;
         public IPAddress NetworkIP;
         public IPAddress InternetIP;
-        public NodeJSArgs NodeJS;
+        public NodeJSArgs API;
+        public DBArgs MSSQL;
 
         String KeyEncrypt = "TRAVOX!#7c7SD2";
-        String ConfigDirectory = "config.travox";
         public Configuration()
         {
-            NodeJS = new NodeJSArgs();
-            NodeJS.Database = new DBArgs();
-            ConfigDirectory = Module.TravoxSentinel + ConfigDirectory;
+            API = new NodeJSArgs();
+            MSSQL= new DBArgs();
             foreach (IPAddress address in Dns.GetHostEntry(Dns.GetHostName()).AddressList)
             {
                 if (address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
@@ -34,7 +31,7 @@ namespace Travox.Sentinel.Setting
                 }
             }
 
-            if (File.Exists(ConfigDirectory)) this.Load(); else this.Default();
+            if (File.Exists(Module.TravoxSentinel + Module.Config)) this.Load(); else this.Default();
 
         }
 
@@ -43,23 +40,20 @@ namespace Travox.Sentinel.Setting
             TypeSFO FileConfig = new TypeSFO();
             FileConfig.Param("SentinelPort", SentinelPort);
 
-            FileConfig.Param("CrawlerScript", CrawlerScript);
-            FileConfig.Param("CrawlerConfig", CrawlerConfig);
-
-            FileConfig.Param("NodeJS.IPAddress", ECB.Encrypt(NodeJS.IPAddress, KeyEncrypt));
-            FileConfig.Param("NodeJS.Port", ECB.Encrypt(NodeJS.Port, KeyEncrypt));
-            FileConfig.Param("MySQL.Name", ECB.Encrypt(NodeJS.Database.Name, KeyEncrypt));
-            FileConfig.Param("MySQL.ServerName", ECB.Encrypt(NodeJS.Database.ServerName, KeyEncrypt));
-            FileConfig.Param("MySQL.Username", ECB.Encrypt(NodeJS.Database.Username, KeyEncrypt));
-            FileConfig.Param("MySQL.Password", ECB.Encrypt(NodeJS.Database.Password, KeyEncrypt));
-            FileConfig.SaveAs(ConfigDirectory);
+            FileConfig.Param("NodeAPI.IPAddress", ECB.Encrypt(API.IPAddress, KeyEncrypt));
+            FileConfig.Param("NodeAPI.Port", ECB.Encrypt(API.Port, KeyEncrypt));
+            FileConfig.Param("MSSQL.Name", ECB.Encrypt(MSSQL.Name, KeyEncrypt));
+            FileConfig.Param("MSSQL.ServerName", ECB.Encrypt(MSSQL.ServerName, KeyEncrypt));
+            FileConfig.Param("MSSQL.Username", ECB.Encrypt(MSSQL.Username, KeyEncrypt));
+            FileConfig.Param("MSSQL.Password", ECB.Encrypt(MSSQL.Password, KeyEncrypt));
+            FileConfig.SaveAs(Module.TravoxSentinel + Module.Config);
         }
 
         private Boolean Load()
         {
             Boolean result = false;
             TypeSFO FileConfig = new TypeSFO();
-            Byte[] bytes = Module.Read(ConfigDirectory);
+            Byte[] bytes = Module.Read(Module.TravoxSentinel + Module.Config);
 
             if (bytes.Length > 0)
             {
@@ -80,12 +74,12 @@ namespace Travox.Sentinel.Setting
         public void Default()
         {
             SentinelPort = 8220;
-            NodeJS.IPAddress = "127.0.0.1";
-            NodeJS.Port = "8223";
-            NodeJS.Database.ServerName = "db3.ns.co.th";
-            NodeJS.Database.Name = "travox_system";
-            NodeJS.Database.Username = "travoxmos";
-            NodeJS.Database.Password = "systrav";
+            API.IPAddress = "127.0.0.1";
+            API.Port = "8223";
+            MSSQL.ServerName = "db3.ns.co.th";
+            MSSQL.Name = "travox_system";
+            MSSQL.Username = "travoxmos";
+            MSSQL.Password = "systrav";
         }
 
         private void Mapping(TableEntrie[] Data)
@@ -95,14 +89,12 @@ namespace Travox.Sentinel.Setting
                 switch (item.Key)
                 {
                     case "SentinelPort": SentinelPort = UInt16.Parse(item.Value); break;
-                    case "CrawlerScript": CrawlerScript = item.Value; break;
-                    case "CrawlerConfig": CrawlerConfig = item.Value; break;
-                    case "NodeJS.IPAddress": NodeJS.IPAddress = ECB.Decrypt(item.Value, KeyEncrypt); break;
-                    case "NodeJS.Port": NodeJS.Port = ECB.Decrypt(item.Value, KeyEncrypt); break;
-                    case "MySQL.Name": NodeJS.Database.Name = ECB.Decrypt(item.Value, KeyEncrypt); break;
-                    case "MySQL.ServerName": NodeJS.Database.ServerName = ECB.Decrypt(item.Value, KeyEncrypt); break;
-                    case "MySQL.Username": NodeJS.Database.Username = ECB.Decrypt(item.Value, KeyEncrypt); break;
-                    case "MySQL.Password": NodeJS.Database.Password = ECB.Decrypt(item.Value, KeyEncrypt); break;
+                    case "NodeAPI.IPAddress": API.IPAddress = ECB.Decrypt(item.Value, KeyEncrypt); break;
+                    case "NodeAPI.Port": API.Port = ECB.Decrypt(item.Value, KeyEncrypt); break;
+                    case "MSSQL.Name": MSSQL.Name = ECB.Decrypt(item.Value, KeyEncrypt); break;
+                    case "MSSQL.ServerName": MSSQL.ServerName = ECB.Decrypt(item.Value, KeyEncrypt); break;
+                    case "MSSQL.Username": MSSQL.Username = ECB.Decrypt(item.Value, KeyEncrypt); break;
+                    case "MSSQL.Password": MSSQL.Password = ECB.Decrypt(item.Value, KeyEncrypt); break;
                 }
             }
         }
@@ -112,7 +104,6 @@ namespace Travox.Sentinel.Setting
     {
         public String IPAddress;
         public String Port;
-        public DBArgs Database;
     }
 
     public class DBArgs
