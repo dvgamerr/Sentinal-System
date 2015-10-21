@@ -14,3 +14,12 @@ E:\!Projects\TravoxMidBack.v4\Crawler Engine\Engine-TravoxSystem\Engine-TravoxSy
 E:\!Projects\TravoxMidBack.v4\Crawler Engine\Engine-TravoxSystem\Engine-TravoxSystem\bin\Debug\Travox.Systems.xml
 E:\!Projects\TravoxMidBack.v4\Crawler Engine\Engine-TravoxSystem\Engine-TravoxSystem\obj\Debug\Travox.Systems.Resources.resources
 E:\!Projects\TravoxMidBack.v4\Crawler Engine\Engine-TravoxSystem\Engine-TravoxSystem\obj\Debug\Engine-TravoxSystem.vbproj.GenerateResource.Cache
+C:\Users\Touno\Touno.K Sentinel\Travox-Sentinel\Engine-TravoxSystem\Engine-TravoxSystem\bin\Debug\Travox.Systems.dll
+C:\Users\Touno\Touno.K Sentinel\Travox-Sentinel\Engine-TravoxSystem\Engine-TravoxSystem\bin\Debug\Travox.Systems.pdb
+C:\Users\Touno\Touno.K Sentinel\Travox-Sentinel\Engine-TravoxSystem\Engine-TravoxSystem\bin\Debug\Travox.Systems.xml
+C:\Users\Touno\Touno.K Sentinel\Travox-Sentinel\Engine-TravoxSystem\Engine-TravoxSystem\obj\Debug\Engine-TravoxSystem.vbprojResolveAssemblyReference.cache
+C:\Users\Touno\Touno.K Sentinel\Travox-Sentinel\Engine-TravoxSystem\Engine-TravoxSystem\obj\Debug\Travox.Systems.Resources.resources
+C:\Users\Touno\Touno.K Sentinel\Travox-Sentinel\Engine-TravoxSystem\Engine-TravoxSystem\obj\Debug\Engine-TravoxSystem.vbproj.GenerateResource.Cache
+C:\Users\Touno\Touno.K Sentinel\Travox-Sentinel\Engine-TravoxSystem\Engine-TravoxSystem\obj\Debug\Travox.Systems.dll
+C:\Users\Touno\Touno.K Sentinel\Travox-Sentinel\Engine-TravoxSystem\Engine-TravoxSystem\obj\Debug\Travox.Systems.xml
+C:\Users\Touno\Touno.K Sentinel\Travox-Sentinel\Engine-TravoxSystem\Engine-TravoxSystem\obj\Debug\Travox.Systems.pdb

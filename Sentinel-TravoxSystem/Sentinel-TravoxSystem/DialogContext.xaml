@@ -8,12 +8,13 @@
             <Grid.Background>
                 <ImageBrush TileMode="Tile" ImageSource="Images/BG-ContextMenu.png"/>
             </Grid.Background>
+            <Border BorderBrush="#FFCBCBCB" BorderThickness="0,0,0,2" Margin="0,54,0,0"/>
             <Image x:Name="imgIconTX" HorizontalAlignment="Left" Height="36" Margin="11,7,0,0" VerticalAlignment="Top" Width="36" Source="Images/Icon-ContextMenu.png"/>
-            <Button x:Name="btnStatus" Content="STATUS" Margin="37,73,161,0" VerticalAlignment="Top" Height="23" FontWeight="Bold" Background="{x:Null}" Click="btnStatus_Click" Style="{DynamicResource ButtonContext}" BorderThickness="0,0,0,2" Foreground="#FF303030"/>
-            <Button x:Name="btnSetting" Content="SETTING" Margin="101,73,86,0" VerticalAlignment="Top" Height="23" BorderThickness="0" FontWeight="Bold" Background="{x:Null}" Click="btnSetting_Click" Style="{DynamicResource ButtonContext}" Foreground="#FFDADADA"/>
-            <Button x:Name="btnLog" Content="LOG" Margin="176,73,36,0" VerticalAlignment="Top" Height="23" BorderThickness="0" FontWeight="Bold" Background="{x:Null}" Click="btnLog_Click" Style="{DynamicResource ButtonContext}"/>
+            <Button x:Name="btnStatus" Content="STATUS" Margin="37,73,161,0" VerticalAlignment="Top" Height="23" FontWeight="Bold" Click="btnStatus_Click" Style="{DynamicResource btnMenuContext}"/>
+            <Button x:Name="btnSetting" Content="SETTING" Margin="101,73,86,0" Height="23" FontWeight="Bold" Click="btnSetting_Click" Style="{DynamicResource btnMenuContext}"/>
+            <Button x:Name="btnLog" Content="LOG" Margin="176,73,36,0" Height="23" FontWeight="Bold" Background="{x:Null}" Click="btnLog_Click" Style="{DynamicResource btnMenuContext}"/>
         </Grid>
-        <Grid x:Name="PanelStatus" Height="256" VerticalAlignment="Bottom">
+        <Grid x:Name="PanelStatus" Height="256" VerticalAlignment="Bottom" d:IsHidden="True">
             <Label x:Name="lblIPAddress" Content="000.000.000.000:9999" Margin="10,16,10,0" VerticalAlignment="Top" Padding="0" FontSize="14" FontWeight="Bold" Foreground="#FF22A85F" HorizontalContentAlignment="Center"/>
 
             <Label x:Name="lblTimeUp" Content="999 Days 23:59:59.000" Margin="0,235,10,0" VerticalAlignment="Top" Padding="0" FontSize="9" FontWeight="Bold" Foreground="#FF7A7A7A" HorizontalContentAlignment="Right" HorizontalAlignment="Right" Width="218"/>
@@ -31,28 +32,24 @@
                 <Label x:Name="lblCrawler" Content="0" Margin="85,20,0,0" VerticalAlignment="Top" Padding="0" FontSize="10.5" FontWeight="Bold" HorizontalAlignment="Left" Width="30" Foreground="#FF2E2E2E"/>
             </Grid>
         </Grid>
-        <Grid x:Name="PanelSetting" Height="256" VerticalAlignment="Bottom" d:IsHidden="True">
+        <Grid x:Name="PanelSetting" Height="256" VerticalAlignment="Bottom">
             <Grid x:Name="GridControls2" Height="123" Margin="13,95,10,0" VerticalAlignment="Top">
                 <Border BorderBrush="Black" BorderThickness="0,0,0,1" Height="9" VerticalAlignment="Top" Padding="0" d:IsLocked="True">
                     <Label Content="Status" HorizontalAlignment="Left" Padding="3,0,4,1" FontWeight="Bold" Foreground="{DynamicResource TextNormal}" Background="#FFFAFAFA" Margin="0,0,0,-7" Height="16" VerticalAlignment="Top" FontSize="11"/>
                 </Border>
-                <Button x:Name="btnServerSentinel" Content="Offline" HorizontalAlignment="Left" Margin="122,31,0,0" Width="110" BorderBrush="{x:Null}" Padding="22,4,1,5" HorizontalContentAlignment="Left" FontSize="10" FontWeight="Bold" Style="{DynamicResource TravoxServerButton}" Height="20" VerticalAlignment="Top" Click="btnServerSentinel_Click" />
-                <Button x:Name="btnWebServer" Content="Offline" HorizontalAlignment="Left" Margin="122,78,0,0" Width="110" Padding="22,4,1,5" HorizontalContentAlignment="Left" BorderBrush="{x:Null}" VerticalContentAlignment="Center" FontSize="10" FontWeight="Bold" Style="{DynamicResource TravoxServerButton}" Height="20" VerticalAlignment="Top" Click="btnWebServer_Click"/>
+                <Button x:Name="btnServerSentinel" Content="Offline" HorizontalAlignment="Left" Margin="122,31,0,0" Width="110" BorderBrush="{x:Null}" Padding="22,4,1,5" HorizontalContentAlignment="Left" FontSize="10" FontWeight="Bold" Style="{DynamicResource btnServerRestart}" Height="20" VerticalAlignment="Top" Click="btnServerSentinel_Click" />
+                <Button x:Name="btnWebServer" Content="Offline" HorizontalAlignment="Left" Margin="122,78,0,0" Width="110" Padding="22,4,1,5" HorizontalContentAlignment="Left" BorderBrush="{x:Null}" VerticalContentAlignment="Center" FontSize="10" FontWeight="Bold" Style="{DynamicResource btnServerRestart}" Height="20" VerticalAlignment="Top" Click="btnWebServer_Click"/>
                 <Image HorizontalAlignment="Left" Height="96" Margin="5,18,0,-4" VerticalAlignment="Top" Width="96" Source="Images/Icon-Server.png"/>
-                <Label Content="Socket Sentinel" HorizontalAlignment="Left" Margin="115,18,0,0" VerticalAlignment="Top" Padding="0" FontSize="10.5" Foreground="#FF2E2E2E" FontWeight="Bold"/>
-                <Label Content="Web Crawler" HorizontalAlignment="Left" Margin="115,65,0,0" VerticalAlignment="Top" Padding="0" FontSize="10.5" Foreground="#FF2E2E2E" FontWeight="Bold"/>
+                <Label Content="Socket-Server" HorizontalAlignment="Left" Margin="115,18,0,0" VerticalAlignment="Top" Padding="0" FontSize="10.5" Foreground="#FF2E2E2E" FontWeight="Bold"/>
+                <Label Content="Travox-Sentinel" HorizontalAlignment="Left" Margin="115,65,0,0" VerticalAlignment="Top" Padding="0" FontSize="10.5" Foreground="#FF2E2E2E" FontWeight="Bold"/>
             </Grid>
-            <Button x:Name="btnConfig" Content="Configuration" Margin="35,14,31,0" VerticalAlignment="Top" Height="21" Click="btnConfig_Click"/>
-            <Button x:Name="btnShutdown" Content="Shutdown" HorizontalAlignment="Left" Margin="10,223,0,0" VerticalAlignment="Top" Width="88" Height="21" FontSize="11" FontWeight="Bold" Click="btnShutdown_Click"/>
+            <Button x:Name="btnConfig" Content="Configuration" Click="btnConfig_Click" Style="{DynamicResource btnContextNormal}" Margin="0,13,0,0"/>
+            <Button x:Name="btnShutdown" Content="Shutdown" HorizontalAlignment="Left" Margin="10,223,0,0" VerticalAlignment="Top" Width="88" Height="21" FontSize="11" FontWeight="Bold" Click="btnShutdown_Click" Cursor="Hand" Style="{DynamicResource btnContextNormal}" Foreground="#FFC33549"/>
             <Label Content="Label" Margin="10,42,10,0" VerticalAlignment="Top" Height="48" FontSize="11" Foreground="#FF2E2E2E"/>
-            <Button x:Name="btnAbout" Content="About" Margin="0,223,10,0" VerticalAlignment="Top" Height="21" FontSize="11" Click="btnAbout_Click" HorizontalAlignment="Right" Width="58"/>
+            <Button x:Name="btnAbout" Content="About" Margin="0,223,10,0" VerticalAlignment="Top" Height="21" FontSize="11" Click="btnAbout_Click" HorizontalAlignment="Right" Width="58" Cursor="Hand" Style="{DynamicResource btnContextNormal}"/>
         </Grid>
-        <Grid x:Name="PanelLog" Height="256" VerticalAlignment="Bottom" d:IsHidden="True">
-            <Grid x:Name="GridControls1" HorizontalAlignment="Left" Height="64" Margin="10,43,0,0" VerticalAlignment="Top" Width="239">
-                <Border BorderBrush="Black" BorderThickness="0,0,0,1" Height="9" VerticalAlignment="Top" Padding="0" d:IsLocked="True">
-                    <Label Content="Status" HorizontalAlignment="Left" Padding="3,0,4,1" FontWeight="Bold" Foreground="{DynamicResource TextNormal}" Background="#FFFAFAFA" Margin="0,0,0,-7" Height="16" VerticalAlignment="Top" FontSize="11"/>
-                </Border>
-            </Grid>
+        <Grid x:Name="PanelLog" Margin="0,96,0,0" d:IsHidden="True">
+            <TextBox x:Name="txtConsoleLog" TextWrapping="Wrap" Text="asdasd" Style="{DynamicResource txtLog}" IsReadOnly="True" BorderBrush="{x:Null}" FontSize="11.333" Padding="2" Background="#FFFEFEFE" TextDecorations="{x:Null}" UseLayoutRounding="False"/>
         </Grid>
     </Grid>
 </Window>

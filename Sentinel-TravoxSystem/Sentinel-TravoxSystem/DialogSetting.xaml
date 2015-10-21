@@ -42,9 +42,9 @@
             <Label Content="Config :" HorizontalAlignment="Left" Margin="39,55,0,0" VerticalAlignment="Top" Padding="0" Foreground="{DynamicResource TextNormal}"/>
             <Label Content="Javascript :" HorizontalAlignment="Left" Margin="22,28,0,0" VerticalAlignment="Top" Padding="0" Foreground="{DynamicResource TextNormal}"/>
             <TextBox x:Name="txtCrawlerScript" HorizontalAlignment="Left" Height="22" Margin="82,24,0,0" TextWrapping="Wrap" Text="None" VerticalAlignment="Top" Width="174" VerticalContentAlignment="Center" Padding="2,0,0,0" Style="{DynamicResource TravoxTextBox}" IsReadOnly="True"/>
-            <Button x:Name="btnBrowseScript" Content="Browse" HorizontalAlignment="Left" Margin="267,24,0,0" VerticalAlignment="Top" Width="90" Height="22" Style="{DynamicResource TravoxButton}" Click="btnBrowseScript_Click"/>
+            <Button x:Name="btnBrowseScript" Content="Browse" HorizontalAlignment="Left" Margin="267,24,0,0" VerticalAlignment="Top" Width="90" Height="22" Style="{DynamicResource btnBrowsefile}" Click="btnBrowseScript_Click"/>
             <TextBox x:Name="txtCrawlerConfig" HorizontalAlignment="Left" Height="22" Margin="82,51,0,0" TextWrapping="Wrap" Text="None" VerticalAlignment="Top" Width="174" VerticalContentAlignment="Center" Padding="2,0,0,0" Style="{DynamicResource TravoxTextBox}" IsReadOnly="True"/>
-            <Button x:Name="btnBrowseConfig" Content="Browse" HorizontalAlignment="Left" Margin="267,51,0,0" VerticalAlignment="Top" Width="90" Height="22" Style="{DynamicResource TravoxButton}" Click="btnBrowseConfig_Click"/>
+            <Button x:Name="btnBrowseConfig" Content="Browse" HorizontalAlignment="Left" Margin="267,51,0,0" VerticalAlignment="Top" Width="90" Height="22" Style="{DynamicResource btnBrowsefile}" Click="btnBrowseConfig_Click"/>
         </Grid>
 
     </Grid>

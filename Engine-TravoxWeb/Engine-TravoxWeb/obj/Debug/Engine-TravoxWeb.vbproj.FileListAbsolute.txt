@@ -22,3 +22,15 @@ E:\!Projects\TravoxMidBack.v4\Crawler Engine\Engine-TravoxWeb\Engine-TravoxWeb\o
 E:\!Projects\TravoxMidBack.v4\Crawler Engine\Engine-TravoxWeb\Engine-TravoxWeb\obj\Debug\Travox.Web.dll
 E:\!Projects\TravoxMidBack.v4\Crawler Engine\Engine-TravoxWeb\Engine-TravoxWeb\obj\Debug\Travox.Web.xml
 E:\!Projects\TravoxMidBack.v4\Crawler Engine\Engine-TravoxWeb\Engine-TravoxWeb\obj\Debug\Travox.Web.pdb
+C:\Users\Touno\Touno.K Sentinel\Travox-Sentinel\Engine-TravoxWeb\Engine-TravoxWeb\bin\Debug\Travox.Web.dll
+C:\Users\Touno\Touno.K Sentinel\Travox-Sentinel\Engine-TravoxWeb\Engine-TravoxWeb\bin\Debug\Travox.Web.pdb
+C:\Users\Touno\Touno.K Sentinel\Travox-Sentinel\Engine-TravoxWeb\Engine-TravoxWeb\bin\Debug\Travox.Web.xml
+C:\Users\Touno\Touno.K Sentinel\Travox-Sentinel\Engine-TravoxWeb\Engine-TravoxWeb\bin\Debug\Travox.Systems.dll
+C:\Users\Touno\Touno.K Sentinel\Travox-Sentinel\Engine-TravoxWeb\Engine-TravoxWeb\bin\Debug\Travox.Systems.pdb
+C:\Users\Touno\Touno.K Sentinel\Travox-Sentinel\Engine-TravoxWeb\Engine-TravoxWeb\bin\Debug\Travox.Systems.xml
+C:\Users\Touno\Touno.K Sentinel\Travox-Sentinel\Engine-TravoxWeb\Engine-TravoxWeb\obj\Debug\Engine-TravoxWeb.vbprojResolveAssemblyReference.cache
+C:\Users\Touno\Touno.K Sentinel\Travox-Sentinel\Engine-TravoxWeb\Engine-TravoxWeb\obj\Debug\Travox.Web.Resources.resources
+C:\Users\Touno\Touno.K Sentinel\Travox-Sentinel\Engine-TravoxWeb\Engine-TravoxWeb\obj\Debug\Engine-TravoxWeb.vbproj.GenerateResource.Cache
+C:\Users\Touno\Touno.K Sentinel\Travox-Sentinel\Engine-TravoxWeb\Engine-TravoxWeb\obj\Debug\Travox.Web.dll
+C:\Users\Touno\Touno.K Sentinel\Travox-Sentinel\Engine-TravoxWeb\Engine-TravoxWeb\obj\Debug\Travox.Web.xml
+C:\Users\Touno\Touno.K Sentinel\Travox-Sentinel\Engine-TravoxWeb\Engine-TravoxWeb\obj\Debug\Travox.Web.pdb
