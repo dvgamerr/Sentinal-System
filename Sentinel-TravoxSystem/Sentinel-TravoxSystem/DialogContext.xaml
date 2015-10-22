@@ -43,7 +43,7 @@
                 <Label Content="Socket-Server" HorizontalAlignment="Left" Margin="115,18,0,0" VerticalAlignment="Top" Padding="0" FontSize="10.5" Foreground="#FF2E2E2E" FontWeight="Bold"/>
                 <Label Content="Travox-Sentinel" HorizontalAlignment="Left" Margin="115,65,0,0" VerticalAlignment="Top" Padding="0" FontSize="10.5" Foreground="#FF2E2E2E" FontWeight="Bold"/>
             </Grid>
-            <Button x:Name="btnConfig" Content="Configuration" Click="btnConfig_Click" Style="{DynamicResource btnContextNormal}" Margin="0,13,0,0"/>
+            <Button x:Name="btnConfig" Content="Configuration" Click="btnConfig_Click" Style="{DynamicResource btnContextNormal}" Margin="10,13,126,0"/>
             <Button x:Name="btnShutdown" Content="Shutdown" HorizontalAlignment="Left" Margin="10,223,0,0" VerticalAlignment="Top" Width="88" Height="21" FontSize="11" FontWeight="Bold" Click="btnShutdown_Click" Cursor="Hand" Style="{DynamicResource btnContextNormal}" Foreground="#FFC33549"/>
             <Label Content="Label" Margin="10,42,10,0" VerticalAlignment="Top" Height="48" FontSize="11" Foreground="#FF2E2E2E"/>
             <Button x:Name="btnAbout" Content="About" Margin="0,223,10,0" VerticalAlignment="Top" Height="21" FontSize="11" Click="btnAbout_Click" HorizontalAlignment="Right" Width="58" Cursor="Hand" Style="{DynamicResource btnContextNormal}"/>

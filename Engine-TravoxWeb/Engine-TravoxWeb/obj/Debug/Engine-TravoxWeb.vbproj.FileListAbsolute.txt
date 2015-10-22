@@ -34,3 +34,15 @@ C:\Users\Touno\Touno.K Sentinel\Travox-Sentinel\Engine-TravoxWeb\Engine-TravoxWe
 C:\Users\Touno\Touno.K Sentinel\Travox-Sentinel\Engine-TravoxWeb\Engine-TravoxWeb\obj\Debug\Travox.Web.dll
 C:\Users\Touno\Touno.K Sentinel\Travox-Sentinel\Engine-TravoxWeb\Engine-TravoxWeb\obj\Debug\Travox.Web.xml
 C:\Users\Touno\Touno.K Sentinel\Travox-Sentinel\Engine-TravoxWeb\Engine-TravoxWeb\obj\Debug\Travox.Web.pdb
+D:\!Projects\Touno.K-Sentinel\Crawler Engine\Engine-TravoxWeb\Engine-TravoxWeb\bin\Debug\Travox.Web.dll
+D:\!Projects\Touno.K-Sentinel\Crawler Engine\Engine-TravoxWeb\Engine-TravoxWeb\bin\Debug\Travox.Web.pdb
+D:\!Projects\Touno.K-Sentinel\Crawler Engine\Engine-TravoxWeb\Engine-TravoxWeb\bin\Debug\Travox.Web.xml
+D:\!Projects\Touno.K-Sentinel\Crawler Engine\Engine-TravoxWeb\Engine-TravoxWeb\bin\Debug\Travox.Systems.dll
+D:\!Projects\Touno.K-Sentinel\Crawler Engine\Engine-TravoxWeb\Engine-TravoxWeb\bin\Debug\Travox.Systems.pdb
+D:\!Projects\Touno.K-Sentinel\Crawler Engine\Engine-TravoxWeb\Engine-TravoxWeb\bin\Debug\Travox.Systems.xml
+D:\!Projects\Touno.K-Sentinel\Crawler Engine\Engine-TravoxWeb\Engine-TravoxWeb\obj\Debug\Engine-TravoxWeb.vbprojResolveAssemblyReference.cache
+D:\!Projects\Touno.K-Sentinel\Crawler Engine\Engine-TravoxWeb\Engine-TravoxWeb\obj\Debug\Travox.Web.Resources.resources
+D:\!Projects\Touno.K-Sentinel\Crawler Engine\Engine-TravoxWeb\Engine-TravoxWeb\obj\Debug\Engine-TravoxWeb.vbproj.GenerateResource.Cache
+D:\!Projects\Touno.K-Sentinel\Crawler Engine\Engine-TravoxWeb\Engine-TravoxWeb\obj\Debug\Travox.Web.dll
+D:\!Projects\Touno.K-Sentinel\Crawler Engine\Engine-TravoxWeb\Engine-TravoxWeb\obj\Debug\Travox.Web.xml
+D:\!Projects\Touno.K-Sentinel\Crawler Engine\Engine-TravoxWeb\Engine-TravoxWeb\obj\Debug\Travox.Web.pdb
