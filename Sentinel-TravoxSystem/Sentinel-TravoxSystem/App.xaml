@@ -325,7 +325,7 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsPressed" Value="true">
-                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="Black"/>
+                                <Setter Property="Background" TargetName="border" Value="#FFDCDCDC"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>

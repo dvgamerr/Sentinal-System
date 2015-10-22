@@ -31,7 +31,7 @@ namespace Travox.Sentinel.Setting
                 }
             }
 
-            if (File.Exists(Module.TravoxSentinel + Module.Config)) this.Load(); else this.Default();
+            if (File.Exists(Module.TravoxSentinel + Module.File_Config)) this.Load(); else this.Default();
 
         }
 
@@ -46,14 +46,14 @@ namespace Travox.Sentinel.Setting
             FileConfig.Param("MSSQL.ServerName", ECB.Encrypt(MSSQL.ServerName, KeyEncrypt));
             FileConfig.Param("MSSQL.Username", ECB.Encrypt(MSSQL.Username, KeyEncrypt));
             FileConfig.Param("MSSQL.Password", ECB.Encrypt(MSSQL.Password, KeyEncrypt));
-            FileConfig.SaveAs(Module.TravoxSentinel + Module.Config);
+            FileConfig.SaveAs(Module.TravoxSentinel + Module.File_Config);
         }
 
         private Boolean Load()
         {
             Boolean result = false;
             TypeSFO FileConfig = new TypeSFO();
-            Byte[] bytes = Module.Read(Module.TravoxSentinel + Module.Config);
+            Byte[] bytes = Module.Read(Module.TravoxSentinel + Module.File_Config);
 
             if (bytes.Length > 0)
             {

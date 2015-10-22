@@ -11,7 +11,8 @@ public class Module
 
     public static String TravoxSentinel = Path.GetTempPath() + @"..\Travox_Sentinel\";
     public static String TravoxTemp = Path.GetTempPath() + @"Travox\";
-    public static String Config = "tx.configure";
+    public static String File_Config = "tx.configure";
+    public static String File_Log = "-sentinel.log";
     public static String BaseDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
     public static void WriteException(Exception e, String folder = "")

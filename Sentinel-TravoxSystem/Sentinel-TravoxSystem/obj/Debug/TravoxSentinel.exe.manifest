@@ -36,7 +36,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>EJbaL6I/9vpjCfN0UkmpbHu4txvmsHOkzZfhd0BUowQ=</dsig:DigestValue>
+        <dsig:DigestValue>x3Xi0xdzAGyCEfFCNdZIClnIEK81WArAuRihPxW296o=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -48,19 +48,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>YmL4KYnJiybulPuy1U6ih9wI+3EC85gSJP2xW1Ejtm4=</dsig:DigestValue>
+        <dsig:DigestValue>Oel1y8aopGS/CtzlAc1IVcIVYoq9xh5h5bKlQSXIhI0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TravoxSentinel.exe" size="712704">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TravoxSentinel.exe" size="714752">
       <assemblyIdentity name="TravoxSentinel" version="1.2.10.13" language="neutral" processorArchitecture="amd64" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>mNdbqhxmRivUKsOdNI1GE9HTqXXtfzgY7KokwqOPvl4=</dsig:DigestValue>
+        <dsig:DigestValue>UXVYqUpSJYIMOz7dlWyhOfhZCuAzP6kwm7KR5Ith7nM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
