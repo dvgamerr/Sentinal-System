@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Media;
 
@@ -13,7 +14,7 @@ namespace Travox.Sentinel
 
         private DialogInitialize about;
         private DialogSetting config;
-
+       
         public DialogContext()
         {
             InitializeComponent();
