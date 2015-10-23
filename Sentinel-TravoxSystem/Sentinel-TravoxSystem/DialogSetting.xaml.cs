@@ -23,8 +23,19 @@ namespace Travox.Sentinel
         public DialogSetting()
         {
             Config = new Configuration();
-            //Dialog = new OpenFileDialog();
+
             InitializeComponent();
+
+            this.WindowStartupLocation = WindowStartupLocation.Manual;
+
+            Rect area = SystemParameters.WorkArea;
+            Point position = new Point((area.Width - this.Width) / 2, (area.Height - this.Height) / 2);
+
+            if (Config.PanelSetting.X != 0 || Config.PanelSetting.Y != 0) position = Config.PanelSetting;
+            this.Left = position.X;
+            this.Top = position.Y;
+            this.Margin = new Thickness(position.X, position.Y, 0, 0);
+            //Dialog = new OpenFileDialog();
         }
 
         private void ChangeConfig()
@@ -104,18 +115,17 @@ namespace Travox.Sentinel
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            //this.IsShow = false;
-            //Config.SentinelPort = ushort.Parse(txtSentinelPort.Text);
-            //Config.API.IPAddress = txtNodeIP.Text;
-            //Config.API.Port = txtNodePort.Text;
-            //Config.API.Database.ServerName = txtSQLServerName.Text;
-            //Config.API.Database.Name = txtSQLDatabaseName.Text;
-            //Config.API.Database.Username = txtSQLUsername.Text;
-            //Config.API.Database.Password = txtSQLPassword.Text;
-
-            //Config.Save();
-            //if (File.Exists(Config.CrawlerConfig)) Module.Write(Config.CrawlerConfig, JSON.Serialize<NodeJSArgs>(Config.API));
-
+            this.IsShow = false;
+            Config.SentinelPort = ushort.Parse(txtSentinelPort.Text);
+            Config.API.IPAddress = txtNodeIP.Text;
+            Config.API.Port = txtNodePort.Text;
+            Config.MSSQL.ServerName = txtSQLServerName.Text;
+            Config.MSSQL.Name = txtSQLDatabaseName.Text;
+            Config.MSSQL.Username = txtSQLUsername.Text;
+            Config.MSSQL.Password = txtSQLPassword.Text;
+            Config.PanelSetting.X = this.Left;
+            Config.PanelSetting.Y = this.Top;
+            Config.Save();
         }
 
     }

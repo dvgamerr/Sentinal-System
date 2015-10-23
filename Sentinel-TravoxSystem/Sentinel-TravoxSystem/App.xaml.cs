@@ -215,6 +215,7 @@ namespace Travox.Sentinel
             }
             else
             {
+                this.LogDispose();
                 TimeUp.Stop();
                 WindowInitialize.Hide();
                 NotifySentinal.Visible = false;
@@ -228,12 +229,15 @@ namespace Travox.Sentinel
         {
             Int32 ThreadProgress = 0;
 
+            logWrite = null;
+            logWatch = null;
             BackgroundWorker init = sender as BackgroundWorker;
             DB database;
             DataTable db_customer = new DataTable();
 
             try
             {
+                if(!App.DebugMode) this.LogRecheck();
                 // Sentinel Crawler
                 init.ReportProgress(0, StateTravox.InitDatabase);
                 database = new DB("travox_global");
@@ -318,7 +322,8 @@ namespace Travox.Sentinel
                 SleepTime.Stop();
                 // Thread Sleep Manual.
 
-                
+                this.LogRecheck();
+
             } while (CrawlerRunning);
 
             App.ServerConnected = false;
@@ -487,45 +492,52 @@ namespace Travox.Sentinel
 
         private void LogDispose()
         {
-            logWrite.Flush();
-            logWrite.Close();
-            logWrite.Dispose();
+            if(logWrite != null)
+            {
+                logWrite.Flush();
+                logWrite.Close();
+                logWrite.Dispose();
+            }
 
-            logWatch.EnableRaisingEvents = false;
-            logWatch.Changed -= new FileSystemEventHandler(OnLogChanged);
-            logWatch.Dispose();
+            if (logWatch != null)
+            {
+                logWatch.EnableRaisingEvents = false;
+                logWatch.Changed -= new FileSystemEventHandler(OnLogChanged);
+                logWatch.Dispose();
+            }
         }
         private void LogRecheck()
         {
-            if (!Directory.Exists(Module.TravoxSentinel + "log/")) Directory.CreateDirectory(Module.TravoxSentinel + "log/");
-            // Console Write Log Check
-            String OnDate = DateTime.Now.ToString("yyyy-MM-dd");
+            //String OnDate = DateTime.Now.ToString("yyyy-MM-dd");
+            //String LogFilename = Module.TravoxSentinel + "log/" + OnDate + Module.File_Log;
+            //String ErrorFilename = Module.TravoxSentinel + "error" + Module.File_Log;
 
-            String LogFilename = Module.TravoxSentinel + "log/" + OnDate + Module.File_Log;
-            String ErrorFilename = Module.TravoxSentinel + "error" + Module.File_Log;
+            //if(!File.Exists(LogFilename))
+            //{
+            //    this.LogDispose();
+            //    if (!Directory.Exists(Path.GetDirectoryName(LogFilename))) Directory.CreateDirectory(Path.GetDirectoryName(LogFilename));
 
-            logWrite = new StreamWriter(new FileStream(LogFilename, FileMode.Create));
-            logWrite.AutoFlush = true;
-            Console.SetOut(logWrite);
+            //    logWrite = new StreamWriter(new FileStream(LogFilename, FileMode.Create));
+            //    logWrite.AutoFlush = true;
+            //    Console.SetOut(logWrite);
 
-            StreamWriter errorWrite = new StreamWriter(new FileStream(ErrorFilename, FileMode.Create));
-            errorWrite.AutoFlush = true;
-            Console.SetError(errorWrite);
+            //    StreamWriter errorWrite = new StreamWriter(new FileStream(ErrorFilename, FileMode.Create));
+            //    errorWrite.AutoFlush = true;
+            //    Console.SetError(errorWrite);
 
-            logWatch = new FileSystemWatcher();
-            logWatch.Path = Path.GetDirectoryName(LogFilename);
-            logWatch.Filter = Path.GetFileName(LogFilename);
-            logWatch.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite;
-            logWatch.Changed += new FileSystemEventHandler(OnLogChanged);
-            logWatch.EnableRaisingEvents = true;
+            //    logWatch = new FileSystemWatcher();
+            //    logWatch.Path = Path.GetDirectoryName(LogFilename);
+            //    logWatch.Filter = Path.GetFileName(LogFilename);
+            //    logWatch.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite;
+            //    logWatch.Changed += new FileSystemEventHandler(OnLogChanged);
+            //    logWatch.EnableRaisingEvents = true;
+            //}
+
         }
 
         private static void OnLogChanged(object source, FileSystemEventArgs e)
         {
-            if (e.FullPath == @"D:\tmp\file.txt")
-            {
-                // do stuff
-            }
+            Console.WriteLine(File.ReadAllText(e.FullPath));
         }
 
     }

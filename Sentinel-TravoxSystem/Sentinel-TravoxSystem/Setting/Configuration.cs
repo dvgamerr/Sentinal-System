@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
+using System.Windows;
 using Travox.Systems;
 using Travox.Systems.DataCollection;
 using Travox.Systems.FileManager;
@@ -16,12 +17,14 @@ namespace Travox.Sentinel.Setting
         public IPAddress InternetIP;
         public NodeJSArgs API;
         public DBArgs MSSQL;
+        public Point PanelSetting;
 
         String KeyEncrypt = "TRAVOX!#7c7SD2";
         public Configuration()
         {
             API = new NodeJSArgs();
             MSSQL= new DBArgs();
+            PanelSetting = new Point(0, 0);
             foreach (IPAddress address in Dns.GetHostEntry(Dns.GetHostName()).AddressList)
             {
                 if (address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
@@ -46,6 +49,11 @@ namespace Travox.Sentinel.Setting
             FileConfig.Param("MSSQL.ServerName", ECB.Encrypt(MSSQL.ServerName, KeyEncrypt));
             FileConfig.Param("MSSQL.Username", ECB.Encrypt(MSSQL.Username, KeyEncrypt));
             FileConfig.Param("MSSQL.Password", ECB.Encrypt(MSSQL.Password, KeyEncrypt));
+
+            FileConfig.Param("PanelConfig.X", ECB.Encrypt(PanelSetting.X.ToString(), KeyEncrypt));
+            FileConfig.Param("PanelConfig.Y", ECB.Encrypt(PanelSetting.Y.ToString(), KeyEncrypt));
+
+            
             FileConfig.SaveAs(Module.TravoxSentinel + Module.File_Config);
         }
 
@@ -80,10 +88,12 @@ namespace Travox.Sentinel.Setting
             MSSQL.Name = "travox_system";
             MSSQL.Username = "travoxmos";
             MSSQL.Password = "systrav";
+
         }
 
         private void Mapping(TableEntrie[] Data)
         {
+            PanelSetting = new Point(0, 0);
             foreach (TableEntrie item in Data)
             {
                 switch (item.Key)
@@ -95,6 +105,8 @@ namespace Travox.Sentinel.Setting
                     case "MSSQL.ServerName": MSSQL.ServerName = ECB.Decrypt(item.Value, KeyEncrypt); break;
                     case "MSSQL.Username": MSSQL.Username = ECB.Decrypt(item.Value, KeyEncrypt); break;
                     case "MSSQL.Password": MSSQL.Password = ECB.Decrypt(item.Value, KeyEncrypt); break;
+                    case "PanelConfig.X": PanelSetting.X = Double.Parse(ECB.Decrypt(item.Value, KeyEncrypt)); break;
+                    case "PanelConfig.Y": PanelSetting.Y = Double.Parse(ECB.Decrypt(item.Value, KeyEncrypt)); break;
                 }
             }
         }
