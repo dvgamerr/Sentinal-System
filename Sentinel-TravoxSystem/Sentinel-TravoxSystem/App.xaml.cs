@@ -30,7 +30,8 @@ namespace Travox.Sentinel
         public static Boolean WebCrawlerConnected { get; set; }
         public static Boolean WebCrawlerRestarted { get; set; }
         public static Version PublishVersion { get; set; }
-        
+        public static StringBuilder Log { get; set; }
+
         public static TcpListener Listen;
 
         public DialogSetting WindowConfig;
@@ -42,7 +43,7 @@ namespace Travox.Sentinel
         System.Windows.Forms.NotifyIcon NotifySentinal;
         ResourceManager TravoxResources = Travox.Sentinel.Properties.Resources.ResourceManager;
         Stopwatch TimeUp;
-        StreamWriter logWrite;
+        ConsoleWriter logWrite;
         FileSystemWatcher logWatch;
 
         String CrawlerDatabase = "";
@@ -91,12 +92,10 @@ namespace Travox.Sentinel
             }
             else
             {
-                String LogFilename = Module.TravoxSentinel + "error.txt";
-                StreamWriter sw = new StreamWriter(new FileStream(LogFilename, FileMode.Create));
-                sw.AutoFlush = true;
-                Console.SetError(sw);
+                String LogCurrent = Module.TravoxSentinel + "log/" + DateTime.Now.ToString("yyyy-MM-dd") + Module.File_Log;
+                if (File.Exists(LogCurrent)) File.Delete(LogCurrent);
 
-
+                Log = new StringBuilder();
                 TimeUp = new Stopwatch();
                 BackgroundWorker InitWorker = new BackgroundWorker();
 
@@ -215,7 +214,7 @@ namespace Travox.Sentinel
             }
             else
             {
-                this.LogDispose();
+                this.WriteLineConsoleDispose();
                 TimeUp.Stop();
                 WindowInitialize.Hide();
                 NotifySentinal.Visible = false;
@@ -237,7 +236,7 @@ namespace Travox.Sentinel
 
             try
             {
-                if(!App.DebugMode) this.LogRecheck();
+                // if(!App.DebugMode) this.LogRecheck();
                 // Sentinel Crawler
                 init.ReportProgress(0, StateTravox.InitDatabase);
                 database = new DB("travox_global");
@@ -322,7 +321,7 @@ namespace Travox.Sentinel
                 SleepTime.Stop();
                 // Thread Sleep Manual.
 
-                this.LogRecheck();
+                this.WriteLineConsoleCheck();
 
             } while (CrawlerRunning);
 
@@ -360,7 +359,9 @@ namespace Travox.Sentinel
         }
         private void WorkSentinelServices(object sender, DoWorkEventArgs e)
         {
+            this.WriteLineConsoleCheck();
             BackgroundWorker init = sender as BackgroundWorker;
+
 
             init.ReportProgress(0, StateTravox.InitReadConfig);
             Config = new Configuration();
@@ -490,7 +491,7 @@ namespace Travox.Sentinel
             }
         }
 
-        private void LogDispose()
+        void WriteLineConsoleDispose()
         {
             if(logWrite != null)
             {
@@ -506,35 +507,39 @@ namespace Travox.Sentinel
                 logWatch.Dispose();
             }
         }
-        private void LogRecheck()
+        void WriteLineConsoleCheck()
         {
-            //String OnDate = DateTime.Now.ToString("yyyy-MM-dd");
-            //String LogFilename = Module.TravoxSentinel + "log/" + OnDate + Module.File_Log;
-            //String ErrorFilename = Module.TravoxSentinel + "error" + Module.File_Log;
+            String OnDate = DateTime.Now.ToString("yyyy-MM-dd");
+            String LogFilename = Module.TravoxSentinel + "log/" + OnDate + Module.File_Log;
+            String ErrorFilename = Module.TravoxSentinel + "error" + Module.File_Log;
 
-            //if(!File.Exists(LogFilename))
-            //{
-            //    this.LogDispose();
-            //    if (!Directory.Exists(Path.GetDirectoryName(LogFilename))) Directory.CreateDirectory(Path.GetDirectoryName(LogFilename));
+            if (!File.Exists(LogFilename))
+            {
+                this.WriteLineConsoleDispose();
+                if (!Directory.Exists(Path.GetDirectoryName(LogFilename))) Directory.CreateDirectory(Path.GetDirectoryName(LogFilename));
 
-            //    logWrite = new StreamWriter(new FileStream(LogFilename, FileMode.Create));
-            //    logWrite.AutoFlush = true;
-            //    Console.SetOut(logWrite);
+                using (logWrite = new ConsoleWriter(LogFilename, FileMode.Create))
+                {
+                    logWrite.WriteEvent += txtLogMessage_WriteEvent;
+                    logWrite.WriteLineEvent += txtLogMessage_WriteLineEvent;
 
-            //    StreamWriter errorWrite = new StreamWriter(new FileStream(ErrorFilename, FileMode.Create));
-            //    errorWrite.AutoFlush = true;
-            //    Console.SetError(errorWrite);
-
-            //    logWatch = new FileSystemWatcher();
-            //    logWatch.Path = Path.GetDirectoryName(LogFilename);
-            //    logWatch.Filter = Path.GetFileName(LogFilename);
-            //    logWatch.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite;
-            //    logWatch.Changed += new FileSystemEventHandler(OnLogChanged);
-            //    logWatch.EnableRaisingEvents = true;
-            //}
+                    Console.SetOut(logWrite);
+                }
+                
+                StreamWriter errorWrite = new StreamWriter(new FileStream(ErrorFilename, FileMode.Create));
+                errorWrite.AutoFlush = true;
+                Console.SetError(errorWrite);
+            }
 
         }
-
+        public static void txtLogMessage_WriteLineEvent(object sender, ConsoleWriterEventArgs e)
+        {
+            Log.AppendLine(e.Value);
+        }
+        public static void txtLogMessage_WriteEvent(object sender, ConsoleWriterEventArgs e)
+        {
+            Log.Append(e.Value);
+        }
         private static void OnLogChanged(object source, FileSystemEventArgs e)
         {
             Console.WriteLine(File.ReadAllText(e.FullPath));

@@ -34,7 +34,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <ApplicationRevision>1</ApplicationRevision>
-    <ApplicationVersion>1.3.0.%2a</ApplicationVersion>
+    <ApplicationVersion>1.4.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -112,6 +112,7 @@
     <Compile Include="DialogContext.xaml.cs">
       <DependentUpon>DialogContext.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Engine\ConsoleWriter.cs" />
     <Compile Include="Setting\Configuration.cs" />
     <Compile Include="Crawler\ExchangeRate.cs" />
     <Compile Include="Crawler\GDS.cs" />

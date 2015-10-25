@@ -49,7 +49,7 @@
             <Button x:Name="btnAbout" Content="About" Margin="0,223,10,0" VerticalAlignment="Top" Height="21" FontSize="11" Click="btnAbout_Click" HorizontalAlignment="Right" Width="58" Cursor="Hand" Style="{DynamicResource btnContextNormal}"/>
         </Grid>
         <Grid x:Name="PanelLog" Margin="0,96,0,0">
-            <TextBox x:Name="txtConsoleLog" TextWrapping="Wrap" Style="{DynamicResource txtLog}" IsReadOnly="True" BorderBrush="{x:Null}" FontSize="11.333" Padding="2" Background="#FFFEFEFE" TextDecorations="{x:Null}" UseLayoutRounding="False" VerticalScrollBarVisibility="Visible" AcceptsReturn="True"/>
+            <TextBox x:Name="txtConsoleLog" TextWrapping="Wrap" Style="{DynamicResource txtLog}" IsReadOnly="True" BorderBrush="{x:Null}" FontSize="11.333" Padding="2" Background="#FFFEFEFE" TextDecorations="{x:Null}" UseLayoutRounding="False" VerticalScrollBarVisibility="Visible" AcceptsReturn="True" Text="aaa"/>
         </Grid>
     </Grid>
 </Window>
