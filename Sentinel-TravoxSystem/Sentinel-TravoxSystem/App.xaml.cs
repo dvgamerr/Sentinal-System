@@ -61,7 +61,7 @@ namespace Travox.Sentinel
             List<Controller> control = new List<Controller>();
             control.Add(new ExchangeRate());
             control.Add(new Secretary());
-            //control.Add(new FinishBookingPayment());
+            control.Add(new FinishBookingPayment());
             //control.Add(new GDS());
             //control.Add(new Tirkx());
             //control.Add(new SyncGD());
