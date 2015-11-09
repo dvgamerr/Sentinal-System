@@ -33,9 +33,6 @@ namespace Travox.Sentinel.Setting
                     break;
                 }
             }
-
-            if (File.Exists(Module.TravoxSentinel + Module.File_Config)) this.Load(); else this.Default();
-
         }
 
         public void Save()
@@ -57,19 +54,21 @@ namespace Travox.Sentinel.Setting
             FileConfig.SaveAs(Module.TravoxSentinel + Module.File_Config);
         }
 
-        private Boolean Load()
+        public Boolean Load()
         {
             Boolean result = false;
-            TypeSFO FileConfig = new TypeSFO();
-            Byte[] bytes = Module.Read(Module.TravoxSentinel + Module.File_Config);
-
-            if (bytes.Length > 0)
+            if (File.Exists(Module.TravoxSentinel + Module.File_Config))
             {
-                result = true;
-                FileConfig.Load(bytes);
-                this.Mapping(FileConfig.ToArray);
-            }
+                TypeSFO FileConfig = new TypeSFO();
+                Byte[] bytes = Module.Read(Module.TravoxSentinel + Module.File_Config);
 
+                if (bytes.Length > 0)
+                {
+                    result = true;
+                    FileConfig.Load(bytes);
+                    this.Mapping(FileConfig.ToArray);
+                }
+            }
 
             return result;
         }

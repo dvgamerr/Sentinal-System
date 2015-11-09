@@ -22,20 +22,28 @@ namespace Travox.Sentinel
 
         public DialogSetting()
         {
-            Config = new Configuration();
+            try
+            {
+                InitializeComponent();
 
-            InitializeComponent();
+                Config = new Configuration();
+                if (!Config.Load()) Config.Default();
 
-            this.WindowStartupLocation = WindowStartupLocation.Manual;
+                this.WindowStartupLocation = WindowStartupLocation.Manual;
 
-            Rect area = SystemParameters.WorkArea;
-            Point position = new Point((area.Width - this.Width) / 2, (area.Height - this.Height) / 2);
+                Rect area = SystemParameters.WorkArea;
+                Point position = new Point((area.Width - this.Width) / 2, (area.Height - this.Height) / 2);
 
-            if (Config.PanelSetting.X != 0 || Config.PanelSetting.Y != 0) position = Config.PanelSetting;
-            this.Left = position.X;
-            this.Top = position.Y;
-            this.Margin = new Thickness(position.X, position.Y, 0, 0);
-            //Dialog = new OpenFileDialog();
+                if (Config.PanelSetting.X != 0 || Config.PanelSetting.Y != 0) position = Config.PanelSetting;
+                this.Left = position.X;
+                this.Top = position.Y;
+                this.Margin = new Thickness(position.X, position.Y, 0, 0);
+                //Dialog = new OpenFileDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "DialogSetting");
+            }
         }
 
         private void ChangeConfig()
@@ -50,6 +58,7 @@ namespace Travox.Sentinel
             //{
             //    MessageBox.Show("Config is not match.");
             //}
+
             txtSentinelIP.Text = (App.DebugMode) ? Config.NetworkIP.ToString() : Config.InternetIP.ToString();
             txtSentinelPort.Text = Config.SentinelPort.ToString();
 
@@ -63,8 +72,6 @@ namespace Travox.Sentinel
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
-
             txtCrawlerScript.Text = "None";
             //if (File.Exists(Config.CrawlerScript)) txtCrawlerScript.Text = Path.GetFileName(Config.CrawlerScript);
 
