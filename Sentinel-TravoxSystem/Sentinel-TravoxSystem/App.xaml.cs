@@ -25,7 +25,7 @@ namespace Travox.Sentinel
     public partial class App
     {
         public static Boolean CrawlerRunning { get; set; }
-        public static Boolean DebugMode { get { return Regex.Match(System.Diagnostics.Process.GetCurrentProcess().ProcessName, @"\.vshost").Success; } }
+        public static Boolean DebugMode { get { return true; } }
         public static Boolean ServerConnected { get; set; }
         public static Boolean WebCrawlerConnected { get; set; }
         public static Boolean WebCrawlerRestarted { get; set; }
@@ -220,8 +220,6 @@ namespace Travox.Sentinel
                 NotifySentinal.Visible = false;
                 Application.Current.Shutdown();
             }
-
-
             
         }
         private void WorkCrawlerCollection(object sender, DoWorkEventArgs e)
@@ -314,6 +312,7 @@ namespace Travox.Sentinel
                         }
                     }
                 }
+                this.WriteLineConsoleCheck();
 
                 // Thread Sleep Manual.
                 init.ReportProgress(0, StateTravox.OnStatus);
@@ -323,9 +322,6 @@ namespace Travox.Sentinel
                 do { Thread.Sleep(128); } while (CrawlerRunning && SleepTime.ElapsedMilliseconds < _TimeInterval.TotalMilliseconds);
                 SleepTime.Stop();
                 // Thread Sleep Manual.
-
-                this.WriteLineConsoleCheck();
-
             } while (CrawlerRunning);
 
             App.ServerConnected = false;
@@ -414,20 +410,14 @@ namespace Travox.Sentinel
 
         private Version GetPublishedVersion()
         {
-            System.Xml.XmlDocument xmlDoc = new System.Xml.XmlDocument();
-            string executePath = new Uri(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase).LocalPath;
-            xmlDoc.Load(executePath + ".manifest");
-
-            String retval = string.Empty;
-            if (xmlDoc.HasChildNodes) retval = xmlDoc.ChildNodes[1].ChildNodes[0].Attributes.GetNamedItem("version").Value.ToString();
-            return new Version(retval);
+            return new Version(1, 4, 0, 5);
         }
 
         private void Notify_OnClick(object sender, EventArgs e)
         {
             if (WindowContext.IsShow)
             {
-                WindowContext.ContextHide(); 
+                WindowContext.ContextHide();
             }
             else
             {
@@ -515,7 +505,7 @@ namespace Travox.Sentinel
         void WriteLineConsoleCheck()
         {
             String OnDate = DateTime.Now.ToString("yyyy-MM-dd");
-            String LogFilename = Module.TravoxSentinel + "log/" + OnDate + Module.File_Log;
+            String LogFilename = Module.TravoxSentinel + "log\\" + OnDate + Module.File_Log;
             String ErrorFilename = Module.TravoxSentinel + "error" + Module.File_Log;
 
             if (!File.Exists(LogFilename))
@@ -530,12 +520,15 @@ namespace Travox.Sentinel
 
                     Console.SetOut(logWrite);
                 }
-                
+
+            }
+
+            if (!File.Exists(ErrorFilename))
+            {
                 StreamWriter errorWrite = new StreamWriter(new FileStream(ErrorFilename, FileMode.Create));
                 errorWrite.AutoFlush = true;
                 Console.SetError(errorWrite);
             }
-
         }
         public static void txtLogMessage_WriteLineEvent(object sender, ConsoleWriterEventArgs e)
         {
@@ -551,8 +544,6 @@ namespace Travox.Sentinel
         }
 
     }
-
-
 
     public class HandlerItems
     {
