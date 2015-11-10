@@ -240,7 +240,10 @@ namespace Travox.Sentinel
                 // Sentinel Crawler
                 init.ReportProgress(0, StateTravox.InitDatabase);
                 database = new DB("travox_global");
-                db_customer = database.GetTable(TravoxResources.GetString("database_name"));
+                String db = "SELECT id, code, database_name, [description] FROM site_customer ";
+                db += "WHERE[status] = 'ACTIVE' AND ISNULL(database_name,'') <> '' AND sentinel = 'Y'";
+
+                db_customer = database.GetTable(db);
                 DBTotal = db_customer.Rows.Count;
                 // Initinalize Database Travox            
             }
@@ -371,8 +374,8 @@ namespace Travox.Sentinel
             String IP = XHR.Connect("checkip.dyndns.it");
             if (MBOS.Null(IP)) IP = "IP Address: 127.0.0.1";
 
-            Config.InternetIP = IPAddress.Parse(Regex.Match(IP, @"IP Address:.*?(?<ip>[\d|\.]+)").Groups["ip"].Value);
-            if (App.DebugMode) TravoxIP = Config.NetworkIP; else TravoxIP = Config.InternetIP;
+            Configuration.InternetIP = IPAddress.Parse(Regex.Match(IP, @"IP Address:.*?(?<ip>[\d|\.]+)").Groups["ip"].Value);
+            if (App.DebugMode) TravoxIP = Configuration.NetworkIP; else TravoxIP = Configuration.InternetIP;
 
             TravoxPort = Config.SentinelPort;
             IPGlobalProperties ipGlobalProperties = IPGlobalProperties.GetIPGlobalProperties();

@@ -12,9 +12,10 @@ namespace Travox.Sentinel.Setting
 {
     public class Configuration
     {
+        public static IPAddress NetworkIP;
+        public static IPAddress InternetIP;
+
         public UInt16 SentinelPort;
-        public IPAddress NetworkIP;
-        public IPAddress InternetIP;
         public NodeJSArgs API;
         public DBArgs MSSQL;
         public Point PanelSetting;
