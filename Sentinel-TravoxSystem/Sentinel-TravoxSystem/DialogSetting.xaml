@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="Travox.Sentinel.DialogSetting"
-        Title="Sentinel Perferences" Height="366" Width="821" ResizeMode="CanMinimize" Background="WhiteSmoke" Loaded="Window_Loaded" FontSize="11" Icon="Images/icon/Travox-App-Crawler.ico" Closing="Window_Closing" FontFamily="Tahoma">
+        Title="Sentinel Perferences" Height="340" Width="447" ResizeMode="CanMinimize" Background="WhiteSmoke" Loaded="Window_Loaded" FontSize="11" Icon="Images/icon/Travox-App-Crawler.ico" Closing="Window_Closing" FontFamily="Tahoma">
     <Grid Background="WhiteSmoke">
         <Grid x:Name="GridToolbar" Height="24" VerticalAlignment="Top" Margin="0">
             <Grid.Background>
@@ -15,41 +15,36 @@
             </Grid.Background>
             <Label x:Name="lblTextStatus" Content="lblStatus" Padding="3,1,0,1" FontSize="9" VerticalAlignment="Center" FontWeight="Bold" Foreground="{DynamicResource TextNormal}"/>
         </Grid>
-        <Grid x:Name="GridControl" HorizontalAlignment="Left" Height="60" Margin="10,114,0,0" VerticalAlignment="Top" Width="264">
-            <Border BorderBrush="Black" BorderThickness="0,0,0,1" Height="9" VerticalAlignment="Top" Padding="0" d:IsLocked="True">
-                <Label Content="Other" HorizontalAlignment="Left" Padding="3,0,4,1" FontWeight="Bold" Foreground="{DynamicResource TextNormal}" Background="WhiteSmoke" Margin="0,0,0,-7" Height="16" VerticalAlignment="Top"/>
-            </Border>
-        </Grid>
-        <Grid x:Name="GridConfiguration" HorizontalAlignment="Left" Height="60" Margin="10,37,0,0" VerticalAlignment="Top" Width="413">
+        <Grid x:Name="GridConfiguration" HorizontalAlignment="Left" Height="250" Margin="10,37,0,0" VerticalAlignment="Top" Width="413">
             <Border BorderBrush="Black" BorderThickness="0,0,0,1" Height="9" VerticalAlignment="Top" Padding="0" d:IsLocked="True">
                 <Label Content="Configuration" HorizontalAlignment="Left" Padding="3,0,4,1" FontWeight="Bold" Foreground="{DynamicResource TextNormal}" Background="WhiteSmoke" Margin="0,0,0,-7" Height="16" VerticalAlignment="Top"/>
             </Border>
-            <TextBox x:Name="txtSentinelPort" HorizontalAlignment="Left" Height="22" Margin="171,26,0,0" TextWrapping="Wrap" Text="8220" VerticalAlignment="Top" Width="60" VerticalContentAlignment="Center" Padding="2,0,0,0" Style="{DynamicResource TravoxTextBox}" HorizontalContentAlignment="Center"/>
-            <Label Content="Sentinel :" HorizontalAlignment="Left" Margin="11,30,0,0" VerticalAlignment="Top" Padding="0" Foreground="#FF2C2C2C"/>
-            <TextBox x:Name="txtSentinelIP" HorizontalAlignment="Left" Height="22" Margin="62,26,0,0" TextWrapping="Wrap" Text="000.000.000.000" VerticalAlignment="Top" Width="104" VerticalContentAlignment="Center" Padding="2,0,0,0" Style="{DynamicResource TravoxTextBox}" HorizontalContentAlignment="Center" IsReadOnly="True" IsEnabled="False"/>
+            <TextBox x:Name="txtSentinelPort" HorizontalAlignment="Left" Height="22" Margin="189,26,0,0" TextWrapping="Wrap" Text="8220" VerticalAlignment="Top" Width="60" VerticalContentAlignment="Center" Padding="2,0,0,0" Style="{DynamicResource TravoxTextBox}" HorizontalContentAlignment="Center"/>
+            <Label Content="Sentinel :" HorizontalAlignment="Left" Margin="18,30,0,0" VerticalAlignment="Top" Padding="0" Foreground="#FF2C2C2C"/>
+            <TextBox x:Name="txtSentinelIP" HorizontalAlignment="Left" Height="22" Margin="80,26,0,0" TextWrapping="Wrap" Text="000.000.000.000" VerticalAlignment="Top" Width="104" VerticalContentAlignment="Center" Padding="2,0,0,0" Style="{DynamicResource TravoxTextBox}" HorizontalContentAlignment="Center" IsReadOnly="True" IsEnabled="False"/>
+            <Label Content="Node API :" HorizontalAlignment="Left" Margin="11,56,0,0" VerticalAlignment="Top" Padding="0" Foreground="#FF2C2C2C"/>
+            <TextBox x:Name="txtNodeIP" HorizontalAlignment="Left" Height="22" Margin="80,52,0,0" TextWrapping="Wrap" Text="000.000.000.000" VerticalAlignment="Top" Width="104" VerticalContentAlignment="Center" Padding="2,0,0,0" Style="{DynamicResource TravoxTextBox}" HorizontalContentAlignment="Center"/>
+            <TextBox x:Name="txtNodePort" HorizontalAlignment="Left" Height="22" Margin="189,52,0,0" TextWrapping="Wrap" Text="8221" VerticalAlignment="Top" Width="60" VerticalContentAlignment="Center" Padding="2,0,0,0" Style="{DynamicResource TravoxTextBox}" HorizontalContentAlignment="Center"/>
+            <Grid x:Name="GridDatabase" HorizontalAlignment="Left" Margin="34,95,0,0" Width="347" Height="144" VerticalAlignment="Top">
+                <GroupBox Header="Database" Style="{DynamicResource TravoxGroupBox}" FontSize="11" FontWeight="Bold" d:IsLocked="True"/>
+                <Label Content="Server Name:" HorizontalAlignment="Left" Margin="54,36,0,0" VerticalAlignment="Top" Padding="0" Foreground="#FF2C2C2C"/>
+                <TextBox x:Name="txtSQLServerName" HorizontalAlignment="Left" Height="22" Margin="126,32,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="181" VerticalContentAlignment="Center" Padding="2,0,0,0" Style="{DynamicResource TravoxTextBox}" HorizontalContentAlignment="Center" Text="None"/>
+                <TextBox x:Name="txtSQLDatabaseName" HorizontalAlignment="Left" Height="22" Margin="126,59,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="181" VerticalContentAlignment="Center" Padding="2,0,0,0" Style="{DynamicResource TravoxTextBox}" HorizontalContentAlignment="Center" Text="None"/>
+                <TextBox x:Name="txtSQLUsername" HorizontalAlignment="Left" Height="22" Margin="36,95,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" VerticalContentAlignment="Center" Padding="2,0,0,0" Style="{DynamicResource TravoxTextBox}" HorizontalContentAlignment="Center" Text="Username"/>
+                <TextBox x:Name="txtSQLPassword" HorizontalAlignment="Left" Height="22" Margin="177,95,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" VerticalContentAlignment="Center" Padding="2,0,0,0" Style="{DynamicResource TravoxTextBox}" HorizontalContentAlignment="Center" Text="Password"/>
+                <Label Content="Database Name :" HorizontalAlignment="Left" Margin="36,63,0,0" VerticalAlignment="Top" Padding="0" Foreground="#FF2C2C2C"/>
+            </Grid>
         </Grid>
-        <Grid x:Name="GridWebServer" HorizontalAlignment="Left" Height="266" Margin="437,37,0,0" VerticalAlignment="Top" Width="369">
+        <Grid x:Name="GridWebServer" HorizontalAlignment="Left" Height="238" Margin="437,37,0,0" VerticalAlignment="Top" Width="369" d:IsHidden="True">
             <Border BorderBrush="Black" BorderThickness="0,0,0,1" Height="9" VerticalAlignment="Top" Padding="0" d:IsLocked="True">
-                <Label Content="Web Config" HorizontalAlignment="Left" Padding="3,0,4,1" FontWeight="Bold" Foreground="{DynamicResource TextNormal}" Background="WhiteSmoke" Margin="0,0,0,-7" Height="16" VerticalAlignment="Top"/>
+                <Label Content="Others" HorizontalAlignment="Left" Padding="3,0,4,1" FontWeight="Bold" Foreground="{DynamicResource TextNormal}" Background="WhiteSmoke" Margin="0,0,0,-7" Height="16" VerticalAlignment="Top"/>
             </Border>
             <Label Content="Config :" HorizontalAlignment="Left" Margin="39,55,0,0" VerticalAlignment="Top" Padding="0" Foreground="{DynamicResource TextNormal}"/>
             <Label Content="Javascript :" HorizontalAlignment="Left" Margin="22,28,0,0" VerticalAlignment="Top" Padding="0" Foreground="{DynamicResource TextNormal}"/>
             <TextBox x:Name="txtCrawlerScript" HorizontalAlignment="Left" Height="22" Margin="82,24,0,0" TextWrapping="Wrap" Text="None" VerticalAlignment="Top" Width="174" VerticalContentAlignment="Center" Padding="2,0,0,0" Style="{DynamicResource TravoxTextBox}" IsReadOnly="True"/>
-            <Button x:Name="btnBrowseScript" Content="Browse" HorizontalAlignment="Left" Margin="267,24,0,0" VerticalAlignment="Top" Width="90" Height="22" Style="{DynamicResource TravoxButton}" Click="btnBrowseScript_Click"/>
+            <Button x:Name="btnBrowseScript" Content="Browse" HorizontalAlignment="Left" Margin="267,24,0,0" VerticalAlignment="Top" Width="90" Height="22" Style="{DynamicResource btnBrowsefile}" Click="btnBrowseScript_Click"/>
             <TextBox x:Name="txtCrawlerConfig" HorizontalAlignment="Left" Height="22" Margin="82,51,0,0" TextWrapping="Wrap" Text="None" VerticalAlignment="Top" Width="174" VerticalContentAlignment="Center" Padding="2,0,0,0" Style="{DynamicResource TravoxTextBox}" IsReadOnly="True"/>
-            <Button x:Name="btnBrowseConfig" Content="Browse" HorizontalAlignment="Left" Margin="267,51,0,0" VerticalAlignment="Top" Width="90" Height="22" Style="{DynamicResource TravoxButton}" Click="btnBrowseConfig_Click"/>
-            <Grid x:Name="GridNodeJS" HorizontalAlignment="Left" Margin="10,90,0,9" Width="347">
-                <GroupBox Header="NodeJS " Style="{DynamicResource TravoxGroupBox}" FontSize="11" FontWeight="Bold"/>
-                <Label Content="Web IP :" HorizontalAlignment="Left" Margin="79,29,0,0" VerticalAlignment="Top" Padding="0" Foreground="#FF2C2C2C"/>
-                <TextBox x:Name="txtNodeIP" HorizontalAlignment="Left" Height="22" Margin="126,25,0,0" TextWrapping="Wrap" Text="000.000.000.000" VerticalAlignment="Top" Width="104" VerticalContentAlignment="Center" Padding="2,0,0,0" Style="{DynamicResource TravoxTextBox}" HorizontalContentAlignment="Center"/>
-                <TextBox x:Name="txtNodePort" HorizontalAlignment="Left" Height="22" Margin="235,25,0,0" TextWrapping="Wrap" Text="8221" VerticalAlignment="Top" Width="72" VerticalContentAlignment="Center" Padding="2,0,0,0" Style="{DynamicResource TravoxTextBox}" HorizontalContentAlignment="Center"/>
-                <Label Content="Server Name:" HorizontalAlignment="Left" Margin="54,71,0,0" VerticalAlignment="Top" Padding="0" Foreground="#FF2C2C2C"/>
-                <TextBox x:Name="txtSQLServerName" HorizontalAlignment="Left" Height="22" Margin="126,67,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="181" VerticalContentAlignment="Center" Padding="2,0,0,0" Style="{DynamicResource TravoxTextBox}" HorizontalContentAlignment="Center" Text="None"/>
-                <TextBox x:Name="txtSQLDatabaseName" HorizontalAlignment="Left" Height="22" Margin="126,94,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="181" VerticalContentAlignment="Center" Padding="2,0,0,0" Style="{DynamicResource TravoxTextBox}" HorizontalContentAlignment="Center" Text="None"/>
-                <TextBox x:Name="txtSQLUsername" HorizontalAlignment="Left" Height="22" Margin="36,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" VerticalContentAlignment="Center" Padding="2,0,0,0" Style="{DynamicResource TravoxTextBox}" HorizontalContentAlignment="Center" Text="Username"/>
-                <TextBox x:Name="txtSQLPassword" HorizontalAlignment="Left" Height="22" Margin="177,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" VerticalContentAlignment="Center" Padding="2,0,0,0" Style="{DynamicResource TravoxTextBox}" HorizontalContentAlignment="Center" Text="Password"/>
-                <Label Content="Database Name :" HorizontalAlignment="Left" Margin="36,98,0,0" VerticalAlignment="Top" Padding="0" Foreground="#FF2C2C2C"/>
-            </Grid>
+            <Button x:Name="btnBrowseConfig" Content="Browse" HorizontalAlignment="Left" Margin="267,51,0,0" VerticalAlignment="Top" Width="90" Height="22" Style="{DynamicResource btnBrowsefile}" Click="btnBrowseConfig_Click"/>
         </Grid>
 
     </Grid>

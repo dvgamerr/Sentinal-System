@@ -17,106 +17,104 @@ namespace Travox.Sentinel
     public partial class DialogSetting : Window
     {
         public Boolean IsShow = false;
-        OpenFileDialog Dialog;
+        //OpenFileDialog Dialog;
         Configuration Config;
 
         public DialogSetting()
         {
-            Config = new Configuration();
-            Dialog = new OpenFileDialog();
             InitializeComponent();
+
+            Config = new Configuration();
+            if (!Config.Load()) Config.Default();
+
+            this.WindowStartupLocation = WindowStartupLocation.Manual;
+
+            Rect area = SystemParameters.WorkArea;
+            Point position = new Point((area.Width - this.Width) / 2, (area.Height - this.Height) / 2);
+
+            if (Config.PanelSetting.X != 0 || Config.PanelSetting.Y != 0) position = Config.PanelSetting;
+            this.Left = position.X;
+            this.Top = position.Y;
+            this.Margin = new Thickness(position.X, position.Y, 0, 0);
+            //Dialog = new OpenFileDialog();
         }
 
-        private void ChangeConnectionNodeJS()
+        private void ChangeConfig()
         {
-            try
-            {
-                String JsonString = Module.ReadText(Config.CrawlerConfig);
-                Config.NodeJS = JSON.Deserialize<NodeJSArgs>(JsonString);
-                txtCrawlerConfig.Text = Path.GetFileName(Config.CrawlerConfig);
-                GridNodeJS.Visibility = System.Windows.Visibility.Visible;
-            }
-            catch
-            {
-                MessageBox.Show("Config is not match.");
-            }
+            txtSentinelIP.Text = (App.DebugMode) ? Configuration.NetworkIP.ToString() : Configuration.InternetIP.ToString();
+            txtSentinelPort.Text = Config.SentinelPort.ToString();
 
-            txtNodeIP.Text = Config.NodeJS.IPAddress;
-            txtNodePort.Text = Config.NodeJS.Port;
-            txtSQLServerName.Text = Config.NodeJS.Database.ServerName;
-            txtSQLDatabaseName.Text = Config.NodeJS.Database.Name;
-            txtSQLUsername.Text = Config.NodeJS.Database.Username;
-            txtSQLPassword.Text = Config.NodeJS.Database.Password;
+            txtNodeIP.Text = Config.API.IPAddress;
+            txtNodePort.Text = Config.API.Port;
+            txtSQLServerName.Text = Config.MSSQL.ServerName;
+            txtSQLDatabaseName.Text = Config.MSSQL.Name;
+            txtSQLUsername.Text = Config.MSSQL.Username;
+            txtSQLPassword.Text = Config.MSSQL.Password;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            GridNodeJS.Visibility = System.Windows.Visibility.Hidden;
-            txtSentinelIP.Text = (App.DebugMode) ? Config.NetworkIP.ToString() : Config.InternetIP.ToString();
-            txtSentinelPort.Text = Config.SentinelPort.ToString();
-
             txtCrawlerScript.Text = "None";
-            if (File.Exists(Config.CrawlerScript)) txtCrawlerScript.Text = Path.GetFileName(Config.CrawlerScript);
+            //if (File.Exists(Config.CrawlerScript)) txtCrawlerScript.Text = Path.GetFileName(Config.CrawlerScript);
 
             txtCrawlerConfig.Text = "None";
-            if (File.Exists(Config.CrawlerConfig)) ChangeConnectionNodeJS();
+            ChangeConfig();
         }
 
         private void btnBrowseScript_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            Dialog.DefaultExt = ".js";
-            Dialog.Filter = "Javascript file (*.js)|*.js";
-            Dialog.InitialDirectory = @"C:\";
-            Dialog.Title = "Please select NodeJS Javascript file.";
+            //Dialog.DefaultExt = ".js";
+            //Dialog.Filter = "Javascript file (*.js)|*.js";
+            //Dialog.InitialDirectory = @"C:\";
+            //Dialog.Title = "Please select NodeJS Javascript file.";
 
-            if (File.Exists(Config.CrawlerScript))
-            {
-                Dialog.InitialDirectory = Path.GetDirectoryName(Config.CrawlerScript);
-                Dialog.FileName = Path.GetFileName(Config.CrawlerScript);
-            }
+            //if (File.Exists(Config.CrawlerScript))
+            //{
+            //    Dialog.InitialDirectory = Path.GetDirectoryName(Config.CrawlerScript);
+            //    Dialog.FileName = Path.GetFileName(Config.CrawlerScript);
+            //}
 
-            if ((Boolean)Dialog.ShowDialog())
-            {
-                txtCrawlerScript.Text = Path.GetFileName(Dialog.FileName);
-                Config.CrawlerScript = Dialog.FileName;
-            }
+            //if ((Boolean)Dialog.ShowDialog())
+            //{
+            //    txtCrawlerScript.Text = Path.GetFileName(Dialog.FileName);
+            //    Config.CrawlerScript = Dialog.FileName;
+            //}
         }
 
         private void btnBrowseConfig_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            Dialog.DefaultExt = ".json";
-            Dialog.Filter = "Config JSON (*.json)|*.json";
-            Dialog.InitialDirectory = @"C:\";
-            Dialog.Title = "Please select an config.json file for NodeJS.";
+            //Dialog.DefaultExt = ".json";
+            //Dialog.Filter = "Config JSON (*.json)|*.json";
+            //Dialog.InitialDirectory = @"C:\";
+            //Dialog.Title = "Please select an config.json file for NodeJS.";
 
-            if (File.Exists(Config.CrawlerConfig))
-            {
-                Dialog.InitialDirectory = Path.GetDirectoryName(Config.CrawlerConfig);
-                Dialog.FileName = Path.GetFileName(Config.CrawlerConfig);
-            }
+            //if (File.Exists(Config.CrawlerConfig))
+            //{
+            //    Dialog.InitialDirectory = Path.GetDirectoryName(Config.CrawlerConfig);
+            //    Dialog.FileName = Path.GetFileName(Config.CrawlerConfig);
+            //}
 
-            if ((Boolean)Dialog.ShowDialog())
-            {
-                txtCrawlerConfig.Text = Path.GetFileName(Dialog.FileName);
-                Config.CrawlerConfig = Dialog.FileName;
-                ChangeConnectionNodeJS();
-            }
+            //if ((Boolean)Dialog.ShowDialog())
+            //{
+            //    txtCrawlerConfig.Text = Path.GetFileName(Dialog.FileName);
+            //    Config.CrawlerConfig = Dialog.FileName;
+            //    ChangeConnectionNodeJS();
+            //}
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             this.IsShow = false;
             Config.SentinelPort = ushort.Parse(txtSentinelPort.Text);
-            Config.NodeJS.IPAddress = txtNodeIP.Text;
-            Config.NodeJS.Port = txtNodePort.Text;
-            Config.NodeJS.Database.ServerName = txtSQLServerName.Text;
-            Config.NodeJS.Database.Name = txtSQLDatabaseName.Text;
-            Config.NodeJS.Database.Username = txtSQLUsername.Text;
-            Config.NodeJS.Database.Password = txtSQLPassword.Text;
-
+            Config.API.IPAddress = txtNodeIP.Text;
+            Config.API.Port = txtNodePort.Text;
+            Config.MSSQL.ServerName = txtSQLServerName.Text;
+            Config.MSSQL.Name = txtSQLDatabaseName.Text;
+            Config.MSSQL.Username = txtSQLUsername.Text;
+            Config.MSSQL.Password = txtSQLPassword.Text;
+            Config.PanelSetting.X = this.Left;
+            Config.PanelSetting.Y = this.Top;
             Config.Save();
-            if (File.Exists(Config.CrawlerConfig)) Module.Write(Config.CrawlerConfig, JSON.Serialize<NodeJSArgs>(Config.NodeJS));
-
         }
 
     }

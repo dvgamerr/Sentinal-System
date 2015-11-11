@@ -1,17 +1,4 @@
-﻿using System;
-using System.Data;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Travox.Sentinel.Engine;
-using Travox.Systems;
-using Travox.Systems.DataCollection;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Net.Sockets;
-using System.Threading;
-using System.IO;
+﻿using Travox.Sentinel.Engine;
 
 
 namespace Travox.Sentinel.Crawler

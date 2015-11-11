@@ -61,6 +61,7 @@ Public Class XHR
 
     Private Function Open(server As String, port As Integer) As Socket
         Dim s As Socket = Nothing
+
         Host = Dns.GetHostEntry(server)
         For Each address As IPAddress In Host.AddressList
             address = IIf(address.ToString() = "::1", IPAddress.Parse("127.0.0.1"), address)

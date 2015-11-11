@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Media;
 
@@ -13,7 +14,7 @@ namespace Travox.Sentinel
 
         private DialogInitialize about;
         private DialogSetting config;
-
+       
         public DialogContext()
         {
             InitializeComponent();
@@ -22,10 +23,13 @@ namespace Travox.Sentinel
         public void ContextShow()
         {
             IsShow = true;
+            ResetContextButton();
 
             Rect area = SystemParameters.WorkArea;
             Point position = new Point(area.Width - this.Width - 5, area.Bottom - this.Height - 5);
 
+            this.btnStatus.BorderBrush = BorderActive;
+            this.btnStatus.Foreground = TextActive;
             this.PanelStatus.Visibility = Visibility.Visible;
             this.PanelLog.Visibility = Visibility.Hidden;
             this.PanelSetting.Visibility = Visibility.Hidden;
@@ -55,23 +59,51 @@ namespace Travox.Sentinel
         
         private void btnStatus_Click(object sender, RoutedEventArgs e)
         {
+            ResetContextButton();
             PanelStatus.Visibility = Visibility.Visible;
             PanelSetting.Visibility = Visibility.Hidden;
             PanelLog.Visibility = Visibility.Hidden;
+
+            btnStatus.BorderBrush = BorderActive;
+            btnStatus.Foreground = TextActive;
         }
 
         private void btnSetting_Click(object sender, RoutedEventArgs e)
         {
+            ResetContextButton();
             PanelStatus.Visibility = Visibility.Hidden;
             PanelSetting.Visibility = Visibility.Visible;
             PanelLog.Visibility = Visibility.Hidden;
+
+            btnSetting.BorderBrush = BorderActive;
+            btnSetting.Foreground = TextActive;
         }
 
         private void btnLog_Click(object sender, RoutedEventArgs e)
         {
+            ResetContextButton();
             PanelStatus.Visibility = Visibility.Hidden;
             PanelSetting.Visibility = Visibility.Hidden;
             PanelLog.Visibility = Visibility.Visible;
+
+            btnLog.BorderBrush = BorderActive;
+            btnLog.Foreground = TextActive;
+        }
+
+        SolidColorBrush BorderAndText = new SolidColorBrush(Color.FromArgb(255, 203, 203, 203));
+        SolidColorBrush BorderActive = new SolidColorBrush(Color.FromArgb(255, 112, 112, 112));
+        SolidColorBrush TextActive = new SolidColorBrush(Color.FromArgb(255, 48, 48, 48));
+
+        private void ResetContextButton()
+        {
+            btnStatus.BorderBrush = BorderAndText;
+            btnStatus.Foreground = BorderAndText;
+
+            btnSetting.BorderBrush = BorderAndText;
+            btnSetting.Foreground = BorderAndText;
+
+            btnLog.BorderBrush = BorderAndText;
+            btnLog.Foreground = BorderAndText;
         }
 
         private void btnShutdown_Click(object sender, RoutedEventArgs e)

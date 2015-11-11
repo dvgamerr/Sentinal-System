@@ -25,13 +25,13 @@ namespace Travox.Sentinel
     public partial class App
     {
         public static Boolean CrawlerRunning { get; set; }
-        public static Boolean DebugMode { get { return Regex.Match(System.Diagnostics.Process.GetCurrentProcess().ProcessName, @"\.vshost").Success; } }
+        public static Boolean DebugMode { get { return true; } }
         public static Boolean ServerConnected { get; set; }
         public static Boolean WebCrawlerConnected { get; set; }
         public static Boolean WebCrawlerRestarted { get; set; }
         public static Version PublishVersion { get; set; }
+        public static StringBuilder Log { get; set; }
 
-        public static CrawlerService NodeWeb;
         public static TcpListener Listen;
 
         public DialogSetting WindowConfig;
@@ -43,11 +43,13 @@ namespace Travox.Sentinel
         System.Windows.Forms.NotifyIcon NotifySentinal;
         ResourceManager TravoxResources = Travox.Sentinel.Properties.Resources.ResourceManager;
         Stopwatch TimeUp;
+        ConsoleWriter logWrite;
+        FileSystemWatcher logWatch;
 
         String CrawlerDatabase = "";
         Int32 DBTotal = 1, CtrlTotal = 0;
         Int32 Idx = 0;
-        Task TaskListen;
+        //Task TaskListen;
         IPAddress TravoxIP;
         UInt16 TravoxPort;
 
@@ -57,9 +59,9 @@ namespace Travox.Sentinel
         private List<Controller> CrawlerTravoxDBInitialize()
         {
             List<Controller> control = new List<Controller>();
-            //control.Add(new ExchangeRate());
-            //control.Add(new Secretary());
-            //control.Add(new FinishBookingPayment());
+            control.Add(new ExchangeRate());
+            control.Add(new Secretary());
+            control.Add(new FinishBookingPayment());
             //control.Add(new GDS());
             //control.Add(new Tirkx());
             //control.Add(new SyncGD());
@@ -90,6 +92,10 @@ namespace Travox.Sentinel
             }
             else
             {
+                String LogCurrent = Module.TravoxSentinel + "log/" + DateTime.Now.ToString("yyyy-MM-dd") + Module.File_Log;
+                if (File.Exists(LogCurrent)) File.Delete(LogCurrent);
+
+                Log = new StringBuilder();
                 TimeUp = new Stopwatch();
                 BackgroundWorker InitWorker = new BackgroundWorker();
 
@@ -195,15 +201,6 @@ namespace Travox.Sentinel
         }
         private void WorkCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if (!(e.Error == null))
-            {
-
-            }
-            else
-            {
-
-            }
-
             if (App.ServerConnected)
             {
                 Listen.Server.Disconnect(false);
@@ -211,27 +208,40 @@ namespace Travox.Sentinel
                 Listen.Stop();
             }
 
-            NodeWeb.Stop();
-            TimeUp.Stop();
-            WindowInitialize.Hide();
-            NotifySentinal.Visible = false;
-            Application.Current.Shutdown();
+            if (!(e.Error == null))
+            {
+
+            }
+            else
+            {
+                this.WriteLineConsoleDispose();
+                TimeUp.Stop();
+                WindowInitialize.Hide();
+                NotifySentinal.Visible = false;
+                Application.Current.Shutdown();
+            }
             
         }
         private void WorkCrawlerCollection(object sender, DoWorkEventArgs e)
         {
             Int32 ThreadProgress = 0;
 
+            logWrite = null;
+            logWatch = null;
             BackgroundWorker init = sender as BackgroundWorker;
             DB database;
             DataTable db_customer = new DataTable();
 
             try
             {
+                // if(!App.DebugMode) this.LogRecheck();
                 // Sentinel Crawler
                 init.ReportProgress(0, StateTravox.InitDatabase);
                 database = new DB("travox_global");
-                db_customer = database.GetTable(TravoxResources.GetString("database_name"));
+                String db = "SELECT id, code, database_name, [description] FROM site_customer ";
+                db += "WHERE[status] = 'ACTIVE' AND ISNULL(database_name,'') <> '' AND sentinel = 'Y'";
+
+                db_customer = database.GetTable(db);
                 DBTotal = db_customer.Rows.Count;
                 // Initinalize Database Travox            
             }
@@ -302,6 +312,7 @@ namespace Travox.Sentinel
                         }
                     }
                 }
+                this.WriteLineConsoleCheck();
 
                 // Thread Sleep Manual.
                 init.ReportProgress(0, StateTravox.OnStatus);
@@ -311,7 +322,6 @@ namespace Travox.Sentinel
                 do { Thread.Sleep(128); } while (CrawlerRunning && SleepTime.ElapsedMilliseconds < _TimeInterval.TotalMilliseconds);
                 SleepTime.Stop();
                 // Thread Sleep Manual.
-
             } while (CrawlerRunning);
 
             App.ServerConnected = false;
@@ -348,16 +358,20 @@ namespace Travox.Sentinel
         }
         private void WorkSentinelServices(object sender, DoWorkEventArgs e)
         {
+            this.WriteLineConsoleCheck();
             BackgroundWorker init = sender as BackgroundWorker;
+
 
             init.ReportProgress(0, StateTravox.InitReadConfig);
             Config = new Configuration();
 
+            if (!Config.Load()) Config.Default();
+
             String IP = XHR.Connect("checkip.dyndns.it");
             if (MBOS.Null(IP)) IP = "IP Address: 127.0.0.1";
 
-            Config.InternetIP = IPAddress.Parse(Regex.Match(IP, @"IP Address:.*?(?<ip>[\d|\.]+)").Groups["ip"].Value);
-            if (App.DebugMode) TravoxIP = Config.NetworkIP; else TravoxIP = Config.InternetIP;
+            Configuration.InternetIP = IPAddress.Parse(Regex.Match(IP, @"IP Address:.*?(?<ip>[\d|\.]+)").Groups["ip"].Value);
+            if (App.DebugMode) TravoxIP = Configuration.NetworkIP; else TravoxIP = Configuration.InternetIP;
 
             TravoxPort = Config.SentinelPort;
             IPGlobalProperties ipGlobalProperties = IPGlobalProperties.GetIPGlobalProperties();
@@ -375,11 +389,7 @@ namespace Travox.Sentinel
             Console.WriteLine("{0} Server Starting...", TravoxIP.ToString());
 
             //Listen = new TcpListener(new IPEndPoint(TravoxIP, TravoxPort));
-            NodeWeb = new CrawlerService();
-
             //Listen.Start();
-            NodeWeb.Start(Config.CrawlerScript, Task_OutputCMD, Task_ErrorCMD);
-
             //TaskListen = new Task()
             //App.ServerConnected = true;
             //while (App.ServerConnected)
@@ -400,20 +410,14 @@ namespace Travox.Sentinel
 
         private Version GetPublishedVersion()
         {
-            System.Xml.XmlDocument xmlDoc = new System.Xml.XmlDocument();
-            string executePath = new Uri(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase).LocalPath;
-            xmlDoc.Load(executePath + ".manifest");
-
-            String retval = string.Empty;
-            if (xmlDoc.HasChildNodes) retval = xmlDoc.ChildNodes[1].ChildNodes[0].Attributes.GetNamedItem("version").Value.ToString();
-            return new Version(retval);
+            return new Version(1, 4, 0, 5);
         }
 
         private void Notify_OnClick(object sender, EventArgs e)
         {
             if (WindowContext.IsShow)
             {
-                WindowContext.ContextHide(); 
+                WindowContext.ContextHide();
             }
             else
             {
@@ -458,8 +462,8 @@ namespace Travox.Sentinel
         {
             BackgroundWorker init = sender as BackgroundWorker;
             init.ReportProgress(0, StatePanelProgress.Load);
-            NodeWeb.Stop();
-            NodeWeb.Start(Config.CrawlerScript, Task_OutputCMD, Task_ErrorCMD);
+            // NodeWeb.Stop();
+            // NodeWeb.Start(Config.CrawlerScript, Task_OutputCMD, Task_ErrorCMD);
             do { Thread.Sleep(100); } while (!App.WebCrawlerRestarted);
             init.ReportProgress(0, StatePanelProgress.Close);
             App.WebCrawlerRestarted = false;
@@ -481,9 +485,65 @@ namespace Travox.Sentinel
                     break;
             }
         }
+
+        void WriteLineConsoleDispose()
+        {
+            if(logWrite != null)
+            {
+                logWrite.Flush();
+                logWrite.Close();
+                logWrite.Dispose();
+            }
+
+            if (logWatch != null)
+            {
+                logWatch.EnableRaisingEvents = false;
+                logWatch.Changed -= new FileSystemEventHandler(OnLogChanged);
+                logWatch.Dispose();
+            }
+        }
+        void WriteLineConsoleCheck()
+        {
+            String OnDate = DateTime.Now.ToString("yyyy-MM-dd");
+            String LogFilename = Module.TravoxSentinel + "log\\" + OnDate + Module.File_Log;
+            String ErrorFilename = Module.TravoxSentinel + "error" + Module.File_Log;
+
+            if (!File.Exists(LogFilename))
+            {
+                this.WriteLineConsoleDispose();
+                if (!Directory.Exists(Path.GetDirectoryName(LogFilename))) Directory.CreateDirectory(Path.GetDirectoryName(LogFilename));
+
+                using (logWrite = new ConsoleWriter(LogFilename, FileMode.Create))
+                {
+                    logWrite.WriteEvent += txtLogMessage_WriteEvent;
+                    logWrite.WriteLineEvent += txtLogMessage_WriteLineEvent;
+
+                    Console.SetOut(logWrite);
+                }
+
+            }
+
+            if (!File.Exists(ErrorFilename))
+            {
+                StreamWriter errorWrite = new StreamWriter(new FileStream(ErrorFilename, FileMode.Create));
+                errorWrite.AutoFlush = true;
+                Console.SetError(errorWrite);
+            }
+        }
+        public static void txtLogMessage_WriteLineEvent(object sender, ConsoleWriterEventArgs e)
+        {
+            Log.AppendLine(e.Value);
+        }
+        public static void txtLogMessage_WriteEvent(object sender, ConsoleWriterEventArgs e)
+        {
+            Log.Append(e.Value);
+        }
+        private static void OnLogChanged(object source, FileSystemEventArgs e)
+        {
+            Console.WriteLine(File.ReadAllText(e.FullPath));
+        }
+
     }
-
-
 
     public class HandlerItems
     {

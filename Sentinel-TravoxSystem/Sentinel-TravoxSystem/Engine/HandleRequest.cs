@@ -51,6 +51,7 @@ namespace Travox.Sentinel.Engine
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
             }
 
             this.WaitForRequest();
