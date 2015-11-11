@@ -49,7 +49,7 @@ namespace Travox.Sentinel
         String CrawlerDatabase = "";
         Int32 DBTotal = 1, CtrlTotal = 0;
         Int32 Idx = 0;
-        Task TaskListen;
+        //Task TaskListen;
         IPAddress TravoxIP;
         UInt16 TravoxPort;
 

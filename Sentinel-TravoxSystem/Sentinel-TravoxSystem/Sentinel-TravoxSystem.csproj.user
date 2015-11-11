@@ -4,7 +4,7 @@
     <PublishUrlHistory>ftp://crawler.travox.com/sentinal/</PublishUrlHistory>
     <InstallUrlHistory>http://crawler.travox.com/sentinal/</InstallUrlHistory>
     <SupportUrlHistory />
-    <UpdateUrlHistory />
+    <UpdateUrlHistory>http://crawler.travox.com/sentinel-update/</UpdateUrlHistory>
     <BootstrapperUrlHistory />
     <ErrorReportUrlHistory />
     <FallbackCulture>en-US</FallbackCulture>
