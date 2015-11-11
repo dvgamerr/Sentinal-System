@@ -25,7 +25,7 @@ namespace Travox.Sentinel
     public partial class App
     {
         public static Boolean CrawlerRunning { get; set; }
-        public static Boolean DebugMode { get { return true; } }
+        public static Boolean DebugMode { get { return false; } }
         public static Boolean ServerConnected { get; set; }
         public static Boolean WebCrawlerConnected { get; set; }
         public static Boolean WebCrawlerRestarted { get; set; }
