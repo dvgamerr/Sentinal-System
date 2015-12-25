@@ -25,7 +25,7 @@ namespace Travox.Sentinel
     public partial class App
     {
         public static Boolean CrawlerRunning { get; set; }
-        public static Boolean DebugMode { get { return false; } }
+        public static Boolean DebugMode { get { return Regex.Match(Process.GetCurrentProcess().ProcessName, ".vshost$").Success ; } }
         public static Boolean ServerConnected { get; set; }
         public static Boolean WebCrawlerConnected { get; set; }
         public static Boolean WebCrawlerRestarted { get; set; }
@@ -59,12 +59,12 @@ namespace Travox.Sentinel
         private List<Controller> CrawlerTravoxDBInitialize()
         {
             List<Controller> control = new List<Controller>();
-            control.Add(new ExchangeRate());
-            control.Add(new Secretary());
-            control.Add(new FinishBookingPayment());
-            //control.Add(new GDS());
+            //control.Add(new ExchangeRate());
+            //control.Add(new Secretary());
+            //control.Add(new FinishBookingPayment());
+            control.Add(new GDS());
             //control.Add(new Tirkx());
-            //control.Add(new SyncGD());
+            control.Add(new SyncGD());
             return control;
         }
 
