@@ -116,7 +116,7 @@
     <Compile Include="Engine\ConsoleWriter.cs" />
     <Compile Include="Setting\Configuration.cs" />
     <Compile Include="Crawler\ExchangeRate.cs" />
-    <Compile Include="Crawler\GDS.cs" />
+    <Compile Include="Crawler\AutoBooking.cs" />
     <Compile Include="Crawler\SyncGD.cs" />
     <Compile Include="Crawler\Tirkx.cs" />
     <Compile Include="Engine\ProcessCall.cs" />
@@ -148,7 +148,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Engine\Controller.cs" />
-    <Compile Include="Crawler\FinishBookingPayment.cs" />
+    <Compile Include="Crawler\FinishStatusStored.cs" />
     <Compile Include="Crawler\Secretary.cs" />
     <Compile Include="DialogInitialize.xaml.cs">
       <DependentUpon>DialogInitialize.xaml</DependentUpon>

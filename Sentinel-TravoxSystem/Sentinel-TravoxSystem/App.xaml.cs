@@ -62,7 +62,7 @@ namespace Travox.Sentinel
             //control.Add(new ExchangeRate());
             //control.Add(new Secretary());
             //control.Add(new FinishBookingPayment());
-            control.Add(new GDS());
+            control.Add(new AutoBooking());
             //control.Add(new Tirkx());
             control.Add(new SyncGD());
             return control;

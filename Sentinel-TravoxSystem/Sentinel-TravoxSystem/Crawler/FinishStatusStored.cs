@@ -5,9 +5,9 @@ using Travox.Systems;
 
 namespace Travox.Sentinel.Crawler
 {
-    public class FinishBookingPayment : Controller
+    public class FinishStatusStored : Controller
     {
-        public FinishBookingPayment()
+        public FinishStatusStored()
         {
             //base.OnceTime = true;
             base.SetIntervel = new TimeSpan(0, 10, 0);
