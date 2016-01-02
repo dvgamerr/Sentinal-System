@@ -90,9 +90,11 @@ Public Class XHR
             request.Cookie.Add(item, Cookie(item))
         Next
 
-        If OnSocket Is Nothing Then
+        If Not OnSocket.Connected Then
             ElapsedTime.Stop()
             Console.WriteLine("{0} << Connected fail", Host.HostName)
+            Me.Status = XHRAsync.Die
+            Me.Close()
         Else
             Console.WriteLine("{0} << Connected successful", Host.HostName)
             HTMLHeaders = New StringBuilder()
@@ -101,14 +103,32 @@ Public Class XHR
             Buffer = Encoding.UTF8.GetBytes(request.ToString())
 
             Console.WriteLine("{0} << Sending ({1})", New String() {Host.HostName, XHR.ToPackageString(Buffer.Length)})
-            OnSocket.BeginSend(Buffer, 0, Buffer.Length, SocketFlags.None, AddressOf Me.SendArgsBegin, Nothing)
-            Me.WaitRequest()
+            Try
+                OnSocket.BeginSend(Buffer, 0, Buffer.Length, SocketFlags.None, AddressOf Me.SendArgsBegin, Nothing)
+                Me.WaitRequest()
+            Catch ex As Exception
+                Console.WriteLine("{0} << Exception ({1})", New String() {Host.HostName, ex.Message})
+                Me.Status = XHRAsync.Die
+                Me.Close()
+                ElapsedTime.Reset()
+                OnSocket.Shutdown(SocketShutdown.Both)
+                OnSocket.Close()
+            End Try
         End If
     End Sub
     Private Sub AsyncReceive()
         If Me.Status = XHRAsync.Receiving Or Me.Status = XHRAsync.Sended Then
-            Buffer = New [Byte](ReceivedLimit) {}
-            OnSocket.BeginReceive(Buffer, 0, Buffer.Length, SocketFlags.None, AddressOf Me.ReceiveArgsBegin, Nothing)
+            Try
+                Buffer = New [Byte](ReceivedLimit) {}
+                OnSocket.BeginReceive(Buffer, 0, Buffer.Length, SocketFlags.None, AddressOf Me.ReceiveArgsBegin, Nothing)
+            Catch ex As Exception
+                Console.WriteLine("{0} >> Exception ({1})", New String() {Host.HostName, ex.Message})
+                Me.Status = XHRAsync.Die
+                Me.Close()
+                ElapsedTime.Reset()
+                OnSocket.Shutdown(SocketShutdown.Both)
+                OnSocket.Close()
+            End Try
         End If
     End Sub
 
@@ -129,96 +149,106 @@ Public Class XHR
 
     End Sub
     Private Sub ReceiveArgsBegin(e As IAsyncResult)
-        Dim BytesTransferred As Integer = OnSocket.EndReceive(e)
+        Try
+            Dim BytesTransferred As Integer = OnSocket.EndReceive(e)
 
-        If Me.Status = XHRAsync.Sended Then
-            Console.WriteLine("{0} >> Wating ({1} ms)", New String() {Host.HostName, ElapsedTime.ElapsedMilliseconds})
-            ElapsedTime.Reset()
-            ElapsedTime.Start()
+            If Me.Status = XHRAsync.Sended Then
+                Console.WriteLine("{0} >> Wating ({1} ms)", New String() {Host.HostName, ElapsedTime.ElapsedMilliseconds})
+                ElapsedTime.Reset()
+                ElapsedTime.Start()
 
-            Me.Status = XHRAsync.Receiving
-        Else
-            Console.WriteLine("{0} >> Receiving ({1})", New String() {Host.HostName, XHR.ToPackageString(BytesTransferred)})
-        End If
-
-        If (ReceivingTime.ElapsedMilliseconds / 1000 < 1.0) Then
-            ReceivedSpeed += BytesTransferred
-        Else
-            SpeedTransferred = ReceivedSpeed
-            ReceivingTime.Reset()
-
-            ReceivingTime.Start()
-            ReceivedSpeed = 0
-        End If
-
-
-        Dim ReceiveAgain As Boolean = True
-        If (BytesTransferred <> 0) Then
-            Dim RawString As String = Encoding.UTF8.GetString(Buffer, 0, BytesTransferred)
-            Raw.Append(RawString)
-            HTMLBody.Append(RawString)
-
-            If ReceivedLength = -1 Then
-                Dim ExecuteHead As Match = Regex.Match(HTMLBody.ToString(), "\r\n\r\n")
-                If (ExecuteHead.Success) Then HTMLHeaders.Append(HTMLBody.ToString().Substring(0, ExecuteHead.Index))
-
-                Dim ContentLength As Match = Regex.Match(HTMLBody.ToString(), "Content-Length: (?<len>\d+)\r\n")
-                If ContentLength.Success Then ReceivedLength = Int32.Parse(ContentLength.Groups("len").Value) Else ReceivedLength = -2
-                HTMLBody.Remove(0, ExecuteHead.Index + 4)
-
-                For Each getCookie As Match In Regex.Matches(HTMLHeaders.ToString(), "Set-Cookie:.(?<name>.*?)=(?<value>.*?);(?<expires>.*?)[\r|\n|;]")
-                    If String.Join("=", Cookie.AllKeys).Contains(getCookie.Groups("name").Value.Trim()) Then
-                        Cookie(getCookie.Groups("name").Value.Trim()) = getCookie.Groups("value").Value.Trim()
-                    Else
-                        Cookie.Add(getCookie.Groups("name").Value.Trim(), getCookie.Groups("value").Value.Trim())
-                    End If
-                    ' Expires DateTime
-                    ' Dim expired As Match = Regex.Match(getCookie.Groups("expires").Value, "expires=([Sun|Mon|Tue|Wed|Thu|Fri|Sat]+,.[\w{2,4}|-]+.[\w{1,2}|:]+.GMT)")
-                    ' If expired.Success Then
-                Next
-
+                Me.Status = XHRAsync.Receiving
+            Else
+                Console.WriteLine("{0} >> Receiving ({1})", New String() {Host.HostName, XHR.ToPackageString(BytesTransferred)})
             End If
 
-            If ReceivedLength = -2 Then
-                Dim FirstChunk As Boolean = False
-                Dim TransferEncoding As Match
-                If Chunked = 0 Then
-                    TransferEncoding = Regex.Match(HTMLHeaders.ToString(), "Transfer-Encoding: (?<type>.*?)\r\n")
+            If (ReceivingTime.ElapsedMilliseconds / 1000 < 1.0) Then
+                ReceivedSpeed += BytesTransferred
+            Else
+                SpeedTransferred = ReceivedSpeed
+                ReceivingTime.Reset()
 
-                    If TransferEncoding.Success And TransferEncoding.Groups("type").Value = "chunked" Then
-                        TransferEncoding = Regex.Match(HTMLBody.ToString(), "(?<hex>.*?)(\r\n)")
-                        If (TransferEncoding.Success) Then
-                            HTMLBody.Remove(TransferEncoding.Index, TransferEncoding.Length)
-                            Chunked = Convert.ToInt32(TransferEncoding.Groups("hex").Value, 16)
-                            FirstChunk = True
+                ReceivingTime.Start()
+                ReceivedSpeed = 0
+            End If
+
+
+            Dim ReceiveAgain As Boolean = True
+            If (BytesTransferred <> 0) Then
+                Dim RawString As String = Encoding.UTF8.GetString(Buffer, 0, BytesTransferred)
+                Raw.Append(RawString)
+                HTMLBody.Append(RawString)
+
+                If ReceivedLength = -1 Then
+                    Dim ExecuteHead As Match = Regex.Match(HTMLBody.ToString(), "\r\n\r\n")
+                    If (ExecuteHead.Success) Then HTMLHeaders.Append(HTMLBody.ToString().Substring(0, ExecuteHead.Index))
+
+                    Dim ContentLength As Match = Regex.Match(HTMLBody.ToString(), "Content-Length: (?<len>\d+)\r\n")
+                    If ContentLength.Success Then ReceivedLength = Int32.Parse(ContentLength.Groups("len").Value) Else ReceivedLength = -2
+                    HTMLBody.Remove(0, ExecuteHead.Index + 4)
+
+                    For Each getCookie As Match In Regex.Matches(HTMLHeaders.ToString(), "Set-Cookie:.(?<name>.*?)=(?<value>.*?);(?<expires>.*?)[\r|\n|;]")
+                        If String.Join("=", Cookie.AllKeys).Contains(getCookie.Groups("name").Value.Trim()) Then
+                            Cookie(getCookie.Groups("name").Value.Trim()) = getCookie.Groups("value").Value.Trim()
+                        Else
+                            Cookie.Add(getCookie.Groups("name").Value.Trim(), getCookie.Groups("value").Value.Trim())
                         End If
-                    End If
-                End If
-
-                Dim EndResponse As Match = Regex.Match(HTMLBody.ToString(), "\r\n0\r\n\r\n")
-                If (EndResponse.Success) Then
-                    HTMLBody.Remove(EndResponse.Index, EndResponse.Length)
-                    For Each Chunk As Match In Regex.Matches(HTMLBody.ToString(), "\r\n(.*?)\r\n", RegexOptions.RightToLeft)
-                        HTMLBody.Remove(Chunk.Index, Chunk.Length)
-                        Chunked += Convert.ToInt32(Chunk.Groups(1).Value, 16)
+                        ' Expires DateTime
+                        ' Dim expired As Match = Regex.Match(getCookie.Groups("expires").Value, "expires=([Sun|Mon|Tue|Wed|Thu|Fri|Sat]+,.[\w{2,4}|-]+.[\w{1,2}|:]+.GMT)")
+                        ' If expired.Success Then
                     Next
 
-                    ReceiveAgain = False
+                End If
+
+                If ReceivedLength = -2 Then
+                    Dim FirstChunk As Boolean = False
+                    Dim TransferEncoding As Match
+                    If Chunked = 0 Then
+                        TransferEncoding = Regex.Match(HTMLHeaders.ToString(), "Transfer-Encoding: (?<type>.*?)\r\n")
+
+                        If TransferEncoding.Success And TransferEncoding.Groups("type").Value = "chunked" Then
+                            TransferEncoding = Regex.Match(HTMLBody.ToString(), "(?<hex>.*?)(\r\n)")
+                            If (TransferEncoding.Success) Then
+                                HTMLBody.Remove(TransferEncoding.Index, TransferEncoding.Length)
+                                Chunked = Convert.ToInt32(TransferEncoding.Groups("hex").Value, 16)
+                                FirstChunk = True
+                            End If
+                        End If
+                    End If
+
+                    Dim EndResponse As Match = Regex.Match(HTMLBody.ToString(), "\r\n0\r\n\r\n")
+                    If (EndResponse.Success) Then
+                        HTMLBody.Remove(EndResponse.Index, EndResponse.Length)
+                        For Each Chunk As Match In Regex.Matches(HTMLBody.ToString(), "\r\n(.*?)\r\n", RegexOptions.RightToLeft)
+                            HTMLBody.Remove(Chunk.Index, Chunk.Length)
+                            Chunked += Convert.ToInt32(Chunk.Groups(1).Value, 16)
+                        Next
+
+                        ReceiveAgain = False
+                    End If
                 End If
             End If
-        End If
 
 
-        If ReceivedLength = HTMLBody.Length Or BytesTransferred = 0 Or Not ReceiveAgain Then
-            ReceiveAgain = False
-            Console.WriteLine("{0} >> Received ({1} ms)", New String() {Host.HostName, ElapsedTime.ElapsedMilliseconds})
+            If ReceivedLength = HTMLBody.Length Or BytesTransferred = 0 Or Not ReceiveAgain Then
+                ReceiveAgain = False
+                Console.WriteLine("{0} >> Received ({1} ms)", New String() {Host.HostName, ElapsedTime.ElapsedMilliseconds})
+                ElapsedTime.Reset()
+                Me.Status = XHRAsync.Received
+                Buffer = Nothing
+                OnSocket.Shutdown(SocketShutdown.Both)
+                OnSocket.Close()
+            End If
+            If (ReceiveAgain) Then Me.AsyncReceive()
+
+        Catch ex As Exception
+            Console.WriteLine("{0} >> Exception ({1})", New String() {Host.HostName, ex.Message})
+            Me.Status = XHRAsync.Die
+            Me.Close()
             ElapsedTime.Reset()
-            Me.Status = XHRAsync.Received
-            Buffer = Nothing
             OnSocket.Shutdown(SocketShutdown.Both)
             OnSocket.Close()
-        End If
-        If (ReceiveAgain) Then Me.AsyncReceive()
+        End Try
     End Sub
 
     Public Sub WaitRequest()

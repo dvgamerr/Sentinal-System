@@ -15,8 +15,10 @@ namespace Travox.Sentinel
         public DialogInitialize(Boolean about = false)
         {
             AboutMode = about;
-            InitializeComponent();
             Version app = App.PublishVersion;
+
+            InitializeComponent();
+            lblVersion.Content = string.Format("{0}.{1:00} builds {2:00}{3:00}", app.Major, app.Minor, app.Build, app.Revision);
             if (!AboutMode)
             {
                 btnClose.Visibility = Visibility.Hidden;
@@ -33,7 +35,6 @@ namespace Travox.Sentinel
                 this.Cursor = Cursors.Arrow;
                 PanelProgress.Visibility = Visibility.Hidden;
             }
-            lblVersion.Content = string.Format("{0}.{1:00} builds {2:00}{3:00}", app.Major, app.Minor, app.Build, app.Revision);
         }
 
         public void StateInitSuccess()
