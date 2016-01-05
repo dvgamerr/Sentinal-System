@@ -367,7 +367,7 @@ namespace Travox.Sentinel
 
             if (!Config.Load()) Config.Default();
 
-            String IP = XHR.Connect("checkip.dyndns.it");
+            String IP = XHR.Connect("checkip.dyndns.com");
             if (MBOS.Null(IP)) IP = "IP Address: 127.0.0.1";
 
             Configuration.InternetIP = IPAddress.Parse(Regex.Match(IP, @"IP Address:.*?(?<ip>[\d|\.]+)").Groups["ip"].Value);

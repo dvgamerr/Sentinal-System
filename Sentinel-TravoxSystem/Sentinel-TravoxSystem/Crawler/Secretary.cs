@@ -138,7 +138,6 @@ namespace Travox.Sentinel.Crawler
                     ReportSecretary.Add(Item.Mail);
                     ReportSecretary.Body(base.GetResource("MailTemplate.html"));
 
-
                     String SQL = db.Execute("INSERT INTO crawler.secretary_email (secretary_id, company_code, report_name, email) VALUES (@s_id, @code, @name, @email)", param);
 
                     MailParam.Add("message_email", data.exMessage);
