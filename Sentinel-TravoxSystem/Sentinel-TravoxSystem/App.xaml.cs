@@ -61,7 +61,7 @@ namespace Travox.Sentinel
             List<Controller> control = new List<Controller>();
             //control.Add(new ExchangeRate());
             //control.Add(new Secretary());
-            //control.Add(new FinishBookingPayment());
+            //control.Add(new FinishStatusStored());
             control.Add(new AutoBooking());
             //control.Add(new Tirkx());
             control.Add(new SyncGD());
@@ -99,8 +99,8 @@ namespace Travox.Sentinel
                 TimeUp = new Stopwatch();
                 BackgroundWorker InitWorker = new BackgroundWorker();
 
-                WindowInitialize = new DialogInitialize();
                 WindowContext = new DialogContext();
+                WindowInitialize = new DialogInitialize();
                 NotifySentinal = new System.Windows.Forms.NotifyIcon();
                 NotifySentinal.Visible = true;
                 NotifySentinal.Text = "Travox Sentinel";
@@ -358,7 +358,7 @@ namespace Travox.Sentinel
         }
         private void WorkSentinelServices(object sender, DoWorkEventArgs e)
         {
-            this.WriteLineConsoleCheck();
+            if(!App.DebugMode) this.WriteLineConsoleCheck();
             BackgroundWorker init = sender as BackgroundWorker;
 
 
