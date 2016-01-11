@@ -99,8 +99,8 @@ namespace Travox.Sentinel
                 TimeUp = new Stopwatch();
                 BackgroundWorker InitWorker = new BackgroundWorker();
 
-                WindowInitialize = new DialogInitialize();
                 WindowContext = new DialogContext();
+                WindowInitialize = new DialogInitialize();
                 NotifySentinal = new System.Windows.Forms.NotifyIcon();
                 NotifySentinal.Visible = true;
                 NotifySentinal.Text = "Travox Sentinel";
