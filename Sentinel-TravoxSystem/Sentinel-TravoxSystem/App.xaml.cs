@@ -59,12 +59,12 @@ namespace Travox.Sentinel
         private List<Controller> CrawlerTravoxDBInitialize()
         {
             List<Controller> control = new List<Controller>();
-            //control.Add(new ExchangeRate());
-            //control.Add(new Secretary());
-            //control.Add(new FinishBookingPayment());
-            control.Add(new AutoBooking());
-            //control.Add(new Tirkx());
-            control.Add(new SyncGD());
+            control.Add(new ExchangeRate());
+            control.Add(new Secretary());
+            control.Add(new FinishStatusStored());
+            //control.Add(new AutoBooking());
+            control.Add(new Tirkx());
+            //control.Add(new SyncGD());
             return control;
         }
 
@@ -358,7 +358,7 @@ namespace Travox.Sentinel
         }
         private void WorkSentinelServices(object sender, DoWorkEventArgs e)
         {
-            this.WriteLineConsoleCheck();
+            // this.WriteLineConsoleCheck();
             BackgroundWorker init = sender as BackgroundWorker;
 
 
