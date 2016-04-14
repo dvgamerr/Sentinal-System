@@ -1,0 +1,53 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+Travox.Systems
+</name>
+</assembly>
+<members>
+<member name="T:Travox.Systems.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:Travox.Systems.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:Travox.Systems.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+<member name="P:Travox.Systems.My.Resources.Resources.ConnectionExcel">
+<summary>
+  Looks up a localized string similar to Provider=Microsoft.ACE.OLEDB.12.0; Data Source=&apos;{0}&apos;; Extended Properties=&apos;Excel 12.0;HDR=Yes;IMEX=1&apos;.
+</summary>
+</member>
+<member name="P:Travox.Systems.My.Resources.Resources.ConnectionMBOS">
+<summary>
+  Looks up a localized string similar to server={3};database={0};uid={1};pwd={2};.
+</summary>
+</member>
+<member name="P:Travox.Systems.My.Resources.Resources.DB_SITECUSTOMER">
+<summary>
+  Looks up a localized string similar to SELECT [description] AS company_name, database_name, database_hotel, database_transfer FROM travox_global.travoxmos.site_customer WHERE status=&apos;ACTIVE&apos; AND code = @com_code.
+</summary>
+</member>
+<member name="M:Travox.Systems.Extensions.TypeSMS.SMSSender(System.String,System.String,System.String,System.String,System.String)">
+ <summary>
+ Global FUNCTION CREATED By Jack (Code Error can Rewrite)
+ </summary>
+ <param name="_User">nippon</param>
+ <param name="_Pass">sysits</param>
+ <param name="_PhoneNumber">08xxxxxxxx, 09yyyyyyyyyy</param>
+ <param name="_Sender">COMPANY CODE</param>
+ <param name="_Msg">MESSAGE TEXT</param>
+ <returns>String IndexOf (Success) Or (Error)</returns>
+ <remarks></remarks>
+</member>
+</members>
+</doc>
