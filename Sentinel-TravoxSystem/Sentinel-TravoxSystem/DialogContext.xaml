@@ -9,10 +9,12 @@
                 <ImageBrush TileMode="Tile" ImageSource="Images/BG-ContextMenu.png"/>
             </Grid.Background>
             <Border BorderBrush="#FFCBCBCB" BorderThickness="0,0,0,2" Margin="0,54,0,0"/>
-            <Image x:Name="imgIconTX" HorizontalAlignment="Left" Height="36" Margin="11,7,0,0" VerticalAlignment="Top" Width="36" Source="Images/Icon-ContextMenu.png"/>
+            <Image x:Name="imgIconTX" HorizontalAlignment="Left" Height="36" Margin="7,7,0,0" VerticalAlignment="Top" Width="36" Source="Images/Icon-ContextMenu.png"/>
             <Button x:Name="btnStatus" Content="STATUS" Margin="37,73,161,0" VerticalAlignment="Top" Height="23" FontWeight="Bold" Click="btnStatus_Click" Style="{DynamicResource btnMenuContext}"/>
             <Button x:Name="btnSetting" Content="SETTING" Margin="101,73,86,0" Height="23" FontWeight="Bold" Click="btnSetting_Click" Style="{DynamicResource btnMenuContext}"/>
             <Button x:Name="btnLog" Content="LOG" Margin="176,73,36,0" Height="23" FontWeight="Bold" Background="{x:Null}" Click="btnLog_Click" Style="{DynamicResource btnMenuContext}"/>
+            <Label Content="TRAVOX SENTINEL ENGINE" HorizontalAlignment="Left" Margin="47,12,0,0" VerticalAlignment="Top" Padding="0" FontFamily="Segoe UI" FontWeight="Bold" Foreground="White"/>
+            <Label Content="Power by Nippon Sysits" HorizontalAlignment="Left" Margin="49,25,0,0" VerticalAlignment="Top" Padding="0" FontFamily="Segoe UI" Foreground="#FFBBBBBB" FontSize="8" Background="{x:Null}"/>
         </Grid>
         <Grid x:Name="PanelStatus" Height="256" VerticalAlignment="Bottom" d:IsHidden="True">
             <Label x:Name="lblIPAddress" Content="000.000.000.000:9999" Margin="10,16,10,0" VerticalAlignment="Top" Padding="0" FontSize="14" FontWeight="Bold" Foreground="#FF22A85F" HorizontalContentAlignment="Center"/>
