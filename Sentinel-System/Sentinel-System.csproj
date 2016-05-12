@@ -219,11 +219,11 @@
     <Resource Include="Images\icon\Travox-App-Crawler.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Engine-TravoxSystem\Engine-TravoxSystem\Engine-TravoxSystem.vbproj">
+    <ProjectReference Include="..\Travox-Systems\Travox-Systems\Travox-Systems.vbproj">
       <Project>{ab55f327-b229-4e96-baf4-4fd3d3f59553}</Project>
       <Name>Engine-TravoxSystem</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Engine-TravoxWeb\Engine-TravoxWeb\Engine-TravoxWeb.vbproj">
+    <ProjectReference Include="..\Travox-Web\Travox-Web\Travox-Web.vbproj">
       <Project>{0a54f7eb-7822-45d5-bac4-087d54cefe7e}</Project>
       <Name>Engine-TravoxWeb</Name>
     </ProjectReference>
