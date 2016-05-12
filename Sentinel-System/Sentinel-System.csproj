@@ -219,16 +219,6 @@
     <Resource Include="Images\icon\Travox-App-Crawler.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Travox-Systems\Travox-Systems\Travox-Systems.vbproj">
-      <Project>{ab55f327-b229-4e96-baf4-4fd3d3f59553}</Project>
-      <Name>Engine-TravoxSystem</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Travox-Web\Travox-Web\Travox-Web.vbproj">
-      <Project>{0a54f7eb-7822-45d5-bac4-087d54cefe7e}</Project>
-      <Name>Engine-TravoxWeb</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
@@ -284,7 +274,16 @@
     <Resource Include="Images\BG-Status.png" />
     <Resource Include="Images\BG-Toolbar.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Travox-Systems\Travox-Systems\Travox-Systems.vbproj">
+      <Project>{ab55f327-b229-4e96-baf4-4fd3d3f59553}</Project>
+      <Name>Travox-Systems</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Travox-Web\Travox-Web\Travox-Web.vbproj">
+      <Project>{0a54f7eb-7822-45d5-bac4-087d54cefe7e}</Project>
+      <Name>Travox-Web</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
