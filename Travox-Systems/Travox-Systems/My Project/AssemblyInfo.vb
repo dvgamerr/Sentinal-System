@@ -8,7 +8,7 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("Engine-Travox System")> 
+<Assembly: AssemblyTitle("Travox System")>
 <Assembly: AssemblyDescription("Touno.K (Mr. Kananek Thongkam)")> 
 <Assembly: AssemblyCompany("NIPPON SYSITS CO., LTD.")> 
 <Assembly: AssemblyProduct("Travox Mid-Back Office System")> 

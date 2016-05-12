@@ -96,6 +96,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
+    <CodeAnalysisIgnoreGeneratedCode>true</CodeAnalysisIgnoreGeneratedCode>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
@@ -264,8 +265,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Resource Include="Images\Icon-Server.png" />
-    <Resource Include="Images\BG-ContextMenu.png" />
-    <Resource Include="Images\Icon-ContextMenu.png" />
+    <Resource Include="Images\Logo-Travox.png" />
     <Resource Include="Images\icon\Toolbar-Save.png" />
     <Resource Include="Images\icon\Client-Disable.png" />
     <Resource Include="Images\icon\Client-Start.png" />
@@ -278,10 +278,6 @@
     <ProjectReference Include="..\Travox-Systems\Travox-Systems\Travox-Systems.vbproj">
       <Project>{ab55f327-b229-4e96-baf4-4fd3d3f59553}</Project>
       <Name>Travox-Systems</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Travox-Web\Travox-Web\Travox-Web.vbproj">
-      <Project>{0a54f7eb-7822-45d5-bac4-087d54cefe7e}</Project>
-      <Name>Travox-Web</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

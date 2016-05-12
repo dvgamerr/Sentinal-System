@@ -7,12 +7,12 @@ using System.Windows;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Sentinel TravoxSystem")]
+[assembly: AssemblyTitle("Travox SentinelSystem")]
 [assembly: AssemblyDescription("Design By Touno.K (Mr. Kananek Thongkam)")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("NIPPON SYSITS CO., LTD.")]
+[assembly: AssemblyCompany("Touno-K.com")]
 [assembly: AssemblyProduct("Travox Mid-Back Office System")]
-[assembly: AssemblyCopyright("Copyright 2009 Nippon Sysits Co.,Ltd")]
+[assembly: AssemblyCopyright("Copyright 2012 Touno-K.com")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

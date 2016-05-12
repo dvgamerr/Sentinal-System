@@ -111,7 +111,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Travox-Systems\Travox-Systems\Travox-Systems.vbproj">
       <Project>{ab55f327-b229-4e96-baf4-4fd3d3f59553}</Project>
-      <Name>Engine-TravoxSystem</Name>
+      <Name>Travox-Systems</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

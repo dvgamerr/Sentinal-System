@@ -86,8 +86,8 @@ namespace Travox.Sentinel.Crawler
                     ReportViewer.SetCookie("Code", "TX");
                     ReportViewer.SetCookie("Name", "Travox Sentinel");
 
-                    ReportViewer.POST("ItemType", JSON.Serialize<ItemType>(new ItemType { ExportType = OutputEmailType }));
-                    ReportViewer.POST("Report", JSON.Serialize<ItemReport>(new ItemReport { Name = Row["report_key"].ToString(), Filename = Row["report_key"].ToString() + ".rpt" }));
+                    //ReportViewer.POST("ItemType", JSON.Serialize<ItemType>(new ItemType { ExportType = OutputEmailType }));
+                    //ReportViewer.POST("Report", JSON.Serialize<ItemReport>(new ItemReport { Name = Row["report_key"].ToString(), Filename = Row["report_key"].ToString() + ".rpt" }));
                     ReportViewer.POST("period_begin", SystemDate.From.ToString("dd-MM-yyyy"));
                     ReportViewer.POST("period_end", SystemDate.To.ToString("dd-MM-yyyy"));
 
@@ -110,7 +110,8 @@ namespace Travox.Sentinel.Crawler
 
             foreach (HandlerItem Item in EventEmail)
             {
-                CallbackException data = JSON.Deserialize<CallbackException>(XHR.Connect(Item.Ajax));
+                //CallbackException data = JSON.Deserialize<CallbackException>(XHR.Connect(Item.Ajax));
+                CallbackException data = new CallbackException();
                 String getItems = Regex.Match(data.getItems, @"[\\|/]Temp[\\|/](?<path>.*)").Groups["path"].Value;
                 String AttachFile = null;
                 if (!data.onError)

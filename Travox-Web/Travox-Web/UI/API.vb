@@ -36,7 +36,7 @@ Namespace UI
         End Sub
 
         Private Sub Page_Error(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Error
-            Response.Write(JSON.Serialize(Of CallbackException)(New CallbackException(Server.GetLastError)))
+            'Response.Write(JSON.Serialize(Of CallbackException)(New CallbackException(Server.GetLastError)))
             Response.End()
         End Sub
 

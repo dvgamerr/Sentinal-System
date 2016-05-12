@@ -17,12 +17,12 @@ Public Class CallbackException
         exMessage = "N/A"
     End Sub
     Public Sub New(ByVal ex As Exception)
-        exMessage = JSON.FixString(ex.Message)
+        'exMessage = JSON.FixString(ex.Message)
         If ex.InnerException Is Nothing Then
             exTitle = "CODING ERROR"
         Else
             exTitle = exMessage
-            exMessage = JSON.FixString(ex.InnerException.Message)
+            'exMessage = JSON.FixString(ex.InnerException.Message)
         End If
     End Sub
     Public Sub New(ByVal message As String)
@@ -37,7 +37,7 @@ Public Class CallbackException
 
     Public Sub setItems(Of T)(ByVal v As T)
         onError = False
-        getItems = JSON.Serialize(Of T)(v)
+        'getItems = JSON.Serialize(Of T)(v)
     End Sub
     Public Sub Items(ByVal value As String)
         onError = False
@@ -45,7 +45,8 @@ Public Class CallbackException
     End Sub
 
     Public Function ToJSON() As String
-        Return JSON.Serialize(Of CallbackException)(Me)
+        Return "{}"
+        'Return JSON.Serialize(Of CallbackException)(Me)
     End Function
 
     Public Overrides Function ToString() As String
