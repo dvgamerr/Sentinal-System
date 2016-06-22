@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sentinel-System", "Sentinel-System\Sentinel-System.csproj", "{A0D8EA05-0C29-4DB7-A8E8-310F5209FD37}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Travox-Systems", "Travox-Systems\Travox-Systems\Travox-Systems.vbproj", "{AB55F327-B229-4E96-BAF4-4FD3D3F59553}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Travox-Web", "Travox-Web\Travox-Web\Travox-Web.vbproj", "{0A54F7EB-7822-45D5-BAC4-087D54CEFE7E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravoxSystem", "TravoxSystem\TravoxSystem.csproj", "{78B40E4A-0EDB-4C1D-9DA4-A784DF5EEF95}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,14 @@ Global
 		{0A54F7EB-7822-45D5-BAC4-087D54CEFE7E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0A54F7EB-7822-45D5-BAC4-087D54CEFE7E}.Release|x64.ActiveCfg = Release|Any CPU
 		{0A54F7EB-7822-45D5-BAC4-087D54CEFE7E}.Release|x64.Build.0 = Release|Any CPU
+		{78B40E4A-0EDB-4C1D-9DA4-A784DF5EEF95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78B40E4A-0EDB-4C1D-9DA4-A784DF5EEF95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78B40E4A-0EDB-4C1D-9DA4-A784DF5EEF95}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{78B40E4A-0EDB-4C1D-9DA4-A784DF5EEF95}.Debug|x64.Build.0 = Debug|Any CPU
+		{78B40E4A-0EDB-4C1D-9DA4-A784DF5EEF95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78B40E4A-0EDB-4C1D-9DA4-A784DF5EEF95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78B40E4A-0EDB-4C1D-9DA4-A784DF5EEF95}.Release|x64.ActiveCfg = Release|Any CPU
+		{78B40E4A-0EDB-4C1D-9DA4-A784DF5EEF95}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
