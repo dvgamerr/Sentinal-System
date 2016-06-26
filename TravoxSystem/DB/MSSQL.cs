@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Data;
 
-public class DB
+public class MSSQL
 {
     private const int _DB_TIMEOUT = 30;
     private string _DB_NAME = "travoxmos";
@@ -11,14 +11,6 @@ public class DB
     private string _DB_PASS = "systrav";
 
     private string _DB_SERVER = "db3.ns.co.th";
-    public enum Schema
-    {
-        GLOBAL,
-        MBOS,
-        HOTEL,
-        GROUPTOUR,
-        TRANSFER
-    }
     private enum QueryCase
     {
         INSERT,
@@ -27,21 +19,22 @@ public class DB
         SELECT
     }
 
-
-    private string StoreOutput;
     protected SqlTransaction transection;
-
     protected SqlConnection connection;
+
     public bool Connected
     {
         get { return !(connection.State == ConnectionState.Closed); }
     }
     string ConnectionString
     {
-        get { return string.Format(My.Resources.ConnectionMBOS, _DB_NAME, _DB_USER, _DB_PASS, _DB_SERVER); }
+        get {
+
+            return string.Format("", _DB_NAME, _DB_USER, _DB_PASS, _DB_SERVER);
+        }
     }
 
-    public DB(string database = null, string servername = "db3.ns.co.th", string username = "travoxmos", string password = "systrav")
+    public MSSQL(string database = null, string servername = "db3.ns.co.th", string username = "travoxmos", string password = "systrav")
     {
         if (MBOS.Null(database))
         {
@@ -56,11 +49,11 @@ public class DB
         _DB_PASS = password;
     }
 
-    protected override void ()
+    protected override void MSSQL()
     {
         transection = null;
         connection = null;
-        if ((!connection == null))
+        if (connection.State == ConnectionState.)
             connection.Close();
         base.Finalize();
     }
