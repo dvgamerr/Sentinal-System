@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sentinel", "SentinelSystem\Sentinel.csproj", "{A0D8EA05-0C29-4DB7-A8E8-310F5209FD37}"
 EndProject
@@ -9,7 +9,7 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Travox-Systems", "Travox-Sy
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Travox-Web", "Travox-Web\Travox-Web\Travox-Web.vbproj", "{0A54F7EB-7822-45D5-BAC4-087D54CEFE7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travox.Systems", "Travox.System\Travox.Systems.csproj", "{C6EB967A-00C8-4403-B9CE-A25EA51E1FDC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travox.Data", "Travox.System\Travox.Data.csproj", "{C6EB967A-00C8-4403-B9CE-A25EA51E1FDC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travox.Controls", "Travox.Controls\Travox.Controls.csproj", "{762E0333-D531-425D-9C77-2482D60DB222}"
 EndProject

@@ -22,6 +22,7 @@ namespace Travox.Sentinel
 
         public void ContextShow()
         {
+
             IsShow = true;
             ResetContextButton();
 
@@ -38,6 +39,7 @@ namespace Travox.Sentinel
             this.Top = position.Y;
             this.Margin = new Thickness(position.X, position.Y, 0, 0);
             this.Show();
+
         }
 
         public void ContextHide()

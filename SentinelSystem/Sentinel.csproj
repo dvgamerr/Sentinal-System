@@ -307,6 +307,10 @@
       <Project>{212c884f-28b5-42e7-98d7-5b449061a9a6}</Project>
       <Name>Travox.Providers</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Travox.System\Travox.Data.csproj">
+      <Project>{c6eb967a-00c8-4403-b9ce-a25ea51e1fdc}</Project>
+      <Name>Travox.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

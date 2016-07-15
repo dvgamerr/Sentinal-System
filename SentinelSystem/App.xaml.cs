@@ -49,6 +49,7 @@ namespace Travox.Sentinel
         String CrawlerDatabase = "";
         Int32 DBTotal = 1, CtrlTotal = 0;
         Int32 Idx = 0;
+        Boolean isOnline = false;
         //Task TaskListen;
         IPAddress TravoxIP;
         UInt16 TravoxPort;
@@ -161,10 +162,12 @@ namespace Travox.Sentinel
                     WindowInitialize.StateInitProgress(e.ProgressPercentage, DBTotal, CrawlerDatabase);
                     break;
                 case StateTravox.InitSuccess: // - 2: // InitSuccess 
+                    isOnline = true;
                     WindowInitialize.StateInitSuccess();
                     this.NotifyIcon(FindResource("NotifyOnStart"));
                     break;
                 case StateTravox.InitShutdown: // - 3: // InitShutdown 
+                    isOnline = false;
                     WindowInitialize.StateShutdown();
                     WindowInitialize.StateInitProgress(e.ProgressPercentage, DBTotal, CrawlerDatabase);
                     break;
@@ -360,8 +363,7 @@ namespace Travox.Sentinel
         {
             // this.WriteLineConsoleCheck();
             BackgroundWorker init = sender as BackgroundWorker;
-
-
+            
             init.ReportProgress(0, StateTravox.InitReadConfig);
             Config = new Configuration();
 
@@ -386,7 +388,7 @@ namespace Travox.Sentinel
             init.ReportProgress(0, StateTravox.InitStartServer);
 
             // Crawler Sentinel for Client Connected 
-            Console.WriteLine("{0} Server Starting...", TravoxIP.ToString());
+            //Console.WriteLine("{0} Server Starting...", TravoxIP.ToString());
 
             //Listen = new TcpListener(new IPEndPoint(TravoxIP, TravoxPort));
             //Listen.Start();
@@ -415,15 +417,19 @@ namespace Travox.Sentinel
 
         private void Notify_OnClick(object sender, EventArgs e)
         {
-            if (WindowContext.IsShow)
+            if(isOnline)
             {
-                WindowContext.ContextHide();
+                if (WindowContext.IsShow)
+                {
+                    WindowContext.ContextHide();
+                }
+                else
+                {
+                    WindowContext.ContextShow();
+                    WindowContext.Activate();
+                }
             }
-            else
-            {
-                WindowContext.ContextShow();
-                WindowContext.Activate();
-            }
+
         }
         private void NotifyIcon(Object image)
         {

@@ -7,8 +7,8 @@
     <ProjectGuid>{C6EB967A-00C8-4403-B9CE-A25EA51E1FDC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Travox.Systems</RootNamespace>
-    <AssemblyName>TravoxSystems</AssemblyName>
+    <RootNamespace>Travox.Data</RootNamespace>
+    <AssemblyName>TravoxData</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
