@@ -6,7 +6,7 @@
     <Grid>
         <Border BorderBrush="#FFB6B6B6" BorderThickness="1" d:IsLocked="True"/>
         <Border BorderBrush="LightGray" BorderThickness="0,1,0,0" Height="10" Margin="1,0,1,1" VerticalAlignment="Bottom" Background="#FFEBEBEB" Padding="6,0,0,0" d:IsLocked="True"/>
-        <Grid x:Name="PanelMenu" Height="91" VerticalAlignment="Top">
+        <Grid x:Name="PanelMenu" Height="55" VerticalAlignment="Top">
             <Border BorderBrush="#FF55A668" BorderThickness="0,0,0,3" Height="55" VerticalAlignment="Top" Background="#FF2E2E2E" d:IsLocked="True"/>
             <Border BorderBrush="LightGray" BorderThickness="0,0,0,1" Margin="0,55,0,0" Height="31" VerticalAlignment="Top" Background="#FFEEEEEE" d:IsLocked="True"/>
             <Image x:Name="imgIconTX" HorizontalAlignment="Left" Height="34" VerticalAlignment="Top" Width="216" Source="Images/Logo-Travox.png" Stretch="None" Margin="8,9,0,0"/>
@@ -19,6 +19,15 @@
             <Button x:Name="button_Copy" HorizontalAlignment="Right" Margin="0,0,23,0" VerticalAlignment="Top" Width="21" BorderThickness="0" Height="21" Background="#FF404040">
                 <Image x:Name="image1" Height="11" Width="11" Stretch="None" Source="Images/icon/App-Option.png"/>
             </Button>
+        </Grid>
+        <Grid x:Name="PanelOAuth" Height="325" VerticalAlignment="Bottom">
+            <Grid x:Name="GridControls1" Margin="10,111,10,0" Height="18" VerticalAlignment="Top">
+                <Border BorderBrush="#FF55A668" BorderThickness="0,0,0,2" Height="18" VerticalAlignment="Top" Padding="0" d:IsLocked="True">
+                    <Label Content="System Administrator" HorizontalAlignment="Left" Padding="3,0,4,1" FontWeight="Bold" Foreground="{DynamicResource TextNormal}" Background="#FFFAFAFA" FontSize="11" Margin="0,0,0,2"/>
+                </Border>
+            </Grid>
+            <Label x:Name="label" Content="Travox is a registered trademark of Nippon Sysits Co.,Ltd" Margin="0,0,0,39" Padding="0" FontSize="10" HorizontalContentAlignment="Center" Height="14" VerticalAlignment="Bottom" Foreground="#FF666666"/>
+            <Label x:Name="label_Copy" Content="Copyright 2009 Nippon Sysits Co.,Ltd" Margin="0,0,0,25" Padding="0" FontSize="10" HorizontalContentAlignment="Center" Height="14" VerticalAlignment="Bottom" Foreground="#FF666666"/>
         </Grid>
         <Grid x:Name="PanelStatus" Height="256" VerticalAlignment="Bottom" d:IsHidden="True">
             <Label x:Name="lblIPAddress" Content="000.000.000.000:9999" Margin="10,16,10,0" VerticalAlignment="Top" Padding="0" FontSize="14" FontWeight="Bold" Foreground="#FF22A85F" HorizontalContentAlignment="Center"/>
