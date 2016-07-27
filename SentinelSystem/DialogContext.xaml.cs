@@ -31,7 +31,7 @@ namespace Travox.Sentinel
 
             this.btnStatus.BorderBrush = BorderActive;
             this.btnStatus.Foreground = TextActive;
-            this.PanelStatus.Visibility = Visibility.Visible;
+            this.PanelStatus.Visibility = Visibility.Hidden;
             this.PanelLog.Visibility = Visibility.Hidden;
             this.PanelSetting.Visibility = Visibility.Hidden;
             this.WindowStartupLocation = WindowStartupLocation.Manual;

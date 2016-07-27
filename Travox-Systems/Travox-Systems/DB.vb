@@ -118,8 +118,15 @@ Public Class DB
         Dim trans As SqlTransaction, conn As New SqlConnection(Me.ConnectionString())
 
         If param Is Nothing Then param = New ParameterCollection()
+        Do While conn Is Nothing OrElse conn.State = ConnectionState.Closed
+            Try
+                conn.Open()
+            Catch
+                Console.WriteLine("db3.ns.co.th waiting...")
+                Threading.Thread.Sleep(5000)
+            End Try
+        Loop
 
-        conn.Open()
         trans = conn.BeginTransaction(IsolationLevel.ReadUncommitted)
         Dim mbosCommand As SqlCommand = BuildCommands(query, conn, param)
         mbosCommand.Transaction = trans
@@ -148,7 +155,15 @@ Public Class DB
         Dim conn As New SqlConnection(Me.ConnectionString())
         If param Is Nothing Then param = New ParameterCollection()
 
-        conn.Open()
+        Do While conn Is Nothing OrElse conn.State = ConnectionState.Closed
+            Try
+                conn.Open()
+            Catch
+                Console.WriteLine("db3.ns.co.th waiting...")
+                Threading.Thread.Sleep(5000)
+            End Try
+        Loop
+
         Dim mbosCommand As SqlCommand = BuildCommands(store_name, conn, param)
         mbosCommand.CommandType = CommandType.StoredProcedure
         mbosCommand.Connection = conn
