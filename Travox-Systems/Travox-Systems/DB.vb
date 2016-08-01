@@ -65,7 +65,14 @@ Public Class DB
         If param Is Nothing Then param = New ParameterCollection()
         If (connection Is Nothing OrElse connection.State = ConnectionState.Closed) Then
             connection = New SqlConnection(Me.ConnectionString())
-            connection.Open()
+            Do While connection Is Nothing OrElse connection.State = ConnectionState.Closed
+                Try
+                    connection.Open()
+                Catch
+                    Console.WriteLine("Id{0} db3.ns.co.th waiting...")
+                    Threading.Thread.Sleep(5000)
+                End Try
+            Loop
             transection = connection.BeginTransaction()
         End If
         If (Me.Connected) Then

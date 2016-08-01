@@ -68,6 +68,7 @@ namespace Travox.Sentinel.Engine
 
         public virtual void Start()
         {
+            Console.WriteLine("Start Controller({1}) [{0}]", State.DatabaseName, this.GetType().Name.ToString());
             if (this.GetTimeout > 0)
             {
                 IsStoped = false;
@@ -75,25 +76,24 @@ namespace Travox.Sentinel.Engine
             }
             Log.Start();
             Timing.Start();
-            Console.WriteLine("Start Controller({1}) [{0}]", State.DatabaseName, this.GetType().Name.ToString());
             // TODO Load Content 
         }
 
         public virtual void Update()
         {
+            Console.WriteLine("Update Controller({1}) [{0}]", State.DatabaseName, this.GetType().Name.ToString());
             IsStoped = false;
             Timing.Restart();
             Timing.Start();
-            Console.WriteLine("Update Controller({1}) [{0}]", State.DatabaseName, this.GetType().Name.ToString());
             // TODO Update Function with timer 
         }
 
         public virtual void Stop()
         {
+            Console.WriteLine("[{0}] Stop Controller({1}) [{0}]", State.DatabaseName, this.GetType().Name.ToString());
             Log.Stop();
             Timing.Stop();
             if (!Travox.Sentinel.App.CrawlerRunning) IsStoped = true;
-            Console.WriteLine("[{0}] Stop Controller({1}) [{0}]", State.DatabaseName, this.GetType().Name.ToString());
             // TODO Clear Data
         }
 

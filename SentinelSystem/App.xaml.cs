@@ -519,13 +519,13 @@ namespace Travox.Sentinel
                 this.WriteLineConsoleDispose();
                 if (!Directory.Exists(Path.GetDirectoryName(LogFilename))) Directory.CreateDirectory(Path.GetDirectoryName(LogFilename));
 
-                using (logWrite = new ConsoleWriter(LogFilename, FileMode.Create))
-                {
-                    logWrite.WriteEvent += txtLogMessage_WriteEvent;
-                    logWrite.WriteLineEvent += txtLogMessage_WriteLineEvent;
+                //using (logWrite = new ConsoleWriter(LogFilename, FileMode.Create))
+                //{
+                //    logWrite.WriteEvent += txtLogMessage_WriteEvent;
+                //    logWrite.WriteLineEvent += txtLogMessage_WriteLineEvent;
 
-                    Console.SetOut(logWrite);
-                }
+                //    Console.SetOut(logWrite);
+                //}
 
             }
 
