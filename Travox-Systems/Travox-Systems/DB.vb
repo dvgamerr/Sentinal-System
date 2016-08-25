@@ -69,7 +69,7 @@ Public Class DB
                 Try
                     connection.Open()
                 Catch
-                    Console.WriteLine("Id{0} db3.ns.co.th waiting...")
+                    Console.WriteLine("Id {0}-{1} Waiting...", Threading.Thread.CurrentThread.ManagedThreadId, _DB_NAME)
                     Threading.Thread.Sleep(5000)
                 End Try
             Loop
@@ -129,7 +129,7 @@ Public Class DB
             Try
                 conn.Open()
             Catch
-                Console.WriteLine("db3.ns.co.th waiting...")
+                Console.WriteLine("Id {0}-{1} Waiting...", Threading.Thread.CurrentThread.ManagedThreadId, _DB_NAME)
                 Threading.Thread.Sleep(5000)
             End Try
         Loop
@@ -166,7 +166,7 @@ Public Class DB
             Try
                 conn.Open()
             Catch
-                Console.WriteLine("db3.ns.co.th waiting...")
+                Console.WriteLine("Id {0}-{1} Waiting...", Threading.Thread.CurrentThread.ManagedThreadId, _DB_NAME)
                 Threading.Thread.Sleep(5000)
             End Try
         Loop

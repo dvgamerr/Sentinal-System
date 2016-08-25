@@ -60,7 +60,7 @@ namespace Travox.Sentinel
         private List<Controller> CrawlerTravoxDBInitialize()
         {
             List<Controller> control = new List<Controller>();
-            //control.Add(new ExchangeRate());
+            control.Add(new ExchangeRate());
             //control.Add(new Secretary());
             control.Add(new FinishStatusStored());
             //control.Add(new AutoBooking());
@@ -369,7 +369,7 @@ namespace Travox.Sentinel
 
             if (!Config.Load()) Config.Default();
 
-            String IP = XHR.Connect("checkip.dyndns.com");
+            String IP = null; //XHR.Connect("checkip.dyndns.com");
             if (MBOS.Null(IP)) IP = "IP Address: 127.0.0.1";
 
             Configuration.InternetIP = IPAddress.Parse(Regex.Match(IP, @"IP Address:.*?(?<ip>[\d|\.]+)").Groups["ip"].Value);

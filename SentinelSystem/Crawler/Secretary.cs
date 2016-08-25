@@ -88,8 +88,8 @@ namespace Travox.Sentinel.Crawler
 
                     //ReportViewer.POST("ItemType", JSON.Serialize<ItemType>(new ItemType { ExportType = OutputEmailType }));
                     //ReportViewer.POST("Report", JSON.Serialize<ItemReport>(new ItemReport { Name = Row["report_key"].ToString(), Filename = Row["report_key"].ToString() + ".rpt" }));
-                    ReportViewer.POST("period_begin", SystemDate.From.ToString("dd-MM-yyyy"));
-                    ReportViewer.POST("period_end", SystemDate.To.ToString("dd-MM-yyyy"));
+                    ReportViewer.AddBody("period_begin", SystemDate.From.ToString("dd-MM-yyyy"));
+                    ReportViewer.AddBody("period_end", SystemDate.To.ToString("dd-MM-yyyy"));
 
                     param.Add("@s_id", DbType.Int32, Row["secretary_id"].ToString());
                     param.Add("@name", DbType.String, Row["report_name"].ToString());

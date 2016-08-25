@@ -83,7 +83,7 @@ Public Class XHR
         HTMLHeaders = Nothing
     End Sub
 
-    Public Sub AsyncSend(request As RequestBuilder)
+    Public Function AsyncSend(request As RequestBuilder) As XHR
         OnSocket = Me.Open(request.CurrentURL.Host, request.CurrentURL.Port)
 
         For Each item As String In Cookie.AllKeys
@@ -115,7 +115,8 @@ Public Class XHR
                 OnSocket.Close()
             End Try
         End If
-    End Sub
+        Return Me
+    End Function
     Private Sub AsyncReceive()
         If Me.Status = XHRAsync.Receiving Or Me.Status = XHRAsync.Sended Then
             Try
@@ -204,9 +205,9 @@ Public Class XHR
                     Dim FirstChunk As Boolean = False
                     Dim TransferEncoding As Match
                     If Chunked = 0 Then
-                        TransferEncoding = Regex.Match(HTMLHeaders.ToString(), "Transfer-Encoding: (?<type>.*?)\r\n")
+                        TransferEncoding = Regex.Match(HTMLHeaders.ToString(), "transfer-encoding:.(?<type>\w+)", RegexOptions.IgnoreCase)
 
-                        If TransferEncoding.Success And TransferEncoding.Groups("type").Value = "chunked" Then
+                        If TransferEncoding.Success And TransferEncoding.Groups("type").Value.ToLower() = "chunked" Then
                             TransferEncoding = Regex.Match(HTMLBody.ToString(), "(?<hex>.*?)(\r\n)")
                             If (TransferEncoding.Success) Then
                                 HTMLBody.Remove(TransferEncoding.Index, TransferEncoding.Length)
@@ -251,17 +252,18 @@ Public Class XHR
         End Try
     End Sub
 
-    Public Sub WaitRequest()
+    Private Sub WaitRequest()
         Do
             Threading.Thread.Sleep(10)
         Loop While Me.Status = XHRAsync.Sending Or Me.Status = XHRAsync.Connected
     End Sub
 
-    Public Sub WaitResponse()
+    Public Function Wait() As XHR
         Do
             Threading.Thread.Sleep(10)
         Loop While Me.Status <> XHRAsync.Received And Me.Status <> XHRAsync.Die
-    End Sub
+        Return Me
+    End Function
 
     Public Shared Function ToPackageString(bytes As Integer) As [String]
         Dim unit As [String]() = {" b/s", " Kb/s", " Mb/s", " Gb/s"}
@@ -286,7 +288,7 @@ Public Class XHR
     Public Shared Function Connect(request As RequestBuilder, Optional ByVal limit_data As Int32 = 0) As String
         Dim conn As XHR = New XHR(limit_data)
         conn.AsyncSend(request)
-        conn.WaitResponse()
+        conn.Wait()
 
         Dim result As String = conn.ToString()
         conn.Close()

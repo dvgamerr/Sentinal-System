@@ -41,11 +41,11 @@ Namespace DataCollection
             GetVariable.Add(name, value)
         End Sub
 
-        Public Sub POST(name As String, value As String)
+        Public Sub AddBody(name As String, value As String)
             PostVariable.Add(name, value)
         End Sub
 
-        Public Sub Param(name As String, value As String)
+        Public Sub AddHeader(name As String, value As String)
             ParamVariable.Add(name, value)
         End Sub
 

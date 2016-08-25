@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using Travox.Sentinel.Engine;
 using Travox.Systems;
-
+using Travox.Systems.DataCollection;
+using Newtonsoft.Json;
+using System.Runtime.Serialization;
 
 namespace Travox.Sentinel.Crawler
 {
@@ -12,8 +15,8 @@ namespace Travox.Sentinel.Crawler
     {
         public ExchangeRate()
         {
-            base.OnceTime = true;
-            base.SetIntervel = new TimeSpan(1, 0, 0);
+            // base.OnceTime = true;
+            base.SetIntervel = new TimeSpan(6, 0, 0);
         }
 
         public override void Start()
@@ -22,29 +25,40 @@ namespace Travox.Sentinel.Crawler
             base.Start();
         }
 
+        [DataContract]
+        struct RateAPI
+        {
+            [DataMember]
+            public String updated;
+            [DataMember]
+            public String currency;
+            [DataMember]
+            public float rate;
+        }
+
         public override void Update()
         {
-            String PatturnRate = @"<item><title>(?<from_desc>.*?)\((?<from>\w{3})\)/(?<to_desc>.*?)\((?<to>\w{3})\).*?</title>.*?";
-            PatturnRate += @"<pubDate>(?<date>.*?)</pubDate>.*?<description>.*?=.*?(?<rate>[\d|.]+).*?</description>.*?</item>";
+            DB db = new DB("travox_global"); 
 
-            String RateRSS = XHR.Connect("thb.fxexchangerate.com/rss.xml");
+            RequestBuilder doExchange = new RequestBuilder("127.0.0.1:3000/API-v3/exchange-rate/");
+            doExchange.By = RequestBuilder.Method.POST;
+            doExchange.ContentType = "application/x-www-form-urlencoded";
+            doExchange.AddHeader("Token-Auth", "ZHNnc2RmaCxrZXIgbmFsZ25zIGRmZ2RzZmc");
 
-            DB db = new DB("travox_global");
+            doExchange.AddBody("from", db.GetField("SELECT ISNULL(currency,'') FROM currency FOR XML PATH('')"));
+            doExchange.AddBody("to", "THB");
+            doExchange.AddBody("amt", "1");
+
+            XHR rate = new XHR().AsyncSend(doExchange).Wait();
 
             try
             {
-                foreach (Match item in Regex.Matches(RateRSS.ToString(), PatturnRate, RegexOptions.Singleline))
+                foreach (RateAPI item in JsonConvert.DeserializeObject<List<RateAPI>>(rate.ToString()))
                 {
-                    String UpdateDate = Regex.Replace(item.Groups["date"].Value, "\r\n", " ");
-                    CultureInfo culture = CultureInfo.CurrentCulture;
-                    DateTimeStyles style = DateTimeStyles.AssumeUniversal;
-                    DateTime date = DateTime.ParseExact(UpdateDate.Trim(), "ddd MMM d yyyy H:m:s UTC", culture, style);
-
                     SQLCollection param = new SQLCollection();
-                    param.Add("@to", DbType.String, item.Groups["to"].Value.Trim());
-                    param.Add("@to_desc", DbType.String, item.Groups["to_desc"].Value.Trim());
-                    param.Add("@rate", DbType.Decimal, item.Groups["rate"].Value.Trim());
-                    param.Add("@date", DbType.DateTime, date.ToString("dd-MM-yyyy HH:mm:ss"));
+                    param.Add("@to", DbType.String, item.currency);
+                    param.Add("@rate", DbType.Decimal, item.rate);
+                    param.Add("@date", DbType.DateTime, DateTime.Parse(item.updated).ToString("dd-MM-yyyy HH:mm:ss"));
 
                     db.Execute("UPDATE currency SET currency_rate=@rate, last_update=@date WHERE currency = @to", param);
                 }
@@ -53,10 +67,8 @@ namespace Travox.Sentinel.Crawler
             catch (Exception e)
             {
                 db.Rollback();
-                throw new Exception(e.Message, new Exception(RateRSS.ToString()));
+                throw e;
             }
-
-            RateRSS = null;
             base.Update();
         }
 

@@ -37,15 +37,15 @@ namespace Travox.Sentinel.Crawler
             doLogin.ContentType = "application/x-www-form-urlencoded";
             doLogin.Referer = "http://forum.tirkx.com/main/forum.php";
 
-            doLogin.POST("vb_login_username", Username);
-            doLogin.POST("vb_login_password", "");
-            doLogin.POST("vb_login_password_hint", "Password");
-            doLogin.POST("cookieuser", "1");
-            doLogin.POST("s", "");
-            doLogin.POST("securitytoken", "guest");
-            doLogin.POST("do", "login");
-            doLogin.POST("vb_login_md5password", Password);
-            doLogin.POST("vb_login_md5password_utf", Password);
+            doLogin.AddBody("vb_login_username", Username);
+            doLogin.AddBody("vb_login_password", "");
+            doLogin.AddBody("vb_login_password_hint", "Password");
+            doLogin.AddBody("cookieuser", "1");
+            doLogin.AddBody("s", "");
+            doLogin.AddBody("securitytoken", "guest");
+            doLogin.AddBody("do", "login");
+            doLogin.AddBody("vb_login_md5password", Password);
+            doLogin.AddBody("vb_login_md5password_utf", Password);
 
             Trikx = new XHR();
             //Trikx.AsyncSend(doLogin, true);
