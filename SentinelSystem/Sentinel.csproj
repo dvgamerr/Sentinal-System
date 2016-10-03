@@ -272,6 +272,8 @@
     <Content Include="Crawler\SyncGD\GetPNR_passenger%28view_passenger%29.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Images\LoginOauth2.png" />
+    <Resource Include="Images\TravoxBanner.png" />
     <Resource Include="Images\icon\App-Close.png" />
     <Resource Include="Images\icon\App-Option.png" />
     <Resource Include="Images\Icon-Server.png" />
