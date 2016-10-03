@@ -16,6 +16,9 @@ namespace Travox.Sentinel
 {
     public partial class DialogConfirm : Window
     {
+        public delegate void Handler(object sender, RoutedEventArgs e);
+        public Handler HandlerButton1;
+        public Handler HandlerButton2;
         public DialogConfirm(String title, String description, String no = "OK", String yes = null)
         {
             InitializeComponent();
@@ -23,6 +26,16 @@ namespace Travox.Sentinel
             lblDesc.Content = description;
             btnNo.Content = no;
             btnYes.Content = yes;
+        }
+
+        private void btnYes_Click(object sender, RoutedEventArgs e)
+        {
+            HandlerButton2(sender, e);
+        }
+
+        private void btnNo_Click(object sender, RoutedEventArgs e)
+        {
+            HandlerButton1(sender, e);
         }
     }
 }

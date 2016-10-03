@@ -4,10 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" x:Name="WinConfirm" mc:Ignorable="d" x:Class="Travox.Sentinel.DialogConfirm"
         Title="Travox Confirm Dialog" Height="174.6" Width="497.8" WindowStartupLocation="CenterScreen" WindowStyle="None" Topmost="True">
     <Grid Background="White">
-        <Button x:Name="btnNo" Content="CANCEL" HorizontalAlignment="Left" Margin="369,118,0,0" VerticalAlignment="Top" Width="106" Height="34" FontFamily="Raavi" FontSize="16" FontWeight="Bold" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF444444"/>
-        <Button x:Name="btnYes" Content="OK" HorizontalAlignment="Left" Margin="265,118,0,0" VerticalAlignment="Top" Width="104" Height="34" FontWeight="Bold" FontSize="16" FontFamily="Raavi" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="#FF169B34"/>
-        <Label x:Name="lblTitle" Content="lblTitle" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="22" FontWeight="Bold" Padding="0" Background="{x:Null}" Foreground="#FF555555"/>
+        <Button x:Name="btnNo" Content="CANCEL" HorizontalAlignment="Left" Margin="369,118,0,0" VerticalAlignment="Top" Width="106" Height="34" FontFamily="Raavi" FontSize="16" FontWeight="Bold" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF444444" BorderThickness="0" Click="btnNo_Click"/>
+        <Button x:Name="btnYes" Content="OK" HorizontalAlignment="Left" Margin="265,118,0,0" VerticalAlignment="Top" Width="104" Height="34" FontWeight="Bold" FontSize="16" FontFamily="Raavi" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="#FF169B34" BorderThickness="0" Click="btnYes_Click"/>
+        <Label x:Name="lblTitle" Content="lblTitle" HorizontalAlignment="Left" Margin="17,10,0,0" VerticalAlignment="Top" FontSize="22" FontWeight="Bold" Padding="0" Background="{x:Null}" Foreground="#FF555555"/>
         <Label x:Name="lblDesc" Content="lblDescription" HorizontalAlignment="Left" Margin="17,52,0,0" VerticalAlignment="Top" Padding="0" FontWeight="Bold" FontSize="11" Width="463" Height="48" Foreground="#FF555555"/>
+        <Border BorderBrush="#FFD6D6D6" BorderThickness="0,1,0,0" HorizontalAlignment="Left" Height="8" Margin="10,41,0,0" VerticalAlignment="Top" Width="470"/>
 
     </Grid>
 </Window>

@@ -152,5 +152,23 @@ namespace Travox.Sentinel
             config.Activate();
             config.Topmost = false;
         }
+
+        DialogConfirm closeDialog = new DialogConfirm("Travox Sentinel", "You want to turn off the system?", "Not, now.", "Shutdown.");
+
+        private void btnClose_Click(object sender, RoutedEventArgs e)
+        {
+            closeDialog.HandlerButton1 = btnClose_No;
+            closeDialog.HandlerButton2 = btnClose_Yes;
+            closeDialog.ShowDialog();
+        }
+        private void btnClose_Yes(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("click yes");
+        }
+        private void btnClose_No(object sender, RoutedEventArgs e)
+        {
+            closeDialog.Hide();
+
+        }
     }
 }
