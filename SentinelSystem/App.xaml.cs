@@ -168,6 +168,7 @@ namespace Travox.Sentinel
                     break;
                 case StateTravox.InitShutdown: // - 3: // InitShutdown 
                     isOnline = false;
+                    this.NotifyIcon(FindResource("NotifyOnStop"));
                     WindowInitialize.StateShutdown();
                     WindowInitialize.StateInitProgress(e.ProgressPercentage, DBTotal, CrawlerDatabase);
                     break;

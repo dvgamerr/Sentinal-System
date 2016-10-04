@@ -17,8 +17,8 @@ namespace Travox.Sentinel
     public partial class DialogConfirm : Window
     {
         public delegate void Handler(object sender, RoutedEventArgs e);
-        public Handler HandlerButton1;
-        public Handler HandlerButton2;
+        public Handler HandlerButton1 = null;
+        public Handler HandlerButton2 = null;
         public DialogConfirm(String title, String description, String no = "OK", String yes = null)
         {
             InitializeComponent();
