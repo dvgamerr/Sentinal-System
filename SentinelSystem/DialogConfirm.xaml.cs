@@ -16,6 +16,7 @@ namespace Travox.Sentinel
 {
     public partial class DialogConfirm : Window
     {
+        private Boolean onMove = false;
         public delegate void Handler(object sender, RoutedEventArgs e);
         public Handler HandlerButton1 = null;
         public Handler HandlerButton2 = null;
@@ -36,6 +37,24 @@ namespace Travox.Sentinel
         private void btnNo_Click(object sender, RoutedEventArgs e)
         {
             HandlerButton1(sender, e);
+        }
+
+        private void MoveBar_MouseMove(object sender, MouseEventArgs e)
+        {
+            //var relativePosition = e.GetPosition(this);
+            //var point = PointToScreen(relativePosition);
+            //this..HorizontalOffset = point.X;
+            //_x.VerticalOffset = point.Y;
+        }
+
+        private void MoveBar_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            onMove = true;
+        }
+
+        private void MoveBar_MouseLeave(object sender, MouseEventArgs e)
+        {
+            onMove = false;
         }
     }
 }
