@@ -27,13 +27,15 @@ namespace Travox.Sentinel.Crawler
         {
             base.OnceTime = true;
             // Standard URI format: mongodb://[dbuser:dbpassword@]host:port/dbname
-            String uri = "mongodb://[petahost2.ns.co.th:27017/travox-mbos";
+            String uri = "mongodb://petahost2.ns.co.th:27017/travox-mbos";
 
             var client = new MongoClient(uri);
             db = client.GetDatabase("travox-mbos");
             oAuth = db.GetCollection<BsonDocument>("oAuth");
 
-            await oAuth.Find(filter).ForEachAsync(song =>
+            var updateFilter = Builders<BsonDocument>.Filter.Eq("Title", "One Sweet Day");
+
+            await oAuth.Find(updateFilter).ForEachAsync(song =>
               Console.WriteLine("In the {0}, {1} by {2} topped the charts for {3} straight weeks",
                 song["Decade"], song["Title"], song["Artist"], song["WeeksAtOne"])
             );
