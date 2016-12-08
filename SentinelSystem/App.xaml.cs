@@ -243,7 +243,7 @@ namespace Travox.Sentinel
                 init.ReportProgress(0, StateTravox.InitDatabase);
                 database = new DB("travox_global");
                 String db = "SELECT id, code, database_name, [description] FROM site_customer ";
-                db += "WHERE[status] = 'ACTIVE' AND ISNULL(database_name,'') <> '' AND sentinel = 'Y'";
+                db += "WHERE[status] = 'ACTIVE' AND ISNULL(database_name,'') <> ''";
 
                 db_customer = database.GetTable(db);
                 DBTotal = db_customer.Rows.Count;

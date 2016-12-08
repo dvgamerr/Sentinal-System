@@ -21,13 +21,14 @@ public class Module
         String FolderException = @"Exception\";
 
         if (!MBOS.Null(folder)) FolderException += folder;
-        excep.AppendLine(e.Message.ToString());
-        if (e.InnerException != null) excep.AppendLine("------------------------------------------------").AppendLine(e.InnerException.Message);
+        excep.AppendLine(e.Message.ToString() );
         excep.AppendLine("------------------------------------------------");
         excep.AppendLine(e.StackTrace.ToString());
+        if (e.InnerException != null) excep.AppendLine("------------------------------------------------").AppendLine(e.InnerException.Message);
+        if (e.InnerException != null) excep.AppendLine("------------------------------------------------").AppendLine(e.InnerException.StackTrace.ToString());
 
         if (!Directory.Exists(TravoxSentinel + FolderException)) Directory.CreateDirectory(TravoxSentinel + FolderException);
-        Module.Write(String.Format(@"{1}\Excep{0}.txt", MBOS.Timestamp().ToString(), TravoxSentinel + FolderException), excep.ToString());
+        Module.Write(String.Format(@"{1}\error-{0}.txt", MBOS.Timestamp().ToString(), TravoxSentinel + FolderException), excep.ToString());
         e = null;
         excep = null;
         FolderException = null;
@@ -87,7 +88,7 @@ public class Module
     {
         Boolean success = false;
         if (!Directory.Exists(Path.GetDirectoryName(filename))) Directory.CreateDirectory(Path.GetDirectoryName(filename));
-        if (File.Exists(filename))
+        if (!File.Exists(filename))
         {
             File.Delete(filename);
             using (FileStream fs = new FileStream(filename, FileMode.CreateNew, FileAccess.Write))

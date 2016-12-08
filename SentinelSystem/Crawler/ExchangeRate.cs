@@ -15,7 +15,7 @@ namespace Travox.Sentinel.Crawler
     {
         public ExchangeRate()
         {
-            // base.OnceTime = true;
+            base.OnceTime = true;
             base.SetIntervel = new TimeSpan(6, 0, 0);
         }
 
@@ -40,7 +40,7 @@ namespace Travox.Sentinel.Crawler
         {
             DB db = new DB("travox_global"); 
 
-            RequestBuilder doExchange = new RequestBuilder("127.0.0.1:3000/API-v3/exchange-rate/");
+            RequestBuilder doExchange = new RequestBuilder("mbos.travox.com/API-v3/exchange-rate/");
             doExchange.By = RequestBuilder.Method.POST;
             doExchange.ContentType = "application/x-www-form-urlencoded";
             doExchange.AddHeader("Token-Auth", "ZHNnc2RmaCxrZXIgbmFsZ25zIGRmZ2RzZmc");
@@ -63,13 +63,14 @@ namespace Travox.Sentinel.Crawler
                     db.Execute("UPDATE currency SET currency_rate=@rate, last_update=@date WHERE currency = @to", param);
                 }
                 db.Apply();
+                base.Update();
             }
             catch (Exception e)
             {
                 db.Rollback();
-                throw e;
+                base.Update();
+                throw new Exception(base.DBName, e);
             }
-            base.Update();
         }
 
         public override void Stop()

@@ -9,14 +9,14 @@ namespace Travox.Sentinel.Crawler
     {
         public FinishStatusStored()
         {
-            //base.OnceTime = true;
+            base.OnceTime = true;
             base.SetIntervel = new TimeSpan(0, 10, 0);
         }
 
         public override void Update()
-        {
-            new DB("travox_system").StoredProcedure("sentinel.booking_status_finish", new SQLCollection("@database_name", DbType.String, base.State.DatabaseName));
-            new DB("travox_system").StoredProcedure("sentinel.booking_status_payment", new SQLCollection("@database_name", DbType.String, base.State.DatabaseName));
+        {   
+            new DB("travox_system").StoredProcedure("sentinel.booking_status_finish");
+            new DB("travox_system").StoredProcedure("sentinel.booking_status_payment");
             base.Update();
         }
     }
