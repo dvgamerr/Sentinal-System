@@ -170,5 +170,10 @@ namespace Travox.Sentinel
 
             closeDialog.ShowDialog();
         }
+
+        private void btnLogin_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            imgOAuth.Visibility = Visibility.Hidden;
+        }
     }
 }

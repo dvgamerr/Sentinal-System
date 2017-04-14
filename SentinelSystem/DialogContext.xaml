@@ -66,9 +66,9 @@
             </Grid>
             <Label x:Name="label" Content="Travox is a registered trademark of Nippon Sysits Co.,Ltd" Margin="0,0,0,39" Padding="0" FontSize="10" HorizontalContentAlignment="Center" Height="14" VerticalAlignment="Bottom" Foreground="#FF666666"/>
             <Label x:Name="label_Copy" Content="Copyright 2009 Nippon Sysits Co.,Ltd" Margin="0,0,0,25" Padding="0" FontSize="10" HorizontalContentAlignment="Center" Height="14" VerticalAlignment="Bottom" Foreground="#FF666666"/>
-            <Image x:Name="image2" Height="61" Margin="26,20,26,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Source="Images/TravoxBanner.png" Stretch="None"/>
-            <Border BorderBrush="#FF878787" BorderThickness="1" Margin="35,145,35,100" Background="White">
-                <Image x:Name="image2_Copy" HorizontalAlignment="Left" Height="63" VerticalAlignment="Top" Width="190" RenderTransformOrigin="0.5,0.5" Source="Images/LoginOauth2.png" Stretch="None" OpacityMask="White" Margin="9,9,0,0" d:IsLocked="True"/>
+            <Image x:Name="imgLogo" Height="61" Margin="26,20,26,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Source="Images/TravoxBanner.png" Stretch="None"/>
+            <Border x:Name="btnLogin" BorderBrush="#FF878787" BorderThickness="1" Margin="35,145,35,100" Background="White" MouseDown="btnLogin_MouseDown">
+                <Image x:Name="imgOAuth" HorizontalAlignment="Left" Height="63" VerticalAlignment="Top" Width="190" RenderTransformOrigin="0.5,0.5" Source="Images/LoginOauth2.png" Stretch="None" OpacityMask="White" Margin="9,9,0,0" d:IsLocked="True"/>
             </Border>
         </Grid>
         <Grid x:Name="PanelStatus" Height="256" VerticalAlignment="Bottom" d:IsHidden="True">
