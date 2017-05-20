@@ -163,7 +163,6 @@
     <Compile Include="Crawler\ExchangeRate.cs" />
     <Compile Include="Crawler\AutoBooking.cs" />
     <Compile Include="Crawler\SyncGD.cs" />
-    <Compile Include="Crawler\Tirkx.cs" />
     <Compile Include="Engine\ProcessCall.cs" />
     <Compile Include="Engine\HandleRequest.cs" />
     <Compile Include="Setting\Module.cs" />
@@ -193,7 +192,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Engine\Controller.cs" />
-    <Compile Include="Crawler\FinishStatusStored.cs" />
+    <Compile Include="Crawler\MidBackStored.cs" />
     <Compile Include="Crawler\Secretary.cs" />
     <Compile Include="DialogInitialize.xaml.cs">
       <DependentUpon>DialogInitialize.xaml</DependentUpon>
@@ -274,9 +273,6 @@
     <Content Include="Crawler\Secretary\MailTemplate.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Crawler\Secretary\secretary_report.sql">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Crawler\SyncGD\GetPNR%28view_header%29.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -307,34 +303,6 @@
     <ProjectReference Include="..\Travox-Systems\Travox-Systems\Travox-Systems.vbproj">
       <Project>{ab55f327-b229-4e96-baf4-4fd3d3f59553}</Project>
       <Name>Travox-Systems</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Travox.Controls\Travox.Controls.csproj">
-      <Project>{762e0333-d531-425d-9c77-2482d60db222}</Project>
-      <Name>Travox.Controls</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Travox.Managers\Travox.Managers.csproj">
-      <Project>{d7690163-2420-4da8-b153-4f65d170461a}</Project>
-      <Name>Travox.Managers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Travox.MirrorDriver\Travox.MirrorDriver.csproj">
-      <Project>{18d98e23-bbfe-432b-861c-1a1dc4bd302b}</Project>
-      <Name>Travox.MirrorDriver</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Travox.Model\Travox.Model.csproj">
-      <Project>{0d9cbf57-19a7-4007-8945-e5ee4584a6fb}</Project>
-      <Name>Travox.Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Travox.Network\Travox.Network.csproj">
-      <Project>{5bb29303-0df8-4d32-9117-a022c1b6fdb9}</Project>
-      <Name>Travox.Network</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Travox.Providers\Travox.Providers.csproj">
-      <Project>{212c884f-28b5-42e7-98d7-5b449061a9a6}</Project>
-      <Name>Travox.Providers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Travox.System\Travox.Data.csproj">
-      <Project>{c6eb967a-00c8-4403-b9ce-a25ea51e1fdc}</Project>
-      <Name>Travox.Data</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
