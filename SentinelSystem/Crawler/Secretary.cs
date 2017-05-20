@@ -7,13 +7,12 @@ using System.Text.RegularExpressions;
 using Travox.Sentinel.Engine;
 using Travox.Systems;
 using Travox.Systems.DataCollection;
-using Travox.Systems.Extensions;
 
 namespace Travox.Sentinel.Crawler
 {
     public class Secretary : Controller
     {
-
+        String SessionID;
         public Secretary()
         {
             //base.DBName = "nissin_mos";
@@ -24,21 +23,26 @@ namespace Travox.Sentinel.Crawler
 
         public override void Start()
         {
+            Random rnd = new Random();
+            SessionID = MBOS.MD5(rnd.Next().ToString()).Substring(0, 24);
             base.Start();
         }
         
         public override void Update()
         {
             base.Update();
-            const String CrawlerPath = @"D:\ip1\travox.com\www\crawler\documents\";
-            const String ViewerPath = @"C:\ip1\travox.com\www\mos\mos_demo\report_viewer\";
+            const String ViewerPath = @"C:\inetpub\wwwroot\travox.com\viewer\";
 
             SecretaryEvent Period = SecretaryEvent.Unknow;
 
             SQLCollection param = new SQLCollection("@id", DbType.Int32, base.State.CompanyID);
             List<HandlerItem> EventEmail = new List<HandlerItem>();
 
-            foreach (DataRow Row in new DB("travox_system").GetTable(base.GetResource("secretary_report.sql"), param).Rows)
+            foreach (DataRow Row in new DB("travox_system").GetTable(@"
+                SELECT secretary_id, period, output_email, output_printer, email, report_name, report_key
+                FROM crawler.secretary s INNER JOIN document.report r ON r.report_id = s.report_id
+                WHERE s.status = 'ACTIVE' AND site_customer_id = @id
+            ", param).Rows)
             {
                 ParameterDate SystemDate;
 
@@ -78,13 +82,15 @@ namespace Travox.Sentinel.Crawler
 
                 if ((!MBOS.Null(OutputEmailType) || MBOS.Bool(OutputPrinter)) && Period != SecretaryEvent.Unknow)
                 {
-                    RequestBuilder ReportViewer = new RequestBuilder((!App.DebugMode) ? "mos.travox.com/mos_v2/report_viewer/default.aspx" : "localhost:8026/Default.aspx");
+                    RequestBuilder ReportViewer = new RequestBuilder((!App.DebugMode) ? "viewer.travox.com/default.aspx" : "localhost:8026/Default.aspx");
                     ReportViewer.By = RequestBuilder.Method.POST;
-                    ReportViewer.SetCookie("ASP.NET_SessionId", "xxxxxxxxxxxxxxxxxxxxxxxx");
-                    ReportViewer.SetCookie("COMPANY_ACCESS", base.State.CompanyCode);
-                    ReportViewer.SetCookie("ID", "-4");
-                    ReportViewer.SetCookie("Code", "TX");
-                    ReportViewer.SetCookie("Name", "Travox Sentinel");
+
+                    ReportViewer.SetCookie("ASP.NET_SessionId", SessionID);
+                    ReportViewer.SetCookie("DATABASE_NAME", base.State.CompanyName);
+                    ReportViewer.SetCookie("CUSTOMER_CODE", base.State.CompanyCode);
+                    ReportViewer.SetCookie("STAFF_ID", "-4");
+                    ReportViewer.SetCookie("STAFF_CODE", "TX");
+                    ReportViewer.SetCookie("REMEMBER", "true");
 
                     //ReportViewer.POST("ItemType", JSON.Serialize<ItemType>(new ItemType { ExportType = OutputEmailType }));
                     //ReportViewer.POST("Report", JSON.Serialize<ItemReport>(new ItemReport { Name = Row["report_key"].ToString(), Filename = Row["report_key"].ToString() + ".rpt" }));
@@ -116,7 +122,7 @@ namespace Travox.Sentinel.Crawler
                 String AttachFile = null;
                 if (!data.onError)
                 {
-                    String FolderName = Path.GetDirectoryName(CrawlerPath + getItems) + "\\";
+                    String FolderName = Path.GetDirectoryName(ViewerPath + getItems) + "\\";
                     String FileName = Path.GetFileName(getItems);
                     if (!App.DebugMode)
                     {
@@ -135,33 +141,33 @@ namespace Travox.Sentinel.Crawler
                 {
                     DB db = new DB("travox_system");
                     NameValueCollection MailParam = new NameValueCollection();
-                    TypeMAIL ReportSecretary = new TypeMAIL("info@ns.co.th", Item.Subject, false);
-                    ReportSecretary.Add(Item.Mail);
-                    ReportSecretary.Body(base.GetResource("MailTemplate.html"));
+                    //TypeMAIL ReportSecretary = new TypeMAIL("info@ns.co.th", Item.Subject, false);
+                    //ReportSecretary.Add(Item.Mail);
+                    //ReportSecretary.Body(base.GetResource("MailTemplate.html"));
 
-                    String SQL = db.Execute("INSERT INTO crawler.secretary_email (secretary_id, company_code, report_name, email) VALUES (@s_id, @code, @name, @email)", param);
+                    //String SQL = db.Execute("INSERT INTO crawler.secretary_email (secretary_id, company_code, report_name, email) VALUES (@s_id, @code, @name, @email)", param);
 
-                    MailParam.Add("message_email", data.exMessage);
-                    MailParam.Add("print_date", DateTime.Now.Date.ToString("dd-MM-yyyy"));
-                    if (!data.onError && data.exTitle != "ManualException")
-                    {
-                        ReportSecretary.Attach(AttachFile);
-                        param["@file"].DefaultValue = getItems;
-                    }
-                    else
-                    {
-                        param["@file"].DefaultValue = data.exMessage;
-                    }
-                    param.Add("@e_id", DbType.Int32, SQL);
-                    db.Execute("UPDATE crawler.secretary_email SET filename=@file WHERE email_id=@e_id", param);
+                    //MailParam.Add("message_email", data.exMessage);
+                    //MailParam.Add("print_date", DateTime.Now.Date.ToString("dd-MM-yyyy"));
+                    //if (!data.onError && data.exTitle != "ManualException")
+                    //{
+                    //    ReportSecretary.Attach(AttachFile);
+                    //    param["@file"].DefaultValue = getItems;
+                    //}
+                    //else
+                    //{
+                    //    param["@file"].DefaultValue = data.exMessage;
+                    //}
+                    //param.Add("@e_id", DbType.Int32, SQL);
+                    //db.Execute("UPDATE crawler.secretary_email SET filename=@file WHERE email_id=@e_id", param);
 
-                    ReportSecretary.DataSource(MailParam);
-                    if (!ReportSecretary.Sending())
-                    {
-                        param["@file"].DefaultValue = ReportSecretary.ErrorMessage;
-                        db.Execute("UPDATE crawler.secretary_email SET filename=@file WHERE email_id=@e_id", param);
-                    }
-                    db.Apply();
+                    //ReportSecretary.DataSource(MailParam);
+                    //if (!ReportSecretary.Sending())
+                    //{
+                    //    param["@file"].DefaultValue = ReportSecretary.ErrorMessage;
+                    //    db.Execute("UPDATE crawler.secretary_email SET filename=@file WHERE email_id=@e_id", param);
+                    //}
+                    //db.Apply();
                 }
 
                 if (Item.OnPrinter)

@@ -42,12 +42,8 @@ Public Class DB
         End Get
     End Property
 
-    Public Sub New(Optional ByVal database As String = Nothing, Optional ByVal servername As String = "db3.ns.co.th", Optional ByVal username As String = "travoxmos", Optional ByVal password As String = "systrav")
-        If MBOS.Null(database) Then
-            _DB_NAME = MBOS.CompanyBase()
-        Else
-            _DB_NAME = database
-        End If
+    Public Sub New(ByVal database As String, Optional ByVal servername As String = "db3.ns.co.th", Optional ByVal username As String = "travoxmos", Optional ByVal password As String = "systrav")
+        _DB_NAME = database
         _DB_SERVER = servername
         _DB_USER = username
         _DB_PASS = password
@@ -199,7 +195,6 @@ Public Class DB
     Private Function BuildCommands(ByVal query As String, ByVal mbosConn As SqlConnection, ByVal param As ParameterCollection) As SqlCommand
         Dim qCase As QueryCase = QueryCase.SELECT
         Try
-            If (query.Contains("SQL::")) Then query = MBOS.FileRead("!SQLStore\" & query.Replace("SQL::", "") & ".sql")
             If (query.ToLower().Contains("insert into") And query.ToLower().Contains("values")) Then
                 qCase = QueryCase.INSERT
                 query &= " SELECT @@IDENTITY"

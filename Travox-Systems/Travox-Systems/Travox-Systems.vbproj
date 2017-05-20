@@ -101,16 +101,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Extensions\TypeMAIL.vb" />
-    <Compile Include="Extensions\TypeSMS.vb" />
-    <Compile Include="FileManager\LogBuilder.vb" />
     <Compile Include="Security\ECB.vb" />
     <Compile Include="Security\SHA512.vb" />
     <Compile Include="Variables\CallbackException.vb" />
     <Compile Include="Variables\JSON.vb" />
     <Compile Include="Variables\Money.vb" />
     <Compile Include="Variables\RegexContents.vb" />
-    <Compile Include="Variables\Response.vb" />
     <Compile Include="XHR.vb" />
   </ItemGroup>
   <ItemGroup>
