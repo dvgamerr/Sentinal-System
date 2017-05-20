@@ -40,7 +40,7 @@ namespace Travox.Sentinel.Crawler
         {
             DB db = new DB("travox_global"); 
 
-            RequestBuilder doExchange = new RequestBuilder("mbos.travox.com/API-v3/exchange-rate/");
+            RequestBuilder doExchange = new RequestBuilder("api.travox.com/API-v3/exchange-rate/");
             doExchange.By = RequestBuilder.Method.POST;
             doExchange.ContentType = "application/x-www-form-urlencoded";
             doExchange.AddHeader("Token-Auth", "ZHNnc2RmaCxrZXIgbmFsZ25zIGRmZ2RzZmc");
