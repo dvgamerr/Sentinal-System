@@ -1,7 +1,5 @@
 # Changelog
 
-### v1.0
-- Exchange Rate Crawler
-```
-    asdasdasd
-```
+### Version 1.0 -- Win app deplay
+- addon Exchange Rate Crawler
+- addon StoredMidBack Crawler
