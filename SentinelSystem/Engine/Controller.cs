@@ -68,7 +68,7 @@ namespace Travox.Sentinel.Engine
 
         public virtual void Start()
         {
-            Console.WriteLine("Start Controller({1}) [{0}]", State.DatabaseName, this.GetType().Name.ToString());
+            Console.WriteLine("Start Controller({1}) [{0}] at " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), State.DatabaseName, this.GetType().Name.ToString());
             if (this.GetTimeout > 0)
             {
                 IsStoped = false;
@@ -81,7 +81,7 @@ namespace Travox.Sentinel.Engine
 
         public virtual void Update()
         {
-            Console.WriteLine("Update Controller({1}) [{0}]", State.DatabaseName, this.GetType().Name.ToString());
+            Console.WriteLine("Update Controller({1}) [{0}] at " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), State.DatabaseName, this.GetType().Name.ToString());
             IsStoped = false;
             Timing.Restart();
             Timing.Start();
@@ -90,41 +90,41 @@ namespace Travox.Sentinel.Engine
 
         public virtual void Stop()
         {
-            Console.WriteLine("[{0}] Stop Controller({1}) [{0}]", State.DatabaseName, this.GetType().Name.ToString());
+            Console.WriteLine("Stop Controller({1}) [{0}] at " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), State.DatabaseName, this.GetType().Name.ToString());
             Log.Stop();
             Timing.Stop();
             if (!Travox.Sentinel.App.CrawlerRunning) IsStoped = true;
             // TODO Clear Data
         }
 
-        protected String GetResource(String filename)
-        {
-            filename = String.Format("{0}/Crawler/{1}/{2}", new String[] { Module.BaseDirectory, this.GetType().Name.ToString(), filename });
-            if (File.Exists(filename))
-            {
-                using (FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read))
-                {
-                    filename = "";
-                    Byte[] Buffer = new Byte[fs.Length];
-                    Int32 BytesTransferred = (Int32)fs.Length;
-                    Int32 BytesIndex = 0;
-                    while (BytesTransferred > 0)
-                    {
-                        Int32 n = fs.Read(Buffer, BytesIndex, BytesTransferred);
-                        filename += Encoding.UTF8.GetString(Buffer, BytesIndex, BytesTransferred);
+        //protected String GetResource(String filename)
+        //{
+        //    filename = String.Format("{0}/Crawler/{1}/{2}", new String[] { Module.BaseDirectory, this.GetType().Name.ToString(), filename });
+        //    if (File.Exists(filename))
+        //    {
+        //        using (FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read))
+        //        {
+        //            filename = "";
+        //            Byte[] Buffer = new Byte[fs.Length];
+        //            Int32 BytesTransferred = (Int32)fs.Length;
+        //            Int32 BytesIndex = 0;
+        //            while (BytesTransferred > 0)
+        //            {
+        //                Int32 n = fs.Read(Buffer, BytesIndex, BytesTransferred);
+        //                filename += Encoding.UTF8.GetString(Buffer, BytesIndex, BytesTransferred);
 
-                        if (n == 0) break;
-                        BytesIndex += n;
-                        BytesTransferred -= n;
-                    }
-                    BytesTransferred = Buffer.Length;
-                }
-            }
-            else
-            {
-                filename = "";
-            }
-            return filename;
-        }
+        //                if (n == 0) break;
+        //                BytesIndex += n;
+        //                BytesTransferred -= n;
+        //            }
+        //            BytesTransferred = Buffer.Length;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        filename = "";
+        //    }
+        //    return filename;
+        //}
     }
 }
