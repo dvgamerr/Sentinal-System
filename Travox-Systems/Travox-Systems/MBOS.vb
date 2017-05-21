@@ -94,51 +94,9 @@ Public Class MBOS
             Catch
                 Throw New Exception("Datetime not format ""DD-MM-YYYY"" OR ""DD-MM-YYYY HH:MM:SS"".")
             End Try
-        ElseIf (TypeOf type Is Money.VATType) Then
-            If (value.ToUpper = "INCLUDE") Then
-                index = Money.VATType.INCLUDE
-            ElseIf (value.ToUpper = "EXCLUDE") Then
-                index = Money.VATType.EXCLUDE
-            End If
         End If
         Return index
     End Function
 
-    Public Shared Function Encrypt(ByVal plainText As String) As String
-        Dim password As Rfc2898DeriveBytes = New Rfc2898DeriveBytes(PassPhrase, Encoding.ASCII.GetBytes(SaltCryptography), 2)
-        Dim symmetric As New RijndaelManaged()
-        symmetric.Mode = CipherMode.CBC
 
-        Dim textBytes As Byte() = Encoding.UTF8.GetBytes(plainText)
-        Dim mem As New MemoryStream()
-        Dim crypt As New CryptoStream(mem, symmetric.CreateEncryptor(password.GetBytes(32), Encoding.ASCII.GetBytes(KeyEncryption)), CryptoStreamMode.Write)
-        crypt.Write(textBytes, 0, textBytes.Length)
-        crypt.FlushFinalBlock()
-        plainText = System.Convert.ToBase64String(mem.ToArray())
-        mem.Close()
-        crypt.Close()
-        Return plainText
-    End Function
-    Public Shared Function Decrypt(ByVal cipherText As String) As String
-        Dim password As Rfc2898DeriveBytes = New Rfc2898DeriveBytes(PassPhrase, Encoding.ASCII.GetBytes(SaltCryptography), 2)
-        Dim symmetric As New RijndaelManaged()
-        symmetric.Mode = CipherMode.CBC
-
-        Dim mem As New MemoryStream(System.Convert.FromBase64String(cipherText))
-        Dim crypt As New CryptoStream(mem, symmetric.CreateDecryptor(password.GetBytes(32), Encoding.ASCII.GetBytes(KeyEncryption)), CryptoStreamMode.Read)
-        Dim textBytes As Byte() = New Byte(System.Convert.FromBase64String(cipherText).Length - 1) {}
-        cipherText = Encoding.UTF8.GetString(textBytes, 0, crypt.Read(textBytes, 0, textBytes.Length))
-        mem.Close()
-        crypt.Close()
-        Return cipherText
-    End Function
-
-    Public Shared Function MD5(ByVal plainText As String) As String
-        Return BitConverter.ToString(MD5CryptoServiceProvider.Create().ComputeHash(Encoding.UTF8.GetBytes(plainText))).Replace("-", "").ToLower()
-    End Function
-    Public Shared Function MD5(ByVal plainText As String, ByVal cipherText As String) As Boolean
-        Dim checkSum As Boolean = False
-        If (MD5(plainText) = cipherText.Trim()) Then checkSum = True
-        Return checkSum
-    End Function
 End Class

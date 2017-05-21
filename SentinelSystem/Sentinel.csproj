@@ -23,7 +23,7 @@
     </SccProvider>
     <TargetFrameworkProfile />
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>D:\!Projects\sentinel\</PublishUrl>
+    <PublishUrl>C:\ip1\travox.com\www\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -35,7 +35,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <UpdateUrl>http://crawler.travox.com/sentinel-update/</UpdateUrl>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>5</ApplicationRevision>
+    <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.4.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -270,9 +270,6 @@
     <Resource Include="Images\Engine-Initialize.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Crawler\Secretary\MailTemplate.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Crawler\SyncGD\GetPNR%28view_header%29.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

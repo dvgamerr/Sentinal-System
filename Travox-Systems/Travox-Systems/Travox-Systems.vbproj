@@ -74,8 +74,6 @@
     <Import Include="System.Diagnostics" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Network\TravoxClient.vb" />
-    <Compile Include="Network\Service.vb" />
     <Compile Include="DataCollection\CookieBuilder.vb" />
     <Compile Include="DataCollection\ReportParameter.vb" />
     <Compile Include="DataCollection\RequestBuilder.vb" />
@@ -103,10 +101,6 @@
     </Compile>
     <Compile Include="Security\ECB.vb" />
     <Compile Include="Security\SHA512.vb" />
-    <Compile Include="Variables\CallbackException.vb" />
-    <Compile Include="Variables\JSON.vb" />
-    <Compile Include="Variables\Money.vb" />
-    <Compile Include="Variables\RegexContents.vb" />
     <Compile Include="XHR.vb" />
   </ItemGroup>
   <ItemGroup>

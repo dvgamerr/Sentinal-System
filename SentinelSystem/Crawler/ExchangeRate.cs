@@ -19,12 +19,6 @@ namespace Travox.Sentinel.Crawler
             base.SetIntervel = new TimeSpan(6, 0, 0);
         }
 
-        public override void Start()
-        {
-
-            base.Start();
-        }
-
         [DataContract]
         struct RateAPI
         {
@@ -40,20 +34,20 @@ namespace Travox.Sentinel.Crawler
         {
             DB db = new DB("travox_global"); 
 
-            RequestBuilder doExchange = new RequestBuilder("api.travox.com/API-v3/exchange-rate/");
-            doExchange.By = RequestBuilder.Method.POST;
+            RequestBuilder doExchange = new RequestBuilder("https://api.travox.com/API-v3/exchange-rate/", true);
+            doExchange.Method = RequestBuilder.By.POST;
             doExchange.ContentType = "application/x-www-form-urlencoded";
-            doExchange.AddHeader("Token-Auth", "ZHNnc2RmaCxrZXIgbmFsZ25zIGRmZ2RzZmc");
+            doExchange.Headers.Add("Token-Auth", "ZHNnc2RmaCxrZXIgbmFsZ25zIGRmZ2RzZmc");
 
             doExchange.AddBody("from", db.GetField("SELECT ISNULL(currency,'') FROM currency FOR XML PATH('')"));
             doExchange.AddBody("to", "THB");
             doExchange.AddBody("amt", "1");
 
-            XHR rate = new XHR().AsyncSend(doExchange).Wait();
-
             try
             {
-                foreach (RateAPI item in JsonConvert.DeserializeObject<List<RateAPI>>(rate.ToString()))
+                String res = XHR.Request(doExchange, true);
+    
+                foreach (RateAPI item in JsonConvert.DeserializeObject<List<RateAPI>>(res.ToString()))
                 {
                     SQLCollection param = new SQLCollection();
                     param.Add("@to", DbType.String, item.currency);

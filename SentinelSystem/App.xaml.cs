@@ -25,13 +25,13 @@ namespace Travox.Sentinel
     public partial class App
     {
         public static Boolean CrawlerRunning { get; set; }
-        public static Boolean DebugMode { get { return Regex.Match(Process.GetCurrentProcess().ProcessName, ".vshost$").Success ; } }
         public static Boolean ServerConnected { get; set; }
         public static Boolean WebCrawlerConnected { get; set; }
         public static Boolean WebCrawlerRestarted { get; set; }
         public static Version PublishVersion { get; set; }
         public static StringBuilder Log { get; set; }
 
+        public static Boolean DebugMode = false;
         public static TcpListener Listen;
 
         public DialogSetting WindowConfig;
@@ -62,8 +62,7 @@ namespace Travox.Sentinel
             List<Controller> control = new List<Controller>();
             //control.Add(new ExchangeRate());
             //control.Add(new MidBackStored());
-
-            //control.Add(new Secretary());
+            control.Add(new Secretary());
             //control.Add(new AutoBooking());
             //control.Add(new SyncGD());
             return control;
@@ -84,15 +83,18 @@ namespace Travox.Sentinel
 
             if (e.Args.Length > 0)
             {
-
+                DebugMode = e.Args[0] == "--debug";
             }
-            else if (objMutex.WaitOne(0, false) == false)
+
+            if (objMutex.WaitOne(0, false) == false)
             {
                 MessageBox.Show("The Travox Sentinel is still running, Please try again in a moment.", "Travox Sentinel " + PublishVersion, MessageBoxButton.OK);
                 Application.Current.Shutdown();
             }
             else
             {
+
+
                 String LogCurrent = Module.TravoxSentinel + "log/" + DateTime.Now.ToString("yyyy-MM-dd") + Module.File_Log;
                 if (File.Exists(LogCurrent)) File.Delete(LogCurrent);
 
@@ -520,13 +522,14 @@ namespace Travox.Sentinel
                 this.WriteLineConsoleDispose();
                 if (!Directory.Exists(Path.GetDirectoryName(LogFilename))) Directory.CreateDirectory(Path.GetDirectoryName(LogFilename));
 
-                //using (logWrite = new ConsoleWriter(LogFilename, FileMode.Create))
-                //{
-                //    logWrite.WriteEvent += txtLogMessage_WriteEvent;
-                //    logWrite.WriteLineEvent += txtLogMessage_WriteLineEvent;
-
-                //    Console.SetOut(logWrite);
-                //}
+                if (!DebugMode) {
+                    using (logWrite = new ConsoleWriter(LogFilename, FileMode.Create))
+                    {
+                        logWrite.WriteEvent += txtLogMessage_WriteEvent;
+                        logWrite.WriteLineEvent += txtLogMessage_WriteLineEvent;
+                        Console.SetOut(logWrite);
+                    }
+                }
 
             }
 

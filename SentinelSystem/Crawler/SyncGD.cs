@@ -81,12 +81,12 @@ namespace Travox.Sentinel.Crawler
             }
 
             DB GD = new DB(State.DB, State.DNS, "travox");
-            foreach (DataRow PNR in GD.GetTable(base.GetResource("GetPNR(view_header).sql"), param).Rows)
-            {
-                param.Add("@booking_info_id", DbType.String ,PNR["ref_id"].ToString());
-                String booking_pnr_id = GD.Execute("", WithBookingPNR(PNR));
+            //foreach (DataRow PNR in GD.GetTable(base.GetResource("GetPNR(view_header).sql"), param).Rows)
+            //{
+                //param.Add("@booking_info_id", DbType.String ,PNR["ref_id"].ToString());
+                //String booking_pnr_id = GD.Execute("", WithBookingPNR(PNR));
 
-                param.Add("@booking_pnr_id", DbType.String, booking_pnr_id);
+                //param.Add("@booking_pnr_id", DbType.String, booking_pnr_id);
 
                  //   PR_view_header_Item.airline_code = PNR["airline_code"].ToString();
                  //   PR_view_header_Item.airline_name = PNR["airline_name"].ToString();
@@ -125,7 +125,7 @@ namespace Travox.Sentinel.Crawler
                  //   PR_view_header_Item.import_by = schema_name.ToString()
                  //   'PR_view_header.Add(PR_view_header_Item)
                  //   iReturn = dtReturn.Rows(0)("ref_id")
-            }
+            //}
 
             mres[State.ID].Set();
         }

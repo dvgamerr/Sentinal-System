@@ -10,8 +10,9 @@ Namespace Security
 
         Public Shared Function Encrypt(ByVal plainText As String) As String
             Dim password As Rfc2898DeriveBytes = New Rfc2898DeriveBytes(PassPhrase, Text.Encoding.ASCII.GetBytes(SaltCryptography), 2)
-            Dim symmetric As New RijndaelManaged()
-            symmetric.Mode = CipherMode.CBC
+            Dim symmetric As New RijndaelManaged() With {
+                .Mode = CipherMode.CBC
+            }
 
             Dim textBytes As Byte() = Text.Encoding.UTF8.GetBytes(plainText)
             Dim mem As New MemoryStream()
@@ -26,8 +27,9 @@ Namespace Security
 
         Public Shared Function Decrypt(ByVal cipherText As String) As String
             Dim password As Rfc2898DeriveBytes = New Rfc2898DeriveBytes(PassPhrase, Text.Encoding.ASCII.GetBytes(SaltCryptography), 2)
-            Dim symmetric As New RijndaelManaged()
-            symmetric.Mode = CipherMode.CBC
+            Dim symmetric As New RijndaelManaged() With {
+                .Mode = CipherMode.CBC
+            }
 
             Dim mem As New MemoryStream(System.Convert.FromBase64String(cipherText))
             Dim crypt As New CryptoStream(mem, symmetric.CreateDecryptor(password.GetBytes(32), Text.Encoding.ASCII.GetBytes(KeyEncryption)), CryptoStreamMode.Read)

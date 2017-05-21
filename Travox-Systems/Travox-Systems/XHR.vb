@@ -1,9 +1,8 @@
-﻿Imports Travox.Systems
-Imports Travox.Systems.DataCollection
-Imports System.Net
+﻿Imports System.Net
 Imports System.Net.Sockets
 Imports System.Text
 Imports System.Text.RegularExpressions
+Imports Travox.Systems.DataCollection
 
 Public Class XHR
 
@@ -84,7 +83,7 @@ Public Class XHR
     End Sub
 
     Public Function AsyncSend(request As RequestBuilder) As XHR
-        OnSocket = Me.Open(request.CurrentURL.Host, request.CurrentURL.Port)
+        OnSocket = Me.Open(request.uri.Host, request.uri.Port)
 
         For Each item As String In Cookie.AllKeys
             request.Cookie.Add(item, Cookie(item))
@@ -285,17 +284,62 @@ Public Class XHR
         Return 1024 * XHR.Megabytes(unit)
     End Function
 
-    Public Shared Function Connect(request As RequestBuilder, Optional ByVal limit_data As Int32 = 0) As String
-        Dim conn As XHR = New XHR(limit_data)
-        conn.AsyncSend(request)
-        conn.Wait()
+    Public Shared Function Request(ByVal req As RequestBuilder, Optional ByVal isHTTPS As Boolean = False) As String
+        Dim result As String = ""
+        If (Not isHTTPS) Then
+            Dim conn As XHR = New XHR()
+            conn.AsyncSend(req)
+            conn.Wait()
 
-        Dim result As String = conn.ToString()
-        conn.Close()
+            result = conn.ToString()
+            conn.Close()
+        Else
+            ' Create a request using a URL that can receive a post. 
+            Dim webReq As WebRequest = WebRequest.Create(req.uri)
+            ' Set the Method property of the request to POST.
+            webReq.Method = req.Method.ToString()
+
+            For Each key As String In req.Headers.AllKeys
+                webReq.Headers.Add(key, req.Headers(key))
+            Next
+
+            webReq.Headers.Add("Cookie", req.CookieString())
+
+            ' Create POST data and convert it to a byte array.
+            Dim postData As String = req.POSTString()
+            Dim byteArray As Byte() = Encoding.UTF8.GetBytes(postData)
+            ' Set the ContentType property of the WebRequest.
+            webReq.ContentType = IIf(Not String.IsNullOrEmpty(req.ContentType), req.ContentType, "application/x-www-form-urlencoded")
+            ' Set the ContentLength property of the WebRequest.
+            webReq.ContentLength = byteArray.Length
+            ' Get the request stream.
+            Dim dataStream As IO.Stream = webReq.GetRequestStream()
+            ' Write the data to the request stream.
+            If (byteArray.Length > 0) Then
+                dataStream.Write(byteArray, 0, byteArray.Length)
+                ' Close the Stream object.
+                dataStream.Close()
+
+            End If
+            ' Get the response.
+            Dim response As WebResponse = webReq.GetResponse()
+            ' Display the status.
+            Console.WriteLine(CType(response, HttpWebResponse).StatusDescription)
+            ' Get the stream containing content returned by the server.
+            dataStream = response.GetResponseStream()
+            ' Open the stream using a StreamReader for easy access.
+            Dim reader As New IO.StreamReader(dataStream)
+            ' Read the content.
+            result = reader.ReadToEnd()
+            ' Clean up the streams.
+            reader.Close()
+            dataStream.Close()
+            response.Close()
+        End If
         Return result
     End Function
-    Public Shared Function Connect(request_url As String, Optional ByVal limit_data As Int32 = 0) As String
-        Return XHR.Connect(New RequestBuilder(request_url), limit_data)
+    Public Shared Function Request(ByVal request_url As String) As String
+        Return XHR.Request(New RequestBuilder(request_url), Regex.Match(request_url.ToLower, "https\://", RegexOptions.IgnoreCase).Success)
     End Function
 
     Public Overloads Function ToString() As String
