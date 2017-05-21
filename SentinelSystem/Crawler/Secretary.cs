@@ -39,9 +39,9 @@ namespace Travox.Sentinel.Crawler
             SQLCollection param = new SQLCollection("@id", DbType.Int32, base.State.CompanyID);
 
             foreach (DataRow Row in new DB("travox_system").GetTable(@"
-                SELECT secretary_id, period, output_email, output_printer, email, report_name, report_key
-                FROM crawler.secretary s INNER JOIN document.report r ON r.report_id = s.report_id
-                WHERE s.status = 'ACTIVE' AND site_customer_id = @id
+                SELECT secretary_id, period, output_email, output_printer, email, report_name, report_key, template_name
+                FROM crawler.secretary s LEFT JOIN document.report r ON r.report_id = s.report_id
+                WHERE s.status = 'ACTIVE' AND (site_customer_id = @id OR site_customer_id IS NULL)
             ", param).Rows)
             {
                 ParameterDate SystemDate;
@@ -56,24 +56,20 @@ namespace Travox.Sentinel.Crawler
                 SystemDate.From = DateTime.Now.Date;
                 SystemDate.To = DateTime.Now.Date;
                 DateTime DateEndMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(1).AddDays(-1);
-                String PeriodDate = "";
                 String OutputEmailType = Row["output_email"].ToString().Trim();
                 String OutputPrinter = Row["output_printer"].ToString().Trim();
 
                 if (Period == SecretaryEvent.Monthly && DateTime.Now.Date == DateEndMonth)
                 {
-                    PeriodDate = SystemDate.From.ToString("yyyy");
                     SystemDate.From  = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
                     SystemDate.To  = DateEndMonth;
                 }
                 else if (Period == SecretaryEvent.Weekly && DateTime.Now.DayOfWeek == DayOfWeek.Sunday)
                 {
-                    PeriodDate = SystemDate.From.ToString("MM-yyyy");
-                    SystemDate.From = SystemDate.From.AddDays(-7);
+                    SystemDate.From = SystemDate.To.AddDays(-7);
                 }
                 else if (Period == SecretaryEvent.Daily)
                 {
-                    PeriodDate = SystemDate.From.ToString("dd-MM-yyyy");
                 }
                 else
                 {
@@ -94,16 +90,14 @@ namespace Travox.Sentinel.Crawler
                     ReportViewer.SetCookie("STAFF_CODE", "TX");
                     ReportViewer.SetCookie("REMEMBER", "true");
 
-                    String[] ArgsString = { Row["period"].ToString(), PeriodDate, Row["report_name"].ToString() };
-
                     ReportViewer.RawBody.Append(JsonConvert.SerializeObject(new HandlerItem { 
                         OnEmail = !MBOS.Null(OutputEmailType),
                         OnPrinter = MBOS.Bool(OutputPrinter),
                         ID = Row["secretary_id"].ToString(),
-                        Name = Row["report_name"].ToString(),
                         Email = Row["email"].ToString(),
-                        Subject = String.Format("Secretary({0} {1}) Report of \"{2}\"", ArgsString),
-                        Preiod = SystemDate,
+                        Period = Row["period"].ToString(),
+                        TemplateName = Row["template_name"].ToString(),
+                        PeriodDate = SystemDate,
                         ItemType = new ItemType { ExportType = OutputEmailType },
                         Report = new ItemReport { Name = Row["report_key"].ToString(), Filename = Row["report_key"].ToString() + ".rpt" }
                     }));
@@ -133,10 +127,10 @@ namespace Travox.Sentinel.Crawler
             public Boolean OnEmail;
             public Boolean OnPrinter;
             public String ID;
-            public String Name;
             public String Email;
-            public String Subject;
-            public ParameterDate Preiod;
+            public String Period;
+            public String TemplateName;
+            public ParameterDate PeriodDate;
             public ItemType ItemType;
             public ItemReport Report;
         }
