@@ -15,7 +15,7 @@ namespace Travox.Sentinel.Crawler
     {
         public ExchangeRate()
         {
-            base.OnceTime = true;
+            // base.OnceTime = true;
             base.SetIntervel = new TimeSpan(6, 0, 0);
         }
 
@@ -34,7 +34,7 @@ namespace Travox.Sentinel.Crawler
         {
             DB db = new DB("travox_global"); 
 
-            RequestBuilder doExchange = new RequestBuilder("https://api.travox.com/API-v3/exchange-rate/", true);
+            RequestBuilder doExchange = new RequestBuilder("https://api.travox.com/API-v3/exchange-rate/");
             doExchange.Method = RequestBuilder.By.POST;
             doExchange.ContentType = "application/x-www-form-urlencoded";
             doExchange.Headers.Add("Token-Auth", "ZHNnc2RmaCxrZXIgbmFsZ25zIGRmZ2RzZmc");

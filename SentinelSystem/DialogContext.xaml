@@ -48,46 +48,41 @@
             <Border BorderBrush="#FF55A668" BorderThickness="0,0,0,3" Height="55" VerticalAlignment="Top" Background="#FF2E2E2E" d:IsLocked="True"/>
             <Border BorderBrush="LightGray" BorderThickness="0,0,0,1" Margin="0,55,0,0" Height="31" VerticalAlignment="Top" Background="#FFEEEEEE" d:IsLocked="True"/>
             <Image x:Name="imgIconTX" HorizontalAlignment="Left" Height="34" VerticalAlignment="Top" Width="216" Source="Images/Logo-Travox.png" Stretch="None" Margin="8,9,0,0"/>
-            <Button x:Name="btnStatus" Content="STATUS" Margin="98,55,96,0" VerticalAlignment="Top" Height="31" FontWeight="Bold" Click="btnStatus_Click" Style="{DynamicResource btnMenuContext}" BorderBrush="{x:Null}" BorderThickness="0"/>
-            <Button x:Name="btnSetting" Content="CRAWLER" Margin="0,55,187,0" FontWeight="Bold" Click="btnSetting_Click" Style="{DynamicResource btnMenuContext}" BorderBrush="{x:Null}" BorderThickness="0" Height="31" VerticalAlignment="Top"/>
-            <Button x:Name="btnLog" Content="CONTROL" Margin="189,55,0,0" FontWeight="Bold" Background="{x:Null}" Click="btnLog_Click" Style="{DynamicResource btnMenuContext}" BorderThickness="0,0,0,1" BorderBrush="{x:Null}" Height="31" VerticalAlignment="Top"/>
             <Button x:Name="btnClose" HorizontalAlignment="Right" Margin="0,0,1,0" VerticalAlignment="Top" Width="21" BorderThickness="0" Height="21" Background="#FF404040" Style="{DynamicResource ButtonOption}" Click="btnClose_Click">
                 <Image x:Name="image" Height="12" Width="12" Stretch="None" Source="Images/icon/App-Close.png"/>
             </Button>
-            <Button x:Name="btnOption" HorizontalAlignment="Right" Margin="0,0,23,0" VerticalAlignment="Top" Width="21" BorderThickness="0" Height="21" Background="#FF404040" Style="{DynamicResource ButtonOption}">
+            <Button x:Name="btnOption" HorizontalAlignment="Right" Margin="0,0,23,0" VerticalAlignment="Top" Width="21" BorderThickness="0" Height="21" Background="#FF404040" Style="{DynamicResource ButtonOption}" Click="btnOption_Click">
                 <Image x:Name="image1" Height="11" Width="11" Stretch="None" Source="Images/icon/App-Option.png"/>
+            </Button>
+            <Button x:Name="btnBack" HorizontalAlignment="Right" Margin="0,15,10,0" VerticalAlignment="Top" Width="21" BorderThickness="0" Height="21" Background="#FF404040" Style="{DynamicResource ButtonOption}" Visibility="Hidden" Click="btnBack_Click">
+                <Image x:Name="image2" Height="11" Width="11" Stretch="None" Source="Images/icon/App-Option.png"/>
             </Button>
         </Grid>
         <Grid x:Name="PanelOAuth" Height="325" VerticalAlignment="Bottom">
             <Grid x:Name="GridControls1" Margin="10,101,10,0" Height="18" VerticalAlignment="Top">
                 <Border BorderBrush="#FF55A668" BorderThickness="0,0,0,2" Height="18" VerticalAlignment="Top" Padding="0" d:IsLocked="True">
-                    <Label Content="System Administrator" HorizontalAlignment="Left" Padding="3,0,4,1" FontWeight="Bold" Foreground="{DynamicResource TextNormal}" Background="#FFFAFAFA" FontSize="11" Margin="0,0,0,2"/>
+                    <Label Content="System Info" HorizontalAlignment="Left" Padding="3,0,4,1" FontWeight="Bold" Foreground="{DynamicResource TextNormal}" Background="#FFFAFAFA" FontSize="11" Margin="0,0,0,2"/>
                 </Border>
             </Grid>
             <Label x:Name="label" Content="Travox is a registered trademark of Nippon Sysits Co.,Ltd" Margin="0,0,0,39" Padding="0" FontSize="10" HorizontalContentAlignment="Center" Height="14" VerticalAlignment="Bottom" Foreground="#FF666666"/>
             <Label x:Name="label_Copy" Content="Copyright 2009 Nippon Sysits Co.,Ltd" Margin="0,0,0,25" Padding="0" FontSize="10" HorizontalContentAlignment="Center" Height="14" VerticalAlignment="Bottom" Foreground="#FF666666"/>
-            <Image x:Name="imgLogo" Height="61" Margin="26,20,26,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Source="Images/TravoxBanner.png" Stretch="None"/>
-            <Border x:Name="btnLogin" BorderBrush="#FF878787" BorderThickness="1" Margin="35,145,35,100" Background="White" MouseDown="btnLogin_MouseDown">
-                <Image x:Name="imgOAuth" HorizontalAlignment="Left" Height="63" VerticalAlignment="Top" Width="190" RenderTransformOrigin="0.5,0.5" Source="Images/LoginOauth2.png" Stretch="None" OpacityMask="White" Margin="9,9,0,0" d:IsLocked="True"/>
-            </Border>
+            <Image x:Name="imgLogo" Height="61" Margin="26,26,26,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Source="Images/TravoxBanner.png" Stretch="None"/>
         </Grid>
-        <Grid x:Name="PanelStatus" Height="256" VerticalAlignment="Bottom" d:IsHidden="True">
-            <Label x:Name="lblIPAddress" Content="000.000.000.000:9999" Margin="10,16,10,0" VerticalAlignment="Top" Padding="0" FontSize="14" FontWeight="Bold" Foreground="#FF22A85F" HorizontalContentAlignment="Center"/>
+        <Grid x:Name="PanelStatus" Height="256" VerticalAlignment="Bottom" d:IsHidden="false">
 
-            <Label x:Name="lblTimeUp" Content="999 Days 23:59:59.000" Margin="0,235,10,0" VerticalAlignment="Top" Padding="0" FontSize="9" FontWeight="Bold" Foreground="#FF7A7A7A" HorizontalContentAlignment="Right" HorizontalAlignment="Right" Width="218"/>
-            <Grid x:Name="GridControls" Height="64" Margin="10,43,10,0" VerticalAlignment="Top">
-                <Border BorderBrush="Black" BorderThickness="0,0,0,1" Height="9" VerticalAlignment="Top" Padding="0">
-                    <Label Content="Status" HorizontalAlignment="Left" Padding="3,0,4,1" FontWeight="Bold" Foreground="{DynamicResource TextNormal}" Background="#FFFAFAFA" Margin="0,0,0,-7" Height="16" VerticalAlignment="Top" FontSize="11"/>
-                </Border>
-                <Label Content="Thread :" HorizontalAlignment="Left" Margin="128,38,0,0" VerticalAlignment="Top" Padding="0" FontSize="10.5" Foreground="#FF2E2E2E"/>
-                <Label Content="Client :" HorizontalAlignment="Left" Margin="133,20,0,0" VerticalAlignment="Top" Padding="0" FontSize="10.5" Foreground="#FF2E2E2E"/>
-                <Label Content="Database :" HorizontalAlignment="Left" Margin="32,38,0,0" VerticalAlignment="Top" Padding="0" FontSize="10.5" Foreground="#FF2E2E2E"/>
-                <Label Content="Crawler :" HorizontalAlignment="Left" Margin="40,20,0,0" VerticalAlignment="Top" Padding="0" FontSize="10.5" Foreground="#FF2E2E2E"/>
-                <Label x:Name="lblThread" Content="0" HorizontalAlignment="Left" Margin="170,38,0,0" VerticalAlignment="Top" Padding="0" FontSize="10.5" FontWeight="Bold" Width="38" Foreground="#FF2E2E2E"/>
-                <Label x:Name="lblDatabase" Content="0" HorizontalAlignment="Left" Margin="85,38,0,0" VerticalAlignment="Top" Padding="0" FontSize="10.5" FontWeight="Bold" Width="30" Foreground="#FF2E2E2E"/>
-                <Label x:Name="lblClient" Content="0" HorizontalAlignment="Left" Margin="170,20,0,0" VerticalAlignment="Top" Padding="0" FontSize="10.5" FontWeight="Bold" Width="38" Foreground="#FF2E2E2E"/>
-                <Label x:Name="lblCrawler" Content="0" Margin="85,20,0,0" VerticalAlignment="Top" Padding="0" FontSize="10.5" FontWeight="Bold" HorizontalAlignment="Left" Width="30" Foreground="#FF2E2E2E"/>
+            <Label x:Name="lblTimeUp" Content="999 Days 23:59:59.000" Margin="0,34,16,0" VerticalAlignment="Top" Padding="0" FontSize="9" FontWeight="Bold" Foreground="#FF7A7A7A" HorizontalContentAlignment="Right" HorizontalAlignment="Right" Width="218"/>
+            <Grid x:Name="GridControls" Height="44" Margin="10,59,16,0" VerticalAlignment="Top">
+                <Label Content="Thread :" HorizontalAlignment="Left" Margin="155,24,0,0" VerticalAlignment="Top" Padding="0" FontSize="10.5" Foreground="#FF2E2E2E"/>
+                <Label Content="Client :" HorizontalAlignment="Left" Margin="160,6,0,0" VerticalAlignment="Top" Padding="0" FontSize="10.5" Foreground="#FF2E2E2E"/>
+                <Label Content="Database :" HorizontalAlignment="Left" Margin="36,24,0,0" VerticalAlignment="Top" Padding="0" FontSize="10.5" Foreground="#FF2E2E2E"/>
+                <Label Content="Crawler :" HorizontalAlignment="Left" Margin="44,6,0,0" VerticalAlignment="Top" Padding="0" FontSize="10.5" Foreground="#FF2E2E2E"/>
+                <Label x:Name="lblThread" Content="0" HorizontalAlignment="Left" Margin="197,24,0,0" VerticalAlignment="Top" Padding="0" FontSize="10.5" FontWeight="Bold" Width="38" Foreground="#FF2E2E2E"/>
+                <Label x:Name="lblDatabase" Content="0" HorizontalAlignment="Left" Margin="89,24,0,0" VerticalAlignment="Top" Padding="0" FontSize="10.5" FontWeight="Bold" Width="30" Foreground="#FF2E2E2E"/>
+                <Label x:Name="lblClient" Content="0" HorizontalAlignment="Left" Margin="197,6,0,0" VerticalAlignment="Top" Padding="0" FontSize="10.5" FontWeight="Bold" Width="38" Foreground="#FF2E2E2E"/>
+                <Label x:Name="lblCrawler" Content="0" Margin="89,6,0,0" VerticalAlignment="Top" Padding="0" FontSize="10.5" FontWeight="Bold" HorizontalAlignment="Left" Width="30" Foreground="#FF2E2E2E"/>
             </Grid>
+            <Button x:Name="btnShutdown" Content="Reset Crawler" HorizontalAlignment="Left" Margin="172,165,0,0" VerticalAlignment="Top" Width="98" Height="24" FontSize="11" FontWeight="Bold" Click="btnShutdown_Click" Cursor="Hand" Style="{DynamicResource btnContextNormal}" Foreground="#FFC33549"/>
+            <Button x:Name="btnLog" Content="LOG" Click="btnLog_Click" Style="{DynamicResource btnContextNormal}" Margin="10,165,220,0"/>
         </Grid>
         <Grid x:Name="PanelSetting" Height="256" VerticalAlignment="Bottom" d:IsHidden="True">
             <Grid x:Name="GridControls2" Height="123" Margin="13,95,10,0" VerticalAlignment="Top">
@@ -100,13 +95,11 @@
                 <Label Content="Socket-Server" HorizontalAlignment="Left" Margin="115,18,0,0" VerticalAlignment="Top" Padding="0" FontSize="10.5" Foreground="#FF2E2E2E" FontWeight="Bold"/>
                 <Label Content="Travox-Sentinel" HorizontalAlignment="Left" Margin="115,65,0,0" VerticalAlignment="Top" Padding="0" FontSize="10.5" Foreground="#FF2E2E2E" FontWeight="Bold"/>
             </Grid>
-            <Button x:Name="btnConfig" Content="Configuration" Click="btnConfig_Click" Style="{DynamicResource btnContextNormal}" Margin="10,13,126,0"/>
-            <Button x:Name="btnShutdown" Content="Shutdown" HorizontalAlignment="Left" Margin="10,223,0,0" VerticalAlignment="Top" Width="88" Height="21" FontSize="11" FontWeight="Bold" Click="btnShutdown_Click" Cursor="Hand" Style="{DynamicResource btnContextNormal}" Foreground="#FFC33549"/>
             <Label Content="Label" Margin="10,42,10,0" VerticalAlignment="Top" Height="48" FontSize="11" Foreground="#FF2E2E2E"/>
             <Button x:Name="btnAbout" Content="About" Margin="0,223,10,0" VerticalAlignment="Top" Height="21" FontSize="11" Click="btnAbout_Click" HorizontalAlignment="Right" Width="58" Cursor="Hand" Style="{DynamicResource btnContextNormal}"/>
         </Grid>
         <Grid x:Name="PanelLog" Margin="0,96,0,0" d:IsHidden="True">
-            <TextBox x:Name="txtConsoleLog" TextWrapping="Wrap" Style="{DynamicResource txtLog}" IsReadOnly="True" BorderBrush="{x:Null}" FontSize="11.333" Padding="2" Background="#FFFEFEFE" TextDecorations="{x:Null}" UseLayoutRounding="False" VerticalScrollBarVisibility="Visible" AcceptsReturn="True" Text="aaa"/>
+            <TextBox x:Name="txtConsoleLog" TextWrapping="Wrap" Style="{DynamicResource txtLog}" IsReadOnly="True" BorderBrush="{x:Null}" FontSize="11.333" Padding="2" Background="#FFFEFEFE" TextDecorations="{x:Null}" UseLayoutRounding="False" VerticalScrollBarVisibility="Visible" AcceptsReturn="True" Text="Logging..." Margin="0,-40,0,11"/>
         </Grid>
     </Grid>
 </Window>

@@ -18,8 +18,8 @@ namespace Travox.Sentinel.Crawler
         public Secretary()
         {
             //base.DBName = "nissin_mos";
-            base.OnceTime = true;
-            //base.SetTimeout = new TimeSpan(23, 50, 00);
+            //base.OnceTime = true;
+            base.SetTimeout = new TimeSpan(23, 50, 00);
         }
 
         public override void Start()

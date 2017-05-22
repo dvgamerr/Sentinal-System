@@ -55,13 +55,13 @@ namespace Travox.Sentinel
         UInt16 TravoxPort;
 
         public enum StatePanelProgress { Load, Update, Close }
-        public enum StateTravox { InitReadConfig, InitStartServer, InitDatabase, LoadDatabase, InitSuccess, InitShutdown, OnStatus }
+        public enum StateTravox { InitReadConfig, InitStartServer, InitDatabase, LoadDatabase, InitSuccess, InitShutdown, OnStatus, OnLogs }
 
         private List<Controller> CrawlerTravoxDBInitialize()
         {
             List<Controller> control = new List<Controller>();
-            //control.Add(new ExchangeRate());
-            //control.Add(new MidBackStored());
+            control.Add(new ExchangeRate());
+            control.Add(new MidBackStored());
             control.Add(new Secretary());
             //control.Add(new AutoBooking());
             //control.Add(new SyncGD());
@@ -184,7 +184,7 @@ namespace Travox.Sentinel
                     WindowContext.lblClient.Content = "NaN";
                     WindowContext.lblDatabase.Content = DBTotal;
                     WindowContext.lblCrawler.Content = Idx;
-                    WindowContext.lblIPAddress.Content = String.Format("{0}:{1}", TravoxIP.ToString(), TravoxPort);
+                    // WindowContext.lblIPAddress.Content = String.Format("{0}:{1}", TravoxIP.ToString(), TravoxPort);
 
                     if (true)
                     {
@@ -201,6 +201,9 @@ namespace Travox.Sentinel
                         WindowContext.btnWebServer.Foreground = (SolidColorBrush)((App.WebCrawlerConnected) ? FindResource("TextOnline") : FindResource("TextOffline"));
                         WindowContext.btnWebServer.Background = (ImageBrush)(App.WebCrawlerConnected ? FindResource("ClientStart") : FindResource("ClientStop"));
                     }
+
+                    break;
+                case StateTravox.OnLogs: // - 5: // OnLogs
 
                     break;
             }
@@ -261,7 +264,7 @@ namespace Travox.Sentinel
             HandlerItems[] TaskAgrs = new HandlerItems[DBTotal];
 
             init.ReportProgress(0, StateTravox.LoadDatabase);
-            CtrlTotal = this.CrawlerTravoxDBInitialize().Count;
+
             for (Int32 db = 0; db < DBTotal; db++)
             {
                 TaskAgrs[db] = new HandlerItems();
@@ -271,7 +274,9 @@ namespace Travox.Sentinel
                 init.ReportProgress(ThreadProgress++, StateTravox.LoadDatabase);
                 CrawlerDatabase = "Initialize " + db_customer.Rows[db]["description"].ToString();
 
-                foreach (Controller item in this.CrawlerTravoxDBInitialize())
+                List<Controller> CrawlerTitems = this.CrawlerTravoxDBInitialize();
+
+                foreach (Controller item in CrawlerTitems)
                 {
                     if (!item.OnceTime || db_customer.Rows[db]["database_name"].ToString() == item.DBName)
                     {
@@ -522,13 +527,11 @@ namespace Travox.Sentinel
                 this.WriteLineConsoleDispose();
                 if (!Directory.Exists(Path.GetDirectoryName(LogFilename))) Directory.CreateDirectory(Path.GetDirectoryName(LogFilename));
 
-                if (!DebugMode) {
-                    using (logWrite = new ConsoleWriter(LogFilename, FileMode.Create))
-                    {
-                        logWrite.WriteEvent += txtLogMessage_WriteEvent;
-                        logWrite.WriteLineEvent += txtLogMessage_WriteLineEvent;
-                        Console.SetOut(logWrite);
-                    }
+                using (logWrite = new ConsoleWriter(LogFilename, FileMode.Create))
+                {
+                    logWrite.WriteEvent += txtLogMessage_WriteEvent;
+                    logWrite.WriteLineEvent += txtLogMessage_WriteLineEvent;
+                    Console.SetOut(logWrite);
                 }
 
             }
