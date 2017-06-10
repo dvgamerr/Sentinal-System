@@ -138,7 +138,7 @@ namespace Travox.Sentinel
             }
             catch (Exception e)
             {
-                Module.WriteException(e);
+                Module.WriteException(e, StateItem);
             }
         }
 

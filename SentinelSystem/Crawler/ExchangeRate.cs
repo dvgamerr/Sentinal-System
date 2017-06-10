@@ -15,7 +15,6 @@ namespace Travox.Sentinel.Crawler
     {
         public ExchangeRate()
         {
-            // base.OnceTime = true;
             base.SetIntervel = new TimeSpan(6, 0, 0);
         }
 
@@ -26,44 +25,51 @@ namespace Travox.Sentinel.Crawler
             public String updated;
             [DataMember]
             public String currency;
-            [DataMember]
+            [DataMember] 
             public float rate;
         }
 
         public override void Update()
         {
-            DB db = new DB("travox_global"); 
-
-            RequestBuilder doExchange = new RequestBuilder("https://api.travox.com/API-v3/exchange-rate/");
-            doExchange.Method = RequestBuilder.By.POST;
-            doExchange.ContentType = "application/x-www-form-urlencoded";
-            doExchange.Headers.Add("Token-Auth", "ZHNnc2RmaCxrZXIgbmFsZ25zIGRmZ2RzZmc");
-
-            doExchange.AddBody("from", db.GetField("SELECT ISNULL(currency,'') FROM currency FOR XML PATH('')"));
-            doExchange.AddBody("to", "THB");
-            doExchange.AddBody("amt", "1");
-
-            try
+            if (State.CompanyCode == "MOS")
             {
-                String res = XHR.Request(doExchange, true);
-    
-                foreach (RateAPI item in JsonConvert.DeserializeObject<List<RateAPI>>(res.ToString()))
+                DB db = new DB("travox_global");
+
+                RequestBuilder doExchange = new RequestBuilder("https://api.travox.com/API-v3/exchange-rate/")
                 {
-                    SQLCollection param = new SQLCollection();
-                    param.Add("@to", DbType.String, item.currency);
-                    param.Add("@rate", DbType.Decimal, item.rate);
-                    param.Add("@date", DbType.DateTime, DateTime.Parse(item.updated).ToString("dd-MM-yyyy HH:mm:ss"));
+                    Method = RequestBuilder.By.POST,
+                    ContentType = "application/x-www-form-urlencoded"
+                };
 
-                    db.Execute("UPDATE currency SET currency_rate=@rate, last_update=@date WHERE currency = @to", param);
+                doExchange.Headers.Add("Token-Auth", "ZHNnc2RmaCxrZXIgbmFsZ25zIGRmZ2RzZmc");
+
+                doExchange.AddBody("from", db.GetField("SELECT ISNULL(currency,'') FROM currency FOR XML PATH('')"));
+                doExchange.AddBody("to", "THB");
+                doExchange.AddBody("amt", "1");
+
+                try
+                {
+                    String res = XHR.Request(doExchange, true);
+
+                    foreach (RateAPI item in JsonConvert.DeserializeObject<List<RateAPI>>(res.ToString()))
+                    {
+                        SQLCollection param = new SQLCollection
+                        {
+                            { "@to", DbType.String, item.currency },
+                            { "@rate", DbType.Decimal, item.rate },
+                            { "@date", DbType.DateTime, DateTime.Parse(item.updated).ToString("dd-MM-yyyy HH:mm:ss") }
+                        };
+                        db.Execute("UPDATE currency SET currency_rate=@rate, last_update=@date WHERE currency = @to", param);
+                    }
+                    db.Apply();
+                    base.Update();
                 }
-                db.Apply();
-                base.Update();
-            }
-            catch (Exception e)
-            {
-                db.Rollback();
-                base.Update();
-                throw new Exception(base.DBName, e);
+                catch (Exception e)
+                {
+                    db.Rollback();
+                    base.Update();
+                    throw new Exception(base.DBName, e);
+                }
             }
         }
 

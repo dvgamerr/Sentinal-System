@@ -17,9 +17,13 @@ namespace Travox.Sentinel.Crawler
         String SessionID;
         public Secretary()
         {
-            //base.DBName = "nissin_mos";
-            //base.OnceTime = true;
-            base.SetTimeout = new TimeSpan(23, 50, 00);
+            base.SetIntervel = new TimeSpan(23, 50, 00);
+            if (App.DebugMode)
+            {
+                base.DBName = "travoxmos";
+                base.OnceTime = true;
+            }
+
         }
 
         public override void Start()
@@ -78,10 +82,12 @@ namespace Travox.Sentinel.Crawler
 
                 if ((!MBOS.Null(OutputEmailType) || MBOS.Bool(OutputPrinter)) && Period != SecretaryEvent.Unknow)
                 {
-                    RequestBuilder ReportViewer = new RequestBuilder(!App.DebugMode ? "https://viewer.travox.com/default.aspx" : "http://localhost:8026/Default.aspx");
-                    ReportViewer.Method = RequestBuilder.By.POST;
+                    RequestBuilder ReportViewer = new RequestBuilder(!App.DebugMode ? "https://viewer.travox.com/default.aspx" : "http://localhost:8026/Default.aspx")
+                    {
+                        Method = RequestBuilder.By.POST,
+                        ContentType = "application/json"
+                    };
 
-                    ReportViewer.ContentType = "application/json";
                     ReportViewer.Headers.Add("Travox-Sentinel", "true");
                     ReportViewer.SetCookie("ASP.NET_SessionId", SessionID);
                     ReportViewer.SetCookie("DATABASE_NAME", base.State.DatabaseName);

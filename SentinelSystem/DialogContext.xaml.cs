@@ -13,7 +13,7 @@ namespace Travox.Sentinel
         public Boolean IsShow = false;
 
         private DialogInitialize about;
-        private DialogSetting config;
+        //private DialogSetting config;
        
         public DialogContext()
         {

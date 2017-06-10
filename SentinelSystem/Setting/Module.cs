@@ -4,23 +4,24 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Travox.Sentinel.Engine;
 using Travox.Systems;
 
 public class Module
 {
 
-    public static String TravoxSentinel = Path.GetTempPath() + @"..\Travox_Sentinel\";
+    public static String TravoxSentinel = Path.GetTempPath() + @"..\TravoxSentinel\";
     public static String TravoxTemp = Path.GetTempPath() + @"Travox\";
     public static String File_Config = "tx.configure";
     public static String File_Log = "-sentinel.log";
     public static String BaseDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
-    public static void WriteException(Exception e, String folder = "")
+    public static void WriteException(Exception e, Controller State)
     {
         StringBuilder excep = new StringBuilder();
         String FolderException = @"Exception\";
 
-        if (!MBOS.Null(folder)) FolderException += folder;
+        //if (!MBOS.Null(folder)) FolderException += folder;
         excep.AppendLine(e.Message.ToString() );
         excep.AppendLine("------------------------------------------------");
         excep.AppendLine(e.StackTrace.ToString());
