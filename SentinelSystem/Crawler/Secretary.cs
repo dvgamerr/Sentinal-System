@@ -63,12 +63,12 @@ namespace Travox.Sentinel.Crawler
                 String OutputEmailType = Row["output_email"].ToString().Trim();
                 String OutputPrinter = Row["output_printer"].ToString().Trim();
 
-                if (Period == SecretaryEvent.Monthly && DateTime.Now.Date == DateEndMonth)
+                if (Period == SecretaryEvent.Monthly && (DateTime.Now.Date == DateEndMonth || App.DebugMode))
                 {
                     SystemDate.From  = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
                     SystemDate.To  = DateEndMonth;
                 }
-                else if (Period == SecretaryEvent.Weekly && DateTime.Now.DayOfWeek == DayOfWeek.Sunday)
+                else if (Period == SecretaryEvent.Weekly && (DateTime.Now.DayOfWeek == DayOfWeek.Sunday || App.DebugMode))
                 {
                     SystemDate.From = SystemDate.To.AddDays(-7);
                 }
@@ -109,7 +109,11 @@ namespace Travox.Sentinel.Crawler
                     }));
 
                     String ex = XHR.Request(ReportViewer, true);
-                    if (!MBOS.Null(ex)) throw new Exception(ex);
+                    if (!MBOS.Null(ex))
+                    {
+                        Console.WriteLine(base.State.CompanyCode + " --- " + Row["template_name"].ToString());
+                        Console.WriteLine(ex);
+                    }
                 }
             }
 

@@ -31,7 +31,7 @@ namespace Travox.Sentinel.Crawler
 
         public override void Update()
         {
-            if (State.CompanyCode == "MOS")
+            if (State.CompanyCode == "mos")
             {
                 DB db = new DB("travox_global");
 

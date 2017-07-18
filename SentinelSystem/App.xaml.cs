@@ -31,7 +31,7 @@ namespace Travox.Sentinel
         public static Version PublishVersion { get; set; }
         public static StringBuilder Log { get; set; }
 
-        public static Boolean DebugMode = false;
+        public static Boolean DebugMode = Environment.GetEnvironmentVariable("TRAVOX_DEBUG") != null;
         public static TcpListener Listen;
 
         public DialogSetting WindowConfig;
