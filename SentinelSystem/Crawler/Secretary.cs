@@ -82,7 +82,7 @@ namespace Travox.Sentinel.Crawler
 
                 if ((!MBOS.Null(OutputEmailType) || MBOS.Bool(OutputPrinter)) && Period != SecretaryEvent.Unknow)
                 {
-                    RequestBuilder ReportViewer = new RequestBuilder(!App.DebugMode ? "https://viewer.travox.com/default.aspx" : "http://localhost:8026/Default.aspx")
+                    RequestBuilder ReportViewer = new RequestBuilder(App.DebugMode ? "https://viewer.travox.com/default.aspx" : "http://localhost:8026/Default.aspx")
                     {
                         Method = RequestBuilder.By.POST,
                         ContentType = "application/json"
