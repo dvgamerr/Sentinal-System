@@ -60,9 +60,9 @@ namespace Travox.Sentinel
         private List<Controller> CrawlerTravoxDBInitialize()
         {
             List<Controller> control = new List<Controller>();
-            control.Add(new ExchangeRate());
-            control.Add(new MidBackStored());
-            control.Add(new Secretary());
+            //control.Add(new ExchangeRate());
+            //control.Add(new MidBackStored());
+            //control.Add(new Secretary());
             //control.Add(new AutoBooking());
             //control.Add(new SyncGD());
             return control;
